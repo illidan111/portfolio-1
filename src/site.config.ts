@@ -8,7 +8,7 @@ export const features: Record<'hero' | 'lighting' | 'voxels' | 'digging' | 'weat
   transitions: true,
   boss: true,
   minimap: true,
-  crafting: false,
+  crafting: true,
   audio: false,
 };
 

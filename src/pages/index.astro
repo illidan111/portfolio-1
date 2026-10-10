@@ -6,9 +6,12 @@ import Avatar from '../components/Avatar.astro';
 import WorldGame from '../components/WorldGame.astro';
 import Digging from '../components/Digging.astro';
 import Boss from '../components/Boss.astro';
+import Crafting from '../components/Crafting.astro';
+import { assertRecipeSkills } from '../lib/recipes';
 import { features } from '../site.config';
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const skills = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
+assertRecipeSkills(projects, skills);
 const experience = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
 const firstSkill = skills[0].data;
 const skillIcons: Record<string, string> = { brush:'hammer', palette:'gem', branch:'flag', bolt:'sparkle' };
@@ -32,7 +35,7 @@ const skillIcons: Record<string, string> = { brush:'hammer', palette:'gem', bran
       <div class="section-topline"><span class="eyebrow">01 / THE INVENTORY</span><span class="collection-label"><Icon name="chest" size={16}/> <span id="project-count" aria-live="polite">3 items</span> collected</span></div>
       <div class="section-toolbar"><div><div class="section-heading"><h2 id="projects-title">Things I’ve crafted<span class="heading-dot">.</span></h2></div><p class="section-description">A few favorite ideas from the workbench.</p></div><div class="filters" role="group" aria-label="Filter projects"><button type="button" data-filter="all" aria-pressed="true">All items</button><button type="button" data-filter="Web apps" aria-pressed="false">Web apps</button><button type="button" data-filter="Creative tools" aria-pressed="false">Creative tools</button></div></div>
       <div class="project-grid">
-        {projects.map((project) => <article class="project-card" data-project data-category={project.data.category}>
+        {projects.map((project) => <article class="project-card" data-project data-project-id={project.id} data-category={project.data.category}>
           <a href={`/projects/${project.id}/`} class="project-image-link" aria-label={`Explore ${project.data.title}`}><img src={project.data.image} alt={`${project.data.title} original pixel-art concept illustration`} width="600" height="280" loading="lazy"/><span class:list={['rarity-badge', project.data.rarity.toLowerCase()]}><span aria-hidden="true">◆</span> {project.data.rarity}</span><span class="concept-badge">CONCEPT</span></a>
           <div class="project-content"><div class="project-title-row"><h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3><Icon name={project.data.icon} size={20}/></div><p>{project.data.tagline}</p><div class="project-bottom"><div class="stack">{project.data.stack.slice(0,3).map(tech => <span>{tech}</span>)}</div><a href={`/projects/${project.id}/`} class="project-arrow" aria-label={`Read ${project.data.title} case study`}><Icon name="arrow" size={20}/></a></div></div>
         </article>)}
@@ -44,6 +47,7 @@ const skillIcons: Record<string, string> = { brush:'hammer', palette:'gem', bran
     <section class="skills-section container" id="skills" aria-labelledby="skills-title">
       <div class="skills-intro"><span class="eyebrow">02 / THE LOADOUT</span><div class="section-heading"><h2 id="skills-title">Tools of the trade.</h2></div><p class="section-description">A well-equipped adventurer<br/>is ready for any quest.</p><div class="active-buffs"><span class="eyebrow">ACTIVE BUFFS</span><div class="buffs"><span class="buff" tabindex="0"><Icon name="potion" size={20}/><span class="buff-tooltip" role="tooltip">Curiosity<br/><small>Always asking “what if?”</small></span></span><span class="buff" tabindex="0"><Icon name="heart" size={20}/><span class="buff-tooltip" role="tooltip">Empathy<br/><small>People before pixels.</small></span></span><span class="buff" tabindex="0"><Icon name="sun" size={20}/><span class="buff-tooltip" role="tooltip">Persistence<br/><small>One small improvement at a time.</small></span></span><p>Curious by default.<br/>Always learning.</p></div></div></div>
       <div class="inventory-panel panel"><div class="inventory-header"><span><Icon name="pickaxe" size={16}/> Equipped skills</span><span>8 / 8 slots</span></div><div class="skills-layout"><div class="skill-grid">{skills.map((skill, index) => <button type="button" class:list={['skill-slot', {equipped:index === 0}]} data-skill={skill.id} data-name={skill.data.name} data-description={skill.data.description} data-rarity={skill.data.rarity} data-category={skill.data.category} aria-pressed={index===0} aria-label={`Inspect ${skill.data.name}`}><span class="skill-slot-number" aria-hidden="true">{index+1}</span><Icon name={skillIcons[skill.data.icon] ?? skill.data.icon} size={32}/><span class="skill-name">{skill.data.name}</span><span class="item-tooltip" role="tooltip"><strong>{skill.data.name}</strong><span>{skill.data.category} · {skill.data.rarity}</span></span></button>)}</div><div class="skill-detail" aria-live="polite"><span class="eyebrow">SELECTED ITEM</span><h3 id="skill-name">{firstSkill.name}</h3><p class="item-type"><span id="skill-rarity">{firstSkill.rarity}</span> <span id="skill-category">{firstSkill.category}</span> tool</p><p id="skill-description">{firstSkill.description}</p><span class="equipped-label"><Icon name="check" size={12}/> Ready to craft</span></div></div><div class="inventory-footer"><span>Hover to discover. Click to inspect.</span><span aria-hidden="true">✦</span></div></div>
+      {features.crafting && <Crafting projects={projects} skills={skills}/>}
     </section>
 
     <section class="journey-section container" id="about" aria-labelledby="about-title">

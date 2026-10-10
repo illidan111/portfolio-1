@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { recipeData } from '../lib/recipes';
+interface Props { projects: CollectionEntry<'projects'>[]; skills: CollectionEntry<'skills'>[]; }
+const { projects, skills } = Astro.props;
+const data = recipeData(projects, skills);
+const names = new Map(skills.map(skill => [skill.id, skill.data.name]));
+const firstSkill = skills[0];
+---
+<section class="crafting-table panel" data-crafting-table data-recipes={JSON.stringify(data)} aria-labelledby="crafting-title" aria-describedby="crafting-help">
+  <div class="crafting-heading"><span class="craft-symbol" aria-hidden="true"><Icon name="hammer" size={32}/></span><div><span class="eyebrow">A FEW GOOD INGREDIENTS</span><h3 id="crafting-title">The crafting table</h3></div><span class="ingredient-count" data-ingredient-count>0 / 3 skills</span></div>
+  <p class="crafting-help" id="crafting-help">Inspect a skill in the grid above, then add it here. Find projects that use every skill in your recipe.</p>
+  <div class="recipe-workbench">
+    <div class="ingredients"><span class="eyebrow">YOUR RECIPE</span><ul class="ingredient-list" data-recipe-ingredients aria-label="Selected recipe skills"></ul><p class="empty-ingredients" data-empty-ingredients>A little curiosity is a good place to start.</p></div>
+    <div class="crafting-actions"><button type="button" class="pixel-button" data-add-ingredient disabled>Add {firstSkill.data.name}<Icon name="sparkle" size={16}/></button><button type="button" class="reset-recipe" data-reset-recipe disabled>Reset recipe</button><span class="ingredient-note" data-ingredient-note>Up to three skills. Each one brings something to the table.</span></div>
+  </div>
+  <div class="recipe-heading"><span class="eyebrow">PROJECT RECIPES</span><span data-recipe-count>{projects.length} projects to explore</span></div>
+  <p class="recipe-status" role="status" aria-live="polite" aria-atomic="true" data-craft-status>Add 1–3 skills to discover the projects that use them together.</p>
+  <ul class="recipe-results" aria-label="Matching project recipes">
+    {projects.map(project => <li data-recipe-result={project.id}><a href={`/projects/${project.id}/`} class="recipe-link" aria-label={`Open ${project.data.title} recipe result`} aria-describedby={`recipe-tooltip-${project.id}`}><Icon name={project.data.icon} size={28}/><span><strong>{project.data.title}</strong><span>{project.data.tagline}</span></span><span class="recipe-arrow" aria-hidden="true">↗</span></a><span class="recipe-tooltip" id={`recipe-tooltip-${project.id}`} role="tooltip" data-recipe-tooltip>Project skills: {project.data.skills.map(skill => names.get(skill.id)).join(', ')}.</span></li>)}
+  </ul>
+  <noscript><p class="crafting-help">Recipe matching needs JavaScript. Every project above is still ready to explore.</p></noscript>
+</section>
+<style>
+  .crafting-table { grid-column:1 / -1; padding:calc(6 * var(--px)); background:#192649; min-width:0; }
+  .crafting-heading { display:flex; align-items:center; gap:calc(3 * var(--px)); }
+  .craft-symbol { display:grid; place-items:center; width:calc(14 * var(--px)); height:calc(14 * var(--px)); flex:none; color:#e7c28c; background:#3d3435; border:calc(.5 * var(--px)) solid #a18969; box-shadow:var(--bevel); }
+  .crafting-heading h3 { font-size:calc(7 * var(--px)); font-weight:400; color:#eee6be; line-height:1.2; margin-top:var(--px); }
+  .ingredient-count { margin-left:auto; font-size:calc(3 * var(--px)); color:var(--color-accent); white-space:nowrap; }
+  .crafting-help { font-size:calc(3.5 * var(--px)); color:var(--color-muted); margin-top:calc(4 * var(--px)); }
+  .recipe-workbench { display:grid; grid-template-columns:1fr 1fr; gap:calc(5 * var(--px)); margin-block:calc(5 * var(--px)); padding:calc(4 * var(--px)); background:#111d3a; border:calc(.5 * var(--px)) solid #3e527a; }
+  .ingredients { min-width:0; }
+  .ingredient-list { list-style:none; padding:0; margin:calc(3 * var(--px)) 0 0; display:flex; flex-wrap:wrap; gap:calc(2 * var(--px)); }
+  .ingredient-list:empty { margin:0; }
+  .ingredient-list :global(button) { display:flex; align-items:center; justify-content:space-between; gap:calc(3 * var(--px)); padding:calc(2 * var(--px)) calc(3 * var(--px)); min-height:calc(12 * var(--px)); color:#e6f0d1; background:#2d413d; border:calc(.5 * var(--px)) solid #879c68; font-size:calc(3.5 * var(--px)); box-shadow:var(--bevel); }
+  .ingredient-list :global(button:hover) { background:#3b5148; }
+  .ingredient-list :global(button span:last-child) { color:#d3e88a; }
+  .empty-ingredients { color:#aebbd5; font-size:calc(3.5 * var(--px)); margin-top:calc(4 * var(--px)); }
+  .crafting-actions { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; gap:calc(3 * var(--px)); }
+  .crafting-actions .pixel-button { font-size:calc(3.5 * var(--px)); padding-inline:calc(3 * var(--px)); }
+  .crafting-actions button:disabled { color:#b0bfd0; border-color:#506177; background:#24324a; transform:none; }
+  .reset-recipe { min-height:calc(12 * var(--px)); padding:calc(2 * var(--px)) calc(3 * var(--px)); border:calc(.5 * var(--px)) solid #6479a2; background:#243657; box-shadow:var(--bevel); font-size:calc(3 * var(--px)); }
+  .reset-recipe:hover:not(:disabled) { background:#32476c; }
+  .ingredient-note { grid-column:1 / -1; font-size:calc(3 * var(--px)); color:var(--color-muted); }
+  .recipe-heading { display:flex; justify-content:space-between; align-items:center; gap:calc(3 * var(--px)); }
+  .recipe-heading > span:last-child { font-size:calc(3 * var(--px)); color:var(--rarity-blue); }
+  .recipe-status { font-size:calc(3.5 * var(--px)); color:#ccd7ed; min-height:calc(11 * var(--px)); margin-block:calc(2 * var(--px)) calc(3 * var(--px)); }
+  .recipe-results { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:calc(3 * var(--px)); }
+  .recipe-results > li { position:relative; min-width:0; }
+  .recipe-results > li::after { content:''; position:absolute; bottom:100%; left:0; width:100%; height:calc(2 * var(--px)); }
+  .recipe-link { display:flex; align-items:center; gap:calc(3 * var(--px)); height:100%; min-height:calc(20 * var(--px)); padding:calc(3 * var(--px)); border:calc(.5 * var(--px)) solid #536995; background:#223357; box-shadow:var(--bevel); }
+  .recipe-link:hover { background:#2b4066; border-color:#9daf8a; }
+  .recipe-link > svg { flex:none; color:var(--color-accent); }
+  .recipe-link strong { display:block; color:#ecedcd; font-weight:400; font-size:calc(4 * var(--px)); }
+  .recipe-link > span > span { display:block; color:var(--color-muted); font-size:calc(3 * var(--px)); margin-top:var(--px); }
+  .recipe-arrow { margin-left:auto; color:var(--color-accent); }
+  .recipe-tooltip { visibility:hidden; position:absolute; z-index:5; bottom:calc(100% + 2 * var(--px)); left:0; width:100%; padding:calc(3 * var(--px)); color:#e1edce; background:#132039; border:calc(.5 * var(--px)) solid #889d7a; box-shadow:var(--bevel); font-size:calc(3 * var(--px)); }
+  .recipe-results > li:hover .recipe-tooltip, .recipe-results > li:focus-within .recipe-tooltip { visibility:visible; }
+  [data-tooltip-dismissed='true'] .recipe-tooltip { visibility:hidden !important; }
+  [data-crafting='true'] .craft-symbol > svg { animation:craft-tap 320ms steps(3,end) both; }
+  @keyframes craft-tap { 0%,100% { transform:translateY(0) rotate(0deg); } 40% { transform:translateY(calc(-1 * var(--px))) rotate(-12deg); } 70% { transform:translateY(var(--px)) rotate(8deg); } }
+  :global([data-project][data-recipe-match='true']) { border-color:#d3e88a; outline:calc(.5 * var(--px)) solid #a0b97f; outline-offset:calc(2 * var(--px)); }
+  @media(max-width:900px) { .recipe-workbench { grid-template-columns:1fr; } .recipe-results { grid-template-columns:1fr; } .recipe-link { min-height:calc(16 * var(--px)); } .recipe-tooltip { width:min(100%,calc(90 * var(--px))); } }
+  @media(max-width:540px) { .crafting-table { padding:calc(4 * var(--px)); } .crafting-heading { flex-wrap:wrap; } .crafting-heading .eyebrow { font-size:calc(2.5 * var(--px)); } .crafting-heading h3 { font-size:calc(6 * var(--px)); } .ingredient-count { width:100%; margin:0; } .recipe-workbench { padding:calc(3 * var(--px)); } .crafting-actions { grid-template-columns:1fr; } .recipe-heading { flex-wrap:wrap; } }
+</style>
