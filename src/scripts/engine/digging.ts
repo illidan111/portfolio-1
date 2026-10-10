@@ -90,7 +90,7 @@ export function diggingModule(scene: Scene, root: HTMLElement = scene.element): 
     if (body) body.textContent = secretCopy[secret];
     if (link) {
       link.hidden = secret !== 'cv' && secret !== 'github';
-      link.removeAttribute('download'); link.removeAttribute('target'); link.removeAttribute('rel'); link.removeAttribute('href');
+      link.removeAttribute('download'); link.removeAttribute('target'); link.removeAttribute('rel'); link.href = profile.cv;
       if (secret === 'cv') { link.href = profile.cv; link.download = ''; link.textContent = 'Download the illustrative profile / CV'; }
       if (secret === 'github') { link.href = profile.github; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = 'Explore GitHub ↗'; }
     }

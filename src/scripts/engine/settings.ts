@@ -53,6 +53,9 @@ function initialize(): void {
   if (initialized || typeof window === 'undefined') return;
   initialized = true;
   try { current = validated(JSON.parse(window.localStorage.getItem(storageKey) ?? 'null'), defaults); } catch { /* Storage is optional. */ }
+  // Avoid expensive graphics-driver startup on small touch screens. Explicit
+  // High still enables voxels; larger devices start High and sample frame time.
+  automaticQuality = window.matchMedia('(pointer: coarse) and (max-width: 700px)').matches ? 'low' : 'high';
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   systemReduced = preference.matches;
   preference.addEventListener('change', (event) => {
@@ -118,6 +121,10 @@ export function mountSettings(): () => void {
     }
     if (volume) volume.textContent = `${Math.round(value.volume * 100)}%`;
     const note = dialog.querySelector<HTMLElement>('[data-motion-note]');
+    const qualityNote = dialog.querySelector<HTMLElement>('[data-quality-note]');
+    if (qualityNote) qualityNote.textContent = settings.quality() === 'low'
+      ? `${value.quality === 'auto' ? 'Auto is using Low. ' : ''}Static item art and gentler effects. Choose High for 3D items.`
+      : 'All visual effects, including rotating 3D project items.';
     if (note) note.textContent = settings.isReduced()
       ? 'Static presentation is active. Navigation and portfolio content remain available.'
       : 'Auto follows your device’s motion preference.';

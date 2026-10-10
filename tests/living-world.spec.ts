@@ -335,8 +335,8 @@ test('every portfolio page passes axe in day and night with lighting enabled', a
 test.describe('coarse-pointer mobile world', () => {
   test.use({ viewport: { width: 360, height: 800 }, isMobile: true, hasTouch: true });
 
-  test('mobile voxel starts with a download-free Low fallback and follows manual motion settings', async ({ page }) => {
-    await page.addInitScript(() => localStorage.setItem('pixel-settings', JSON.stringify({ quality: 'low', weather: 'off' })));
+  test('mobile Auto starts with a download-free Low fallback and follows manual motion settings', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('pixel-settings', JSON.stringify({ quality: 'auto', weather: 'off' })));
     const graphicsRequests: string[] = [];
     page.on('request', request => {
       if (/\/three[.-]/i.test(new URL(request.url()).pathname)) graphicsRequests.push(request.url());
@@ -349,6 +349,8 @@ test.describe('coarse-pointer mobile world', () => {
     await page.waitForTimeout(200);
     expect(graphicsRequests).toEqual([]);
     await openSettings(page);
+    await expect(page.getByLabel('Quality', { exact: true })).toHaveValue('auto');
+    await expect(page.locator('[data-quality-note]')).toContainText('Auto is using Low.');
     await page.getByLabel('Quality', { exact: true }).selectOption('high');
     await page.keyboard.press('Escape');
     await expect(voxel).toHaveAttribute('data-voxel-state', 'active');

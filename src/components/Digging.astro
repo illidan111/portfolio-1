@@ -10,7 +10,7 @@ const { variant = 'world' } = Astro.props;
   </div>
   <div class="secret-panel panel" data-secret-panel hidden role="region" aria-labelledby="secret-title">
     <div class="secret-heading"><h3 id="secret-title" data-secret-title>A little discovery</h3><button type="button" data-close-secret aria-label="Close discovery">×</button></div>
-    <p data-secret-body></p><a data-secret-link hidden></a>
+    <p data-secret-body></p><a data-secret-link href={profile.cv} download hidden>Download the illustrative profile / CV</a>
   </div>
   <p class="sr-only" role="status" aria-live="polite" data-loot-status></p>
 </div></section> : <details class="field-guide panel">
