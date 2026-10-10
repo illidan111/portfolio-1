@@ -8,11 +8,13 @@ import { mountSettings } from './settings';
 import { bossModule } from './boss';
 import { mountMinimap } from './minimap';
 import { mountCrafting } from './crafting';
+import { mountAudio } from './audio';
 
 let dispose: (() => void) | undefined;
 function mount(): void {
   dispose?.();
   const cleanups: (() => void)[] = [mountSettings()];
+  if (features.audio) mountAudio();
   if (features.minimap) cleanups.push(mountMinimap());
   if (features.crafting) cleanups.push(mountCrafting());
   if (features.digging) refreshLootCount();

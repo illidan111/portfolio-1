@@ -10,7 +10,7 @@ import { features } from '../site.config';
     <div class="setting"><label for="setting-weather">Weather</label><select id="setting-weather" data-setting="weather"><option value="auto">Auto · seasonal</option><option value="off">Off</option><option value="clear">Clear</option><option value="rain">Rain</option><option value="snow">Snow</option><option value="fog">Fog</option><option value="blood-moon">Blood moon</option><option value="leaves">Autumn leaves</option></select></div>
     <div class="setting"><label for="setting-boss">Boss encounters</label><select id="setting-boss" data-setting="boss"><option value="true">On</option><option value="false">Off</option></select></div>
     <div class="setting"><label for="setting-controls-hint">Controls hint</label><select id="setting-controls-hint" data-setting="controlsHint"><option value="true">Show</option><option value="false">Hide</option></select></div>
-    {features.audio && <div class="setting sound-setting"><span>Audio</span><button type="button" data-sound-toggle aria-pressed="false">Sound: Off</button><p class="setting-note">Original 8-bit sounds. Starts only when you turn it on.</p><label for="setting-volume">Master volume</label><div class="volume-control"><input id="setting-volume" type="range" min="0" max="0.3" step="0.01" value="0.08" data-setting="volume"/><output for="setting-volume" data-volume-output>8%</output></div></div>}
+    {features.audio && <div class="setting sound-setting"><span>Audio</span><button type="button" data-sound-toggle aria-pressed="false" aria-describedby="sound-note"><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 6h3V4h2V2h2v12H6v-2H4v-2H1zm9-2h2v2h1v4h-1v2h-2v-2h1V6h-1zm4-3h1v3h1v8h-1v3h-1v-4h1V5h-1z"/></svg><span data-sound-label>Sound: Off</span></button><p class="setting-note" id="sound-note" data-sound-note>Original 8-bit sounds, made in your browser. Sound starts only with your permission.</p><label for="setting-volume">Master volume</label><div class="volume-control"><input id="setting-volume" type="range" min="0" max="0.3" step="0.01" value="0.08" data-setting="volume"/><output for="setting-volume" data-volume-output>8%</output></div></div>}
   </div>
   <p class="settings-status" role="status" aria-live="polite" data-live-region></p>
   <p class="settings-footnote">Press Escape to close. Adventure at your own pace.</p>
@@ -26,10 +26,16 @@ import { features } from '../site.config';
   .setting { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:calc(2 * var(--px)) calc(4 * var(--px)); }
   select, .settings-heading button, [data-sound-toggle] { color:var(--color-text); background:#26396c; border:calc(.5 * var(--px)) solid #7889b5; box-shadow:var(--bevel); }
   select, [data-sound-toggle] { font:inherit; border-radius:0; width:100%; min-height:calc(12 * var(--px)); padding:calc(2 * var(--px)); }
+  [data-sound-toggle] { display:inline-flex; align-items:center; justify-content:center; gap:calc(2 * var(--px)); }
+  [data-sound-toggle] svg { flex:none; width:calc(4 * var(--px)); height:calc(4 * var(--px)); }
   select:focus-visible { outline:var(--px) solid var(--color-focus); outline-offset:var(--px); }
   .setting-note { grid-column:1 / -1; font-size:calc(3 * var(--px)); color:var(--color-muted); }
   .volume-control { display:flex; align-items:center; gap:calc(2 * var(--px)); }
-  .volume-control input { min-width:0; width:100%; min-height:calc(12 * var(--px)); accent-color:var(--color-accent); }
+  .volume-control input { appearance:none; min-width:0; width:100%; min-height:calc(12 * var(--px)); margin:0; background:transparent; border-radius:0; cursor:pointer; }
+  .volume-control input::-webkit-slider-runnable-track { box-sizing:border-box; height:calc(2 * var(--px)); background:#0f1e43; border:calc(.5 * var(--px)) solid #7889b5; border-radius:0; }
+  .volume-control input::-webkit-slider-thumb { appearance:none; box-sizing:border-box; width:calc(4 * var(--px)); height:calc(6 * var(--px)); margin-top:calc(-2.5 * var(--px)); background:var(--color-accent); border:calc(.5 * var(--px)) solid #eefad1; border-radius:0; box-shadow:inset calc(-.5 * var(--px)) calc(-.5 * var(--px)) #657b36; }
+  .volume-control input::-moz-range-track { box-sizing:border-box; height:calc(2 * var(--px)); background:#0f1e43; border:calc(.5 * var(--px)) solid #7889b5; border-radius:0; }
+  .volume-control input::-moz-range-thumb { box-sizing:border-box; width:calc(4 * var(--px)); height:calc(6 * var(--px)); background:var(--color-accent); border:calc(.5 * var(--px)) solid #eefad1; border-radius:0; box-shadow:inset calc(-.5 * var(--px)) calc(-.5 * var(--px)) #657b36; }
   .volume-control output { min-width:calc(8 * var(--px)); }
   .settings-status { color:var(--color-accent); font-size:calc(3 * var(--px)); min-height:calc(5 * var(--px)); margin-top:calc(4 * var(--px)); }
   .settings-footnote { color:var(--color-muted); font-size:calc(3 * var(--px)); margin-top:calc(2 * var(--px)); }

@@ -110,15 +110,29 @@ export function mountSettings(): () => void {
   let opener: HTMLElement | null = null;
   let announcementTimer: ReturnType<typeof setTimeout> | undefined;
 
+  function updateSound(): void {
+    if (!sound) return;
+    const enabled = settings.get().sound;
+    const audioState = document.documentElement.dataset.audioState;
+    sound.setAttribute('aria-pressed', String(enabled));
+    const label = sound.querySelector<HTMLElement>('[data-sound-label]');
+    if (label) label.textContent = !enabled ? 'Sound: Off'
+      : audioState === 'running' || audioState === 'unavailable' ? 'Sound: On' : 'Resume sound';
+    const note = dialog?.querySelector<HTMLElement>('[data-sound-note]');
+    if (note) note.textContent = audioState === 'unavailable'
+      ? 'Audio is unavailable in this browser. The whole world still works silently.'
+      : enabled && audioState !== 'running'
+        ? 'Your On preference is saved. Press Resume sound to listen in this visit.'
+        : 'Original 8-bit sounds, made in your browser. Sound starts only with your permission.';
+  }
+  window.addEventListener('pixel:audio-state', updateSound, { signal });
+
   const unsubscribe = settings.subscribe((value) => {
     controls.forEach((control) => {
       const key = control.dataset.setting as keyof Settings;
       control.value = String(value[key]);
     });
-    if (sound) {
-      sound.setAttribute('aria-pressed', String(value.sound));
-      sound.textContent = value.sound ? 'Sound: On' : 'Sound: Off';
-    }
+    updateSound();
     if (volume) volume.textContent = `${Math.round(value.volume * 100)}%`;
     const note = dialog.querySelector<HTMLElement>('[data-motion-note]');
     const qualityNote = dialog.querySelector<HTMLElement>('[data-quality-note]');
@@ -167,11 +181,14 @@ export function mountSettings(): () => void {
   });
 
   sound?.addEventListener('click', (event) => {
-    const enabled = !settings.get().sound;
+    if (!event.isTrusted) return;
+    const audioState = document.documentElement.dataset.audioState;
+    const resume = settings.get().sound && audioState !== 'running' && audioState !== 'unavailable';
+    const enabled = resume || !settings.get().sound;
     settings.set({ sound: enabled });
     // Only this explicit button gesture can ask the audio module to unlock sound.
-    if (enabled && event.isTrusted) window.dispatchEvent(new CustomEvent('pixel:sound-gesture'));
-    announce(`Sound ${enabled ? 'on' : 'off'}. Saved.`);
+    if (enabled) window.dispatchEvent(new CustomEvent('pixel:sound-gesture', { detail: event }));
+    announce(resume ? 'Sound resumed.' : `Sound ${enabled ? 'on' : 'off'}. Saved.`);
   }, { signal });
 
   document.addEventListener('keydown', (event) => {

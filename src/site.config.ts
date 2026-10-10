@@ -9,7 +9,7 @@ export const features: Record<'hero' | 'lighting' | 'voxels' | 'digging' | 'weat
   boss: true,
   minimap: true,
   crafting: true,
-  audio: false,
+  audio: true,
 };
 
 export const profile = {
