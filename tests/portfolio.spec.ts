@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
 async function openHome(page: Page): Promise<void> {
-  await page.goto('/');
+  await page.goto('/?mode=game');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Crafting code.');
   await expect(page.getByRole('button', { name: 'Switch to night' })).toBeVisible();
   await page.evaluate(async () => { await document.fonts.ready; });
@@ -158,14 +158,24 @@ test('router round trips keep interactions active without duplicate handlers', a
   expect(errors).toEqual([]);
 });
 
-test('day and night cycle automatically but respect reduced motion', async ({ page }) => {
+test('day and night cycle pauses offscreen and respects reduced motion', async ({ page }) => {
   await page.clock.install();
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await openHome(page);
+  await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-running', 'true');
   await page.clock.fastForward(90_100);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
   await page.clock.fastForward(90_100);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'day');
+  await page.locator('#contact').scrollIntoViewIfNeeded();
+  await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-running', 'false');
+  await page.clock.fastForward(180_100);
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'day');
+  await page.locator('#home').scrollIntoViewIfNeeded();
+  await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-running', 'true');
+  await page.clock.fastForward(90_100);
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
+  await page.getByRole('button', { name: 'Switch to day' }).click();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.clock.fastForward(180_100);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'day');

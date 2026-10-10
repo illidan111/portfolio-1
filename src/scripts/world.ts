@@ -1,4 +1,5 @@
 import { settings } from './engine/settings';
+import { profile } from '../site.config';
 type Achievement = 'explorer' | 'night' | 'friend';
 type Theme = 'day' | 'night';
 
@@ -9,9 +10,9 @@ const achievementNames: Record<Achievement, string> = {
   friend: 'A friendly face',
 };
 const dialogue = {
-  about: 'Alex is an illustrative developer with a curious mind and a love for carefully crafted interfaces. This little world celebrates the real work behind a good experience: clear ideas, accessible details, and a little room for play.',
+  about: `${profile.name} is an illustrative developer profile. ${profile.summary} This little world celebrates clear ideas, accessible details, and a little room for play.`,
   work: 'Useful tools with a spark of personality! Open the project chest to explore Orbit, Fieldnotes, and Pixel Forge. They are original demo concepts, with design decisions and implementation notes in each project journal.',
-  contact: 'A new adventure sounds lovely! This is a demo portfolio, and no personal contact address has been supplied. There is no message form or sending service here. For a real collaboration, use the contact details of the person sharing this site.',
+  contact: 'A new adventure sounds lovely! This is a demo portfolio, and no personal contact address has been supplied. The ordinary Email and CV links are always in the header. Both contain clearly marked demo details until the owner replaces them. This site has no message form or sending service.',
 } as const;
 
 const visitedSections = new Set<string>();
@@ -63,6 +64,8 @@ function initializeWorld(): void {
   let cycleTimer: ReturnType<typeof setTimeout> | undefined;
   let navigationTimer: ReturnType<typeof setTimeout> | undefined;
   let observer: IntersectionObserver | undefined;
+  let cycleObserver: IntersectionObserver | undefined;
+  let worldVisible = false;
   let opener: HTMLElement | null = null;
   let cycleRemaining = 90_000;
   let cycleStarted = 0;
@@ -112,7 +115,7 @@ function initializeWorld(): void {
   }
 
   function scheduleCycle(): void {
-    if (document.hidden || settings.isReduced() || cycleTimer !== undefined) return;
+    if (document.hidden || !worldVisible || settings.isReduced() || cycleTimer !== undefined) return;
     cycleStarted = Date.now();
     cycleTimer = setTimeout(() => {
       cycleTimer = undefined;
@@ -126,7 +129,15 @@ function initializeWorld(): void {
   setTheme(readStorage('pixel-theme') === 'night' ? 'night' : 'day');
   renderAchievements();
   if (toast) toast.hidden = true;
-  scheduleCycle();
+  const home = document.getElementById('home');
+  if (home) {
+    cycleObserver = new IntersectionObserver(([entry]) => {
+      worldVisible = entry.isIntersecting;
+      if (worldVisible) scheduleCycle();
+      else stopCycle();
+    });
+    cycleObserver.observe(home);
+  }
 
   document.getElementById('day-toggle')?.addEventListener('click', () => {
     const next = document.documentElement.dataset.theme === 'night' ? 'day' : 'night';
@@ -181,37 +192,6 @@ function initializeWorld(): void {
       if (!message || !Object.hasOwn(dialogue, topic)) return;
       message.textContent = dialogue[topic];
       topicButtons.forEach((option) => option.setAttribute('aria-pressed', String(option === button)));
-    }, { signal });
-  });
-
-  const filterButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
-  const projectCards = [...document.querySelectorAll<HTMLElement>('[data-project][data-category]')];
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter;
-      let count = 0;
-      projectCards.forEach((card) => {
-        card.hidden = filter !== 'all' && card.dataset.category !== filter;
-        if (!card.hidden) count += 1;
-      });
-      filterButtons.forEach((option) => option.setAttribute('aria-pressed', String(option === button)));
-      const counter = document.getElementById('project-count');
-      if (counter) counter.textContent = `${count} ${count === 1 ? 'item' : 'items'}`;
-      queueNavigationUpdate();
-    }, { signal });
-  });
-
-  const skillButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-skill]')];
-  skillButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      skillButtons.forEach((option) => option.setAttribute('aria-pressed', String(option === button)));
-      const fields = ['name', 'description', 'rarity', 'category'] as const;
-      fields.forEach((field) => {
-        const element = document.getElementById(`skill-${field}`);
-        if (element) element.textContent = button.dataset[field] ?? '';
-      });
-      const rarity = document.getElementById('skill-rarity');
-      if (rarity) rarity.dataset.rarity = button.dataset.rarity?.toLowerCase() ?? '';
     }, { signal });
   });
 
@@ -288,6 +268,7 @@ function initializeWorld(): void {
     controller.abort();
     unsubscribeSettings();
     observer?.disconnect();
+    cycleObserver?.disconnect();
     clearTimeout(toastTimer);
     clearTimeout(cycleTimer);
     clearTimeout(navigationTimer);

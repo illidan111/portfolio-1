@@ -1,0 +1,73 @@
+/* A different presentation of the same semantic content and collections. */
+.classic-only { display:none; }
+html:root[data-mode='classic'][data-theme] { scroll-behavior:auto; }
+html:root[data-mode='classic'][data-theme] *, html:root[data-mode='classic'][data-theme] *::before, html:root[data-mode='classic'][data-theme] *::after { animation:none !important; transition:none !important; }
+html:root[data-mode='classic'][data-theme] .trophy-shelf { display:none; }
+html:root[data-mode='classic'][data-theme] .project-card:hover, html:root[data-mode='classic'][data-theme] .project-card:focus-within { transform:none; }
+html:root[data-mode='classic'][data-theme] body { font-family:Arial, Helvetica, sans-serif; line-height:1.65; }
+html:root[data-mode='classic'][data-theme] :is(h1,h2,h3,.brand,.header-actions,.hotbar,.eyebrow) { font-family:var(--font-pixel),monospace; }
+html:root[data-mode='classic'][data-theme] :is(.world-game,.world-art,.stars,.sun,.npc-world,.world-label,.biome-strip,.spawn-badge,.excavation-band,.field-guide,.active-buffs,.crafting-table,.achievements-section,.boss-trophy,.loot-count,.life,.slot-number,[data-open-settings],.dig-curtain,.contact-art,.game-only,.inventory-hint,.inventory-footer,.equipped-label,.skill-slot-number,.item-type,.rarity-badge,.case-rarity,.collection-label) { display:none !important; }
+html:root[data-mode='classic'][data-theme] .classic-only { display:block; }
+html:root[data-mode='classic'][data-theme] .classic-only.pixel-button { display:inline-flex; }
+html:root[data-mode='classic'][data-theme] .world-tools { display:none; }
+html:root[data-mode='classic'][data-theme] .view-toolbar:has([data-view-notice][hidden]) { display:none; }
+html:root[data-mode='classic'][data-theme] .header-inner { min-height:calc(20 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .hotbar { padding:0; gap:calc(2 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .hotbar-item { width:auto; min-width:calc(11 * var(--px)); height:calc(11 * var(--px)); padding-inline:calc(3 * var(--px)); border-color:transparent; background:transparent; box-shadow:none; color:var(--color-muted); }
+html:root[data-mode='classic'][data-theme] .hotbar-item svg { display:none; }
+html:root[data-mode='classic'][data-theme] .slot-label { position:static; font-size:calc(4 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .hotbar-item.selected { background:#26365c; border-color:#7182b8; color:var(--color-accent); }
+html:root[data-mode='classic'][data-theme] .hero { height:auto; min-height:0; overflow:visible; background:var(--color-panel-deep); border-bottom:calc(.5 * var(--px)) solid var(--color-border-dim); }
+html:root[data-mode='classic'][data-theme] .hero-content { height:auto; position:static; pointer-events:auto; }
+html:root[data-mode='classic'][data-theme] .hero-copy { padding-block:calc(16 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .hero h1 { margin:0; font-size:calc(16 * var(--px)); color:var(--color-text); text-shadow:none; letter-spacing:0; }
+html:root[data-mode='classic'][data-theme] .hero h1 > span { color:var(--color-accent); }
+html:root[data-mode='classic'][data-theme] .hero-copy > p { background:none; padding:0; margin:calc(6 * var(--px)) 0 0; font-size:calc(5 * var(--px)); color:var(--color-muted); max-width:calc(196 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .desktop-br { display:none; }
+html:root[data-mode='classic'][data-theme] .hero-actions { margin-top:calc(7 * var(--px)); flex-wrap:wrap; }
+html:root[data-mode='classic'][data-theme] [data-open-dialog] { display:none; }
+html:root[data-mode='classic'][data-theme] .underground { background-image:none; border:0; }
+html:root[data-mode='classic'][data-theme] .panel { box-shadow:none; border-color:var(--color-border-dim); }
+html:root[data-mode='classic'][data-theme] .pixel-button { box-shadow:none; font-size:calc(4 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .pixel-button:hover { transform:none; }
+html:root[data-mode='classic'][data-theme] .projects-section { padding-top:calc(14 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .section-description { font-size:calc(4 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .project-content > p { font-size:calc(4 * var(--px)); min-height:calc(24 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .project-title-row h3 { font-size:calc(7 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .filters button { min-height:calc(11 * var(--px)); font-size:calc(3.5 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .stack { font-size:calc(3 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .skills-section { grid-template-columns:1fr; gap:calc(5 * var(--px)); margin-top:calc(12 * var(--px)); padding-block:calc(12 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .skills-intro { display:block; }
+html:root[data-mode='classic'][data-theme] .skills-intro br { display:none; }
+html:root[data-mode='classic'][data-theme] .inventory-header { font-size:calc(4 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .inventory-header > span:last-child { display:none; }
+html:root[data-mode='classic'][data-theme] .skills-layout { grid-template-columns:1fr 1fr; gap:calc(6 * var(--px)); padding:calc(6 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .skill-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+html:root[data-mode='classic'][data-theme] .skill-slot { height:auto; min-height:calc(12 * var(--px)); flex-direction:row; justify-content:flex-start; padding:calc(2 * var(--px)) calc(3 * var(--px)); gap:calc(2 * var(--px)); box-shadow:none; }
+html:root[data-mode='classic'][data-theme] .skill-slot > svg { width:calc(5 * var(--px)); height:calc(5 * var(--px)); flex:none; }
+html:root[data-mode='classic'][data-theme] .skill-name { font-size:calc(4 * var(--px)); white-space:normal; text-align:left; }
+html:root[data-mode='classic'][data-theme] .item-tooltip { display:none; }
+html:root[data-mode='classic'][data-theme] .skill-detail { min-height:0; }
+html:root[data-mode='classic'][data-theme] .skill-detail h3 { font-size:calc(8 * var(--px)); }
+html:root[data-mode='classic'][data-theme] #skill-description { font-size:calc(4 * var(--px)); margin-top:calc(3 * var(--px)); min-height:0; }
+html:root[data-mode='classic'][data-theme] .about-card > p, html:root[data-mode='classic'][data-theme] .quest-log li p { font-size:calc(4 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .quest-log h3 { font-size:calc(6 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .quest-tags, html:root[data-mode='classic'][data-theme] .player-traits, html:root[data-mode='classic'][data-theme] .contact-footnote { font-size:calc(3.5 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .contact-section { border-top:calc(.5 * var(--px)) solid var(--color-border-dim); }
+html:root[data-mode='classic'][data-theme] .case-aside p, html:root[data-mode='classic'][data-theme] .case-aside dt { font-size:calc(4 * var(--px)); }
+html:root[data-mode='classic'][data-theme]::view-transition-old(root), html:root[data-mode='classic'][data-theme]::view-transition-new(root) { animation-duration:120ms; animation-timing-function:ease; }
+@media(max-width:900px) {
+  html:root[data-mode='classic'][data-theme] .brand-sub { display:none; }
+  html:root[data-mode='classic'][data-theme] .hero h1 { font-size:calc(13 * var(--px)); }
+}
+@media(max-width:700px) {
+  html:root[data-mode='classic'][data-theme] .hero-copy { padding-block:calc(10 * var(--px)); }
+  html:root[data-mode='classic'][data-theme] .hero h1 { font-size:calc(11 * var(--px)); }
+  html:root[data-mode='classic'][data-theme] .hero-copy > p { font-size:calc(4 * var(--px)); }
+  html:root[data-mode='classic'][data-theme] .skills-layout { grid-template-columns:1fr; padding:calc(4 * var(--px)); }
+  html:root[data-mode='classic'][data-theme] .project-content > p { min-height:0; }
+  html:root[data-mode='classic'][data-theme] .header-inner { flex-wrap:wrap; padding-block:calc(2 * var(--px)); gap:calc(2 * var(--px)); }
+  html:root[data-mode='classic'][data-theme] .hotbar { order:3; width:100%; gap:var(--px); }
+  html:root[data-mode='classic'][data-theme] .hotbar-item { flex:1; padding-inline:var(--px); }
+  html:root[data-mode='classic'][data-theme] .slot-label { font-size:calc(3.5 * var(--px)); }
+}

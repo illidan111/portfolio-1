@@ -1,14 +1,30 @@
 import { defineConfig, fontProviders } from 'astro/config';
+import { loadEnv } from 'vite';
+import { fileURLToPath } from 'node:url';
 import { features } from './src/site.config.ts';
+
+const projectRoot = fileURLToPath(new URL('.', import.meta.url));
+const fileEnv = loadEnv(process.env.NODE_ENV || 'production', projectRoot, 'SITE_');
+const configuredSite = process.env.SITE_URL || fileEnv.SITE_URL || 'https://portfolio.example';
+const siteURL = new URL(configuredSite);
+if (!['https:', 'http:'].includes(siteURL.protocol) || siteURL.username || siteURL.password ||
+    siteURL.search || siteURL.hash || siteURL.pathname !== '/') {
+  throw new Error('SITE_URL must be an HTTP(S) origin without credentials, a path, query, or hash.');
+}
 
 export default defineConfig({
   output: 'static',
+  site: siteURL.origin,
+  trailingSlash: 'always',
   devToolbar: { enabled: false },
   // Both graphics chunks stay behind the project-only visibility import.
   vite: { build: { rollupOptions: { output: {
-    manualChunks: features.voxels ? function(id) {
-      if (id.replaceAll('\\', '/').includes('/node_modules/three/build/three.core.js')) return 'three-core';
-    } : undefined,
+    onlyExplicitManualChunks: true,
+    manualChunks(id) {
+      const path = id.replaceAll('\\', '/');
+      if (features.voxels && path.includes('/node_modules/three/build/three.core.js')) return 'three-core';
+      if (path.includes('/src/scripts/engine/') && !/\/(voxel|three-runtime)\.ts$/.test(path)) return 'game-engine';
+    },
   } } } },
   fonts: [{
     name: 'Pixelify Sans',

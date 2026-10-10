@@ -46,7 +46,7 @@ test('sound defaults Off and ignores synthetic activation without audio requests
   page.on('request', request => {
     if (request.resourceType() === 'media' || /\.(mp3|wav|ogg|m4a|flac)(\?|$)/i.test(request.url())) mediaRequests.push(request.url());
   });
-  await page.goto('/');
+  await page.goto('/?mode=game');
   await openSettings(page);
   await expect(page.locator('[data-sound-toggle]')).toHaveText('Sound: Off');
   await expect(page.getByLabel('Master volume')).toHaveValue('0.08');
@@ -63,7 +63,7 @@ test('sound defaults Off and ignores synthetic activation without audio requests
 test('trusted enable starts native synthesis, caps voices and saves master volume', async ({ page }) => {
   const mediaRequests: string[] = [];
   page.on('request', request => { if (request.resourceType() === 'media') mediaRequests.push(request.url()); });
-  await page.goto('/');
+  await page.goto('/?mode=game');
   await openSettings(page);
   await page.locator('[data-sound-toggle]').click();
   await expect(page.locator('html')).toHaveAttribute('data-audio-state', 'running');
@@ -92,7 +92,7 @@ test('trusted enable starts native synthesis, caps voices and saves master volum
 });
 
 test('saved On reload remains silent until one Resume sound click, then Off stops audio', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/?mode=game');
   await openSettings(page);
   await page.locator('[data-sound-toggle]').click();
   await expect(page.locator('html')).toHaveAttribute('data-audio-state', 'running');
@@ -114,7 +114,7 @@ test('saved On reload remains silent until one Resume sound click, then Off stop
 });
 
 test('audio manager and native context survive Astro page changes without duplicate listeners', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/?mode=game');
   await openSettings(page);
   await page.locator('[data-sound-toggle]').click();
   await expect(page.locator('html')).toHaveAttribute('data-audio-state', 'running');
@@ -135,7 +135,7 @@ test('audio manager and native context survive Astro page changes without duplic
 });
 
 test('visibility suspension stops voices and offers an explicit resume', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/?mode=game');
   await openSettings(page);
   await page.locator('[data-sound-toggle]').click();
   await expect(page.locator('html')).toHaveAttribute('data-audio-state', 'running');
@@ -162,7 +162,7 @@ test('mobile speaker and pixel volume control work in both themes and motion mod
     const context = await browser.newContext({ baseURL:testInfo.project.use.baseURL, viewport:{ width:360, height:900 }, hasTouch:true, isMobile:true, reducedMotion });
     const page = await context.newPage();
     await instrument(page);
-    await page.goto('/');
+    await page.goto('/?mode=game');
     for (const theme of ['day','night']) {
       if (theme === 'night') await page.locator('#day-toggle').tap();
       await page.locator('[data-open-settings]').tap();

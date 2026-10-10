@@ -49,3 +49,5 @@ function mount(): void {
 }
 document.addEventListener('astro:page-load', mount);
 document.addEventListener('astro:before-swap', () => { dispose?.(); dispose = undefined; });
+// The conditional Game import can finish after the first page-load event.
+mount();

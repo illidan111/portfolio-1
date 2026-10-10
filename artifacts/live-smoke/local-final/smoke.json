@@ -1,0 +1,702 @@
+{
+  "timestamp": "2026-10-10T18:09:42.116Z",
+  "node": "v22.23.3",
+  "baseURL": "http://127.0.0.1:4323/",
+  "status": "passed",
+  "pages": [
+    {
+      "pathname": "/",
+      "requestedURL": "http://127.0.0.1:4323/?mode=game",
+      "url": "http://127.0.0.1:4323/?mode=game",
+      "status": 200,
+      "title": "Alex (demo) — Developer & Explorer",
+      "headers": {
+        "cache-control": "no-cache",
+        "content-type": "text/html"
+      }
+    },
+    {
+      "pathname": "/projects/fieldnotes/",
+      "requestedURL": "http://127.0.0.1:4323/projects/fieldnotes/?mode=game",
+      "url": "http://127.0.0.1:4323/projects/fieldnotes/?mode=game",
+      "status": 200,
+      "title": "Fieldnotes — Alex (demo)’s Workbench",
+      "headers": {
+        "cache-control": "no-cache",
+        "content-type": "text/html"
+      }
+    },
+    {
+      "pathname": "/projects/orbit/",
+      "requestedURL": "http://127.0.0.1:4323/projects/orbit/?mode=game",
+      "url": "http://127.0.0.1:4323/projects/orbit/?mode=game",
+      "status": 200,
+      "title": "Orbit — Alex (demo)’s Workbench",
+      "headers": {
+        "cache-control": "no-cache",
+        "content-type": "text/html"
+      }
+    },
+    {
+      "pathname": "/projects/pixel-forge/",
+      "requestedURL": "http://127.0.0.1:4323/projects/pixel-forge/?mode=game",
+      "url": "http://127.0.0.1:4323/projects/pixel-forge/?mode=game",
+      "status": 200,
+      "title": "Pixel Forge — Alex (demo)’s Workbench",
+      "headers": {
+        "cache-control": "no-cache",
+        "content-type": "text/html"
+      }
+    }
+  ],
+  "missingRoute": {
+    "url": "http://127.0.0.1:4323/__portfolio_smoke_missing_route__/",
+    "status": 404
+  },
+  "interactions": [
+    {
+      "name": "route /",
+      "passed": true
+    },
+    {
+      "name": "route /projects/fieldnotes/",
+      "passed": true
+    },
+    {
+      "name": "route /projects/orbit/",
+      "passed": true
+    },
+    {
+      "name": "route /projects/pixel-forge/",
+      "passed": true
+    },
+    {
+      "name": "unknown path returns HTTP 404",
+      "passed": true
+    },
+    {
+      "name": "game hotbar visits all sections",
+      "passed": true
+    },
+    {
+      "name": "game persistent contact links",
+      "passed": true
+    },
+    {
+      "name": "classic hotbar visits all sections",
+      "passed": true
+    },
+    {
+      "name": "classic persistent contact links",
+      "passed": true
+    },
+    {
+      "name": "Classic header link uses an explicit URL and persists on reload",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-portrait-game-day",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-portrait-game-night",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-portrait-classic-day",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-portrait-classic-night",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-landscape-game-day",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-landscape-game-night",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-landscape-classic-day",
+      "passed": true
+    },
+    {
+      "name": "iphone-13-landscape-classic-night",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-portrait-game-day",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-portrait-game-night",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-portrait-classic-day",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-portrait-classic-night",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-landscape-game-day",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-landscape-game-night",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-landscape-classic-day",
+      "passed": true
+    },
+    {
+      "name": "pixel-7-landscape-classic-night",
+      "passed": true
+    },
+    {
+      "name": "android-360-portrait-game-day",
+      "passed": true
+    },
+    {
+      "name": "android-360-portrait-game-night",
+      "passed": true
+    },
+    {
+      "name": "android-360-portrait-classic-day",
+      "passed": true
+    },
+    {
+      "name": "android-360-portrait-classic-night",
+      "passed": true
+    },
+    {
+      "name": "android-360-landscape-game-day",
+      "passed": true
+    },
+    {
+      "name": "android-360-landscape-game-night",
+      "passed": true
+    },
+    {
+      "name": "android-360-landscape-classic-day",
+      "passed": true
+    },
+    {
+      "name": "android-360-landscape-classic-night",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    {
+      "device": "desktop",
+      "mode": "game",
+      "theme": "day",
+      "path": "artifacts\\live-smoke\\local-final\\desktop-game.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "device": "desktop",
+      "mode": "classic",
+      "theme": "day",
+      "path": "artifacts\\live-smoke\\local-final\\desktop-classic.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "portrait",
+      "mode": "game",
+      "theme": "day",
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "screen": {
+        "width": 390,
+        "height": 844
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-portrait-game-day.png",
+      "geometry": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "portrait",
+      "mode": "game",
+      "theme": "night",
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "screen": {
+        "width": 390,
+        "height": 844
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-portrait-game-night.png",
+      "geometry": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "portrait",
+      "mode": "classic",
+      "theme": "day",
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "screen": {
+        "width": 390,
+        "height": 844
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-portrait-classic-day.png",
+      "geometry": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "portrait",
+      "mode": "classic",
+      "theme": "night",
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "screen": {
+        "width": 390,
+        "height": 844
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-portrait-classic-night.png",
+      "geometry": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "landscape",
+      "mode": "game",
+      "theme": "day",
+      "viewport": {
+        "width": 664,
+        "height": 390
+      },
+      "screen": {
+        "width": 844,
+        "height": 390
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-landscape-game-day.png",
+      "geometry": {
+        "viewport": 664,
+        "document": 664,
+        "body": 664
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "landscape",
+      "mode": "game",
+      "theme": "night",
+      "viewport": {
+        "width": 664,
+        "height": 390
+      },
+      "screen": {
+        "width": 844,
+        "height": 390
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-landscape-game-night.png",
+      "geometry": {
+        "viewport": 664,
+        "document": 664,
+        "body": 664
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "landscape",
+      "mode": "classic",
+      "theme": "day",
+      "viewport": {
+        "width": 664,
+        "height": 390
+      },
+      "screen": {
+        "width": 844,
+        "height": 390
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-landscape-classic-day.png",
+      "geometry": {
+        "viewport": 664,
+        "document": 664,
+        "body": 664
+      }
+    },
+    {
+      "device": "iphone-13",
+      "orientation": "landscape",
+      "mode": "classic",
+      "theme": "night",
+      "viewport": {
+        "width": 664,
+        "height": 390
+      },
+      "screen": {
+        "width": 844,
+        "height": 390
+      },
+      "path": "artifacts\\live-smoke\\local-final\\iphone-13-landscape-classic-night.png",
+      "geometry": {
+        "viewport": 664,
+        "document": 664,
+        "body": 664
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "portrait",
+      "mode": "game",
+      "theme": "day",
+      "viewport": {
+        "width": 412,
+        "height": 839
+      },
+      "screen": {
+        "width": 412,
+        "height": 915
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-portrait-game-day.png",
+      "geometry": {
+        "viewport": 412,
+        "document": 412,
+        "body": 412
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "portrait",
+      "mode": "game",
+      "theme": "night",
+      "viewport": {
+        "width": 412,
+        "height": 839
+      },
+      "screen": {
+        "width": 412,
+        "height": 915
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-portrait-game-night.png",
+      "geometry": {
+        "viewport": 412,
+        "document": 412,
+        "body": 412
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "portrait",
+      "mode": "classic",
+      "theme": "day",
+      "viewport": {
+        "width": 412,
+        "height": 839
+      },
+      "screen": {
+        "width": 412,
+        "height": 915
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-portrait-classic-day.png",
+      "geometry": {
+        "viewport": 412,
+        "document": 412,
+        "body": 412
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "portrait",
+      "mode": "classic",
+      "theme": "night",
+      "viewport": {
+        "width": 412,
+        "height": 839
+      },
+      "screen": {
+        "width": 412,
+        "height": 915
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-portrait-classic-night.png",
+      "geometry": {
+        "viewport": 412,
+        "document": 412,
+        "body": 412
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "landscape",
+      "mode": "game",
+      "theme": "day",
+      "viewport": {
+        "width": 839,
+        "height": 412
+      },
+      "screen": {
+        "width": 915,
+        "height": 412
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-landscape-game-day.png",
+      "geometry": {
+        "viewport": 839,
+        "document": 839,
+        "body": 839
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "landscape",
+      "mode": "game",
+      "theme": "night",
+      "viewport": {
+        "width": 839,
+        "height": 412
+      },
+      "screen": {
+        "width": 915,
+        "height": 412
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-landscape-game-night.png",
+      "geometry": {
+        "viewport": 839,
+        "document": 839,
+        "body": 839
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "landscape",
+      "mode": "classic",
+      "theme": "day",
+      "viewport": {
+        "width": 839,
+        "height": 412
+      },
+      "screen": {
+        "width": 915,
+        "height": 412
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-landscape-classic-day.png",
+      "geometry": {
+        "viewport": 839,
+        "document": 839,
+        "body": 839
+      }
+    },
+    {
+      "device": "pixel-7",
+      "orientation": "landscape",
+      "mode": "classic",
+      "theme": "night",
+      "viewport": {
+        "width": 839,
+        "height": 412
+      },
+      "screen": {
+        "width": 915,
+        "height": 412
+      },
+      "path": "artifacts\\live-smoke\\local-final\\pixel-7-landscape-classic-night.png",
+      "geometry": {
+        "viewport": 839,
+        "document": 839,
+        "body": 839
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "portrait",
+      "mode": "game",
+      "theme": "day",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "screen": {
+        "width": 360,
+        "height": 640
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-portrait-game-day.png",
+      "geometry": {
+        "viewport": 360,
+        "document": 360,
+        "body": 360
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "portrait",
+      "mode": "game",
+      "theme": "night",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "screen": {
+        "width": 360,
+        "height": 640
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-portrait-game-night.png",
+      "geometry": {
+        "viewport": 360,
+        "document": 360,
+        "body": 360
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "portrait",
+      "mode": "classic",
+      "theme": "day",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "screen": {
+        "width": 360,
+        "height": 640
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-portrait-classic-day.png",
+      "geometry": {
+        "viewport": 360,
+        "document": 360,
+        "body": 360
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "portrait",
+      "mode": "classic",
+      "theme": "night",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "screen": {
+        "width": 360,
+        "height": 640
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-portrait-classic-night.png",
+      "geometry": {
+        "viewport": 360,
+        "document": 360,
+        "body": 360
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "landscape",
+      "mode": "game",
+      "theme": "day",
+      "viewport": {
+        "width": 640,
+        "height": 360
+      },
+      "screen": {
+        "width": 640,
+        "height": 360
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-landscape-game-day.png",
+      "geometry": {
+        "viewport": 640,
+        "document": 640,
+        "body": 640
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "landscape",
+      "mode": "game",
+      "theme": "night",
+      "viewport": {
+        "width": 640,
+        "height": 360
+      },
+      "screen": {
+        "width": 640,
+        "height": 360
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-landscape-game-night.png",
+      "geometry": {
+        "viewport": 640,
+        "document": 640,
+        "body": 640
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "landscape",
+      "mode": "classic",
+      "theme": "day",
+      "viewport": {
+        "width": 640,
+        "height": 360
+      },
+      "screen": {
+        "width": 640,
+        "height": 360
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-landscape-classic-day.png",
+      "geometry": {
+        "viewport": 640,
+        "document": 640,
+        "body": 640
+      }
+    },
+    {
+      "device": "android-360",
+      "orientation": "landscape",
+      "mode": "classic",
+      "theme": "night",
+      "viewport": {
+        "width": 640,
+        "height": 360
+      },
+      "screen": {
+        "width": 640,
+        "height": 360
+      },
+      "path": "artifacts\\live-smoke\\local-final\\android-360-landscape-classic-night.png",
+      "geometry": {
+        "viewport": 640,
+        "document": 640,
+        "body": 640
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "failedResponses": [],
+  "failures": [],
+  "methodology": "Real headless Edge/Chromium against the supplied origin. Route crawl follows internal HTML links; --routes can include intentionally unlinked routes. Intentional missing-route HTTP 404 is checked with a request outside browser error collection. Device screenshots are optional Chromium touch/viewport/UA emulation, including the iPhone descriptor; they are not Safari or physical-phone validation. Captures scroll through the page to load lazy images, return to the top, and use CSS-pixel scale to avoid high-DPR compositor tile artifacts. Screenshots require human visual review. This script records actual response headers but does not claim CSP correctness; use the separate header/CSP verification."
+}

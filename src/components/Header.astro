@@ -1,12 +1,13 @@
 ---
 import Icon from './Icon.astro';
-import { features } from '../site.config';
+import { features, profile } from '../site.config';
 const nav = [ ['home', 'Spawn', 'sword'], ['projects', 'Projects', 'chest'], ['skills', 'Skills', 'pickaxe'], ['about', 'Journey', 'book'], ['contact', 'Contact', 'mail'] ];
 const isHome = Astro.url.pathname === '/';
+const displayName = profile.name.replace(/\s*\(demo\)$/, '');
 ---
 <header class="site-header">
   <div class="header-inner container">
-    <a href="/" class="brand" aria-label="Alex, return to spawn"><img src="/favicon.svg" width="36" height="36" alt=""/><span>ALEX<span class="brand-sub">DEVELOPER & EXPLORER</span></span></a>
+    <a href="/" class="brand" aria-label={`${displayName}, return to spawn`}><img src="/favicon.svg" width="36" height="36" alt=""/><span>{displayName.toUpperCase()}<span class="brand-sub">DEVELOPER & EXPLORER</span></span></a>
     <nav class="hotbar" aria-label="Main navigation">
       {nav.map(([id, label, icon], index) => <a href={isHome ? `#${id}` : `/#${id}`} class:list={['hotbar-item', { selected: id === 'home' && isHome }]} data-nav={id} aria-label={`${label} — shortcut ${index + 1}`} aria-current={id === 'home' && isHome ? 'location' : undefined}><span class="slot-number" aria-hidden="true">{index + 1}</span><Icon name={icon} size={24}/><span class="slot-label">{label}</span></a>)}
       <button class="hotbar-item" type="button" data-open-settings aria-label="Settings — shortcut 6" aria-haspopup="dialog" aria-controls="settings-dialog" aria-expanded="false"><span class="slot-number" aria-hidden="true">6</span><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><path d="M9 1h6v3h3v3h3v6h-3v3h-3v3H9v-3H6v-3H3V7h3V4h3zm0 6v6h6V7zM4 19h4v4H4zm12 0h4v4h-4z"/></svg><span class="slot-label">Settings</span></button>
@@ -17,8 +18,12 @@ const isHome = Astro.url.pathname === '/';
       <button class="day-toggle" id="day-toggle" type="button" aria-label="Switch to night" aria-pressed="false"><span class="day-icon"><Icon name="sun" size={16}/></span><span class="night-icon"><Icon name="moon" size={16}/></span><span data-time-label>Daytime</span><span aria-hidden="true">↔</span></button>
     </div>
   </div>
+  <div class="header-actions container"><a href={`mailto:${profile.email}`}>Email</a><a href={profile.cv} download="cv.pdf" title="Download placeholder CV (PDF)">CV</a><a class="view-toggle" href="/?mode=classic" data-view-link="toggle" data-astro-reload>Classic view</a></div>
 </header>
 <style>
+  .header-actions { display:flex; align-items:center; justify-content:flex-end; gap:calc(2 * var(--px)); padding-bottom:calc(2 * var(--px)); }
+  .header-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:calc(11 * var(--px)); padding:calc(2 * var(--px)) calc(3 * var(--px)); background:#253769; border:calc(.5 * var(--px)) solid #6173a3; font-size:calc(4 * var(--px)); }
+  .header-actions .view-toggle { border-color:#afc87c; color:var(--color-accent); }
   .site-header { position: sticky; top: 0; z-index: 20; background: #121d3a; border-bottom: var(--px) solid #080f25; box-shadow: 0 calc(.5 * var(--px)) 0 #49618b; }
   .header-inner { min-height: calc(25 * var(--px)); display: flex; align-items: center; justify-content: space-between; gap: calc(6 * var(--px)); }
   .brand { display: flex; gap: calc(3 * var(--px)); align-items: center; font-size: calc(7 * var(--px)); font-weight: 700; line-height: 1; letter-spacing: var(--px); }

@@ -1,0 +1,13 @@
+.git
+.vercel
+.env
+.env.*
+artifacts
+node_modules
+.astro
+.npm-cache
+.browsers
+dist
+test-results
+playwright-report
+*.log

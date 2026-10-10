@@ -10,7 +10,7 @@ const enabled = features.hero || features.lighting || features.weather || featur
   {features.hero && <>
   <div class="game-input" data-game-input tabindex="0" role="group" aria-label="Playable forest. A and D or arrow keys move, Space jumps, E enters the house. Escape releases controls." aria-describedby="game-controls-hint"></div>
   <div class="player" data-player aria-hidden="true"><Avatar size={40}/></div>
-  <a class="house-door" href="#contact" data-house-door><span>Press E</span><span class="door-glyph" aria-hidden="true">▥</span><span class="sr-only">Enter the house — go to Contact</span></a>
+  <a class="house-door" href="#contact" data-house-door><span data-door-prompt hidden>Press E</span><span class="door-glyph" aria-hidden="true">▥</span><span class="sr-only">Enter the house — go to Contact</span></a>
   <div class="game-controls" data-game-controls><p id="game-controls-hint">Game controls: A/D move, Space jump, E interact</p><span>Click the ground to play · Esc to release</span><button type="button" data-hide-controls aria-label="Hide game controls hint">×</button></div>
   <div class="touch-controls" aria-label="Touch game controls"><button type="button" data-move="left" aria-label="Move left">←</button><button type="button" data-move="right" aria-label="Move right">→</button><button type="button" data-move="jump" aria-label="Jump">↑</button></div>
   <p class="sr-only" role="status" aria-live="polite" data-game-message></p>
@@ -19,16 +19,16 @@ const enabled = features.hero || features.lighting || features.weather || featur
 <style>
   .world-game { position:absolute; inset:0; pointer-events:none; z-index:1; }
   canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-  .game-input { position:absolute; inset:70% 0 8%; pointer-events:auto; }
+  .game-input { position:absolute; inset:70% 0 8%; pointer-events:auto; touch-action:pan-y pinch-zoom; }
   .game-input:focus-visible { outline:var(--px) dashed #fff0b4; outline-offset:calc(-2 * var(--px)); background:#e6f2b50a; }
   .player { visibility:hidden; position:absolute; width:calc(8 * var(--px)); height:calc(10 * var(--px)); top:0; left:0; transform-origin:top left; }
   .player[data-x] { visibility:visible; }
-  .player svg { display:block; width:100%; height:100%; transform:scaleX(var(--facing,1)); }
+  .player :global(svg) { display:block; width:100%; height:100%; transform:scaleX(var(--facing,1)); filter:drop-shadow(2px 0 0 #fff0b4) drop-shadow(-2px 0 0 #fff0b4) drop-shadow(0 2px 0 #fff0b4) drop-shadow(0 -2px 0 #fff0b4); }
   .house-door { position:absolute; pointer-events:auto; display:grid; justify-items:center; min-width:calc(12 * var(--px)); min-height:calc(12 * var(--px)); transform:translate(-50%,-50%); color:#f1e6b8; }
-  .house-door > span:first-child { position:absolute; bottom:100%; right:calc(100% + 7 * var(--px)); background:#132939; border:calc(.5 * var(--px)) solid #adba83; padding:var(--px) calc(2 * var(--px)); font-size:calc(3 * var(--px)); white-space:nowrap; }
+  .house-door > span:first-child { position:absolute; bottom:calc(100% + 2 * var(--px)); left:50%; transform:translateX(-50%); background:#132939; border:calc(.5 * var(--px)) solid #adba83; padding:var(--px) calc(2 * var(--px)); font-size:calc(3 * var(--px)); white-space:nowrap; }
   .house-door[data-near='true'] > span:first-child { background:#385534; border-color:#f4e4a0; }
   .door-glyph { background:#40352c; border:var(--px) solid #b3915b; font-size:calc(6 * var(--px)); line-height:1; }
-  .game-controls { pointer-events:auto; position:absolute; left:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(11 * var(--px)); padding:calc(2 * var(--px)) calc(10 * var(--px)) calc(2 * var(--px)) calc(3 * var(--px)); background:#132840ee; border:calc(.5 * var(--px)) solid #9cb1ba; color:#e4ebce; font-size:calc(3 * var(--px)); }
+  .game-controls { pointer-events:auto; position:absolute; left:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(18 * var(--px)); min-height:calc(11 * var(--px)); padding:calc(2 * var(--px)) calc(12 * var(--px)) calc(2 * var(--px)) calc(3 * var(--px)); background:#132840ee; border:calc(.5 * var(--px)) solid #9cb1ba; color:#e4ebce; font-size:calc(3 * var(--px)); }
   .game-controls > span { display:block; color:#b8c8db; font-size:calc(2.5 * var(--px)); }
   .game-controls button { position:absolute; top:0; right:0; width:calc(10 * var(--px)); height:100%; background:transparent; font-size:calc(5 * var(--px)); }
   .touch-controls { display:none; position:absolute; bottom:calc(11 * var(--px)); left:max(calc(4 * var(--px)),env(safe-area-inset-left)); right:max(calc(4 * var(--px)),env(safe-area-inset-right)); pointer-events:none; gap:calc(2 * var(--px)); }
@@ -36,8 +36,6 @@ const enabled = features.hero || features.lighting || features.weather || featur
   .touch-controls button:last-child { margin-left:0; }
   [data-reduced='true'] .touch-controls { display:none; }
   @media(pointer:coarse) { .touch-controls { display:flex; } .game-controls { bottom:calc(25 * var(--px)); font-size:calc(2.5 * var(--px)); max-width:calc(100% - 8 * var(--px)); } .game-controls > span { display:none; } }
-  @media(max-width:700px) { .game-controls { bottom:calc(11 * var(--px)); max-width:calc(100% - 8 * var(--px)); font-size:calc(2.5 * var(--px)); } .house-door { transform:translate(-70%,-50%); } }
-  @media(max-width:700px) { .game-controls { bottom:calc(49 * var(--px)); } }
-  @media(min-width:701px) and (max-width:900px) { .house-door > span:first-child { right:calc(100% + 33 * var(--px)); } }
+  @media(max-width:700px) { .game-controls { bottom:calc(43 * var(--px)); max-width:calc(100% - 8 * var(--px)); font-size:calc(2.5 * var(--px)); } }
   @media(prefers-reduced-motion:reduce) { .game-input, .game-controls, .touch-controls { display:none; } }
 </style>

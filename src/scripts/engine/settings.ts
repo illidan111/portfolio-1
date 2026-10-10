@@ -53,9 +53,9 @@ function initialize(): void {
   if (initialized || typeof window === 'undefined') return;
   initialized = true;
   try { current = validated(JSON.parse(window.localStorage.getItem(storageKey) ?? 'null'), defaults); } catch { /* Storage is optional. */ }
-  // Avoid expensive graphics-driver startup on small touch screens. Explicit
-  // High still enables voxels; larger devices start High and sample frame time.
-  automaticQuality = window.matchMedia('(pointer: coarse) and (max-width: 700px)').matches ? 'low' : 'high';
+  // Touch devices keep the conservative Low preset. Only an explicit High
+  // choice enables 3D; Auto never upgrades a phone during this visit.
+  automaticQuality = window.matchMedia('(pointer: coarse)').matches ? 'low' : 'high';
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   systemReduced = preference.matches;
   preference.addEventListener('change', (event) => {

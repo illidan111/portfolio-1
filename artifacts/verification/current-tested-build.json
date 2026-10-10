@@ -1,0 +1,152 @@
+[
+  {
+    "path": "_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js",
+    "sha256": "ce17b2d6ab7edc2bcdc37aad0fc7dbea0f54b50b0fe9e6669ecfa46577b8a70f",
+    "bytes": 15896
+  },
+  {
+    "path": "_astro/fonts/4d00257e059d3488.woff2",
+    "sha256": "c836cfa5c0e9d62ea9b890e0418d52a6004149090a521cd198a8c09f5d5ab893",
+    "bytes": 7904
+  },
+  {
+    "path": "_astro/fonts/66c976d3c1d7e6af.woff2",
+    "sha256": "d830612ac9131788ebae754b9268f83f7c1d3ffa9bc0f9a5514207a8283fe71e",
+    "bytes": 7692
+  },
+  {
+    "path": "_astro/game-engine.BU4jZC-f.js",
+    "sha256": "fa09feee0c6f0cbd29f004514901f7257edc58335211a1b568f0c3d091d09e64",
+    "bytes": 42173
+  },
+  {
+    "path": "_astro/game.DW0SBO5q.js",
+    "sha256": "d07df0b2b269ff2b08555613f1b8086f1606826223824fbdb6340e8a388d0b82",
+    "bytes": 6434
+  },
+  {
+    "path": "_astro/index.DMo5mfJi.css",
+    "sha256": "e28e12c1a8ef431d6f14fbb80c9debc1ca7ab440a74311ce01b9ba5ffe54fc05",
+    "bytes": 51321
+  },
+  {
+    "path": "_astro/Layout.astro_astro_type_script_index_0_lang.DuaG47WJ.js",
+    "sha256": "664a712e2603f32237f7430067eb66e91cb8adac516ff2a714c7cde8738fcd7e",
+    "bytes": 5660
+  },
+  {
+    "path": "_astro/Layout.BNituVK2.css",
+    "sha256": "982c8304d495f09916c5bbc8552fc8909e1724a2a1c4592e48120b98ea3ce6f2",
+    "bytes": 35933
+  },
+  {
+    "path": "_astro/preload-helper.CVfkMyKi.js",
+    "sha256": "85e5bce520b05cd220340e7815428be99114786ea26185b6c0a7e9efc8182bf5",
+    "bytes": 1254
+  },
+  {
+    "path": "_astro/recipes.CmZ17gVK.js",
+    "sha256": "c448ef99e57ff639e89c792b200accca97ca180682bf4c60779226fd24b26b0a",
+    "bytes": 416
+  },
+  {
+    "path": "_astro/three-core.CGREz2zx.js",
+    "sha256": "809e316cdff09e9ce61c9b448f9edf0c429d6440886a336561ef604c0b81661f",
+    "bytes": 165557
+  },
+  {
+    "path": "_astro/three-runtime.Cuus_oEq.js",
+    "sha256": "2d771928d1b9bb33f8e30962ab78b9bf9e6eb2a0feb4a73f0903164d4ed7642b",
+    "bytes": 358584
+  },
+  {
+    "path": "_astro/voxel.CLywy4vW.js",
+    "sha256": "c225f12af07e3cf40cce610239d8aafc3389356db8715f88aef28d2695ca6072",
+    "bytes": 3605
+  },
+  {
+    "path": "404.html",
+    "sha256": "23a0dd31d77a5ba5b031e94af33b8c29293e0a9cd62fe9258b6093b93c758784",
+    "bytes": 26218
+  },
+  {
+    "path": "alex-profile.txt",
+    "sha256": "64d6a0bf58261cbce9b5a9c669af50aa63f3c16319758d55b059bfbb5a08301a",
+    "bytes": 712
+  },
+  {
+    "path": "art/project-fieldnotes.svg",
+    "sha256": "6ddadc67a244c40a55adf96d81005058d7a024035458c978300fd5dae5457a92",
+    "bytes": 8856
+  },
+  {
+    "path": "art/project-orbit.svg",
+    "sha256": "20babbc55fa7d14472194484f871e51ad20fa8815651c2180d280358f66f80ce",
+    "bytes": 6806
+  },
+  {
+    "path": "art/project-pixel-forge.svg",
+    "sha256": "2cfb3c6ae7469a6610ac5d07b177390b7e15ce1ca0ef40d12ea36dfde38a6c86",
+    "bytes": 40413
+  },
+  {
+    "path": "art/world-play.svg",
+    "sha256": "809278654e22654fbd266a09920562747787b2425883e51d5c9129079178a0b1",
+    "bytes": 39659
+  },
+  {
+    "path": "art/world.svg",
+    "sha256": "6ef551b6d6769d21e64706426101b1f5588a13283c0551854b8ab6b242a45fbc",
+    "bytes": 40839
+  },
+  {
+    "path": "cv.pdf",
+    "sha256": "57c7a514a183534eefc53801677d52fa5218759f82353e8d7dd1a8facd347523",
+    "bytes": 3424
+  },
+  {
+    "path": "favicon.svg",
+    "sha256": "3432adcf1412a2612ca5d79615ef6a35df60e1fe4b4037e567a7c4f20405882a",
+    "bytes": 307
+  },
+  {
+    "path": "index.html",
+    "sha256": "ffeae008f3a402cc894311af8e817619d654da865a484bcca2106ecfd40f3633",
+    "bytes": 71993
+  },
+  {
+    "path": "licenses/pixelify-sans.txt",
+    "sha256": "8ed5cd9e189e30dfdb0df2d5c2771556b50e9d502d899221328c3245caf8423c",
+    "bytes": 4393
+  },
+  {
+    "path": "licenses/three.txt",
+    "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+    "bytes": 1081
+  },
+  {
+    "path": "projects/fieldnotes/index.html",
+    "sha256": "adb00be73a652a633a2e4dd4d4f27e6154d3c48c420e38b02db8f5accced6a8b",
+    "bytes": 33903
+  },
+  {
+    "path": "projects/orbit/index.html",
+    "sha256": "3e3786a4ffffacb6e73031122157980f3dbe220ea4f781bb83bc5aa003a1ac06",
+    "bytes": 33790
+  },
+  {
+    "path": "projects/pixel-forge/index.html",
+    "sha256": "001010a9f616f82ef29e6c1dffb9046a5e9f27d1e85aee68b02e52a64ec2d61e",
+    "bytes": 33884
+  },
+  {
+    "path": "robots.txt",
+    "sha256": "ff3058e6f0d08d716047fa259fbe1565a7367bca52cf74d30abc1999c13e0db8",
+    "bytes": 71
+  },
+  {
+    "path": "sitemap.xml",
+    "sha256": "91d53e2578c32a31f1ec26cd48101f0bf1307b4e3e3b38cd7de324614cca73a3",
+    "bytes": 370
+  }
+]

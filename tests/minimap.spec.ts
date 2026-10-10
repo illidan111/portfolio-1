@@ -21,6 +21,12 @@ test('visiting a section removes its fog, persists after reload, and unlocks its
   expect(overlap).toBe(false);
   await map.locator('summary').click();
   await expect(map).toHaveAttribute('open');
+  const docked = await page.locator('.minimap').evaluate(element => {
+    const map = element.getBoundingClientRect();
+    const main = document.querySelector('main')!.getBoundingClientRect();
+    return { position: getComputedStyle(element).position, beforeContent: map.bottom <= main.top };
+  });
+  expect(docked).toEqual({ position: 'relative', beforeContent: true });
   await expect(map.locator('[data-map-landmark="home"]')).toHaveAttribute('data-visited', 'true');
   const skills = map.locator('[data-map-landmark="skills"]');
   await expect(skills).toHaveAttribute('aria-disabled', 'true');
@@ -63,6 +69,7 @@ test('mobile minimap starts collapsed, opens by keyboard, fits the viewport, and
   const toggle = map.locator('summary');
   const bounds = await toggle.boundingBox();
   expect(bounds!.height).toBeGreaterThanOrEqual(48);
+  expect(bounds!.width).toBeLessThanOrEqual(60);
   await toggle.focus();
   await page.keyboard.press('Enter');
   await expect(map).toHaveAttribute('open');

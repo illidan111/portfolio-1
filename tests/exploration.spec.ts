@@ -73,7 +73,7 @@ test.describe('block discoveries', () => {
       if (secret === 'cv') {
         await expect(panel.locator('[data-secret-title]')).toHaveText('A well-travelled chest');
         await expect(link).toHaveAttribute('download', '');
-        await expect(link).toHaveAttribute('href', /\/alex-profile\.txt$/);
+        await expect(link).toHaveAttribute('href', /\/cv\.pdf$/);
         await expect(link).toContainText('Download');
         await mkdir('artifacts/screenshots', { recursive: true });
         await page.screenshot({ path: 'artifacts/screenshots/feature4-desktop-discovery.png' });

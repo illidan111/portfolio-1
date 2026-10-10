@@ -18,3 +18,7 @@ artifacts/performance/**/*.trace.json
 artifacts/performance/**/*.devtoolslog.json
 artifacts/performance/*.html
 *.log
+.vercel/
+.env
+.env.*
+!.env.example

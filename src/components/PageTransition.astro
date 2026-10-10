@@ -8,10 +8,6 @@ import { features } from '../site.config';
   </div>
   <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-page-announcement transition:persist="page-announcement"></p>
 </>}
-<script>
-  import { mountTransitions } from '../scripts/engine/transitions';
-  mountTransitions();
-</script>
 <style is:global>
   .dig-curtain { display:none; position:fixed; inset:0; z-index:100; overflow:hidden; pointer-events:none; view-transition-name:pixel-dig; background:var(--dirt-dark); }
   [data-dig-capture='true'] .dig-curtain, [data-dig-fallback='true'] .dig-curtain { display:block; }

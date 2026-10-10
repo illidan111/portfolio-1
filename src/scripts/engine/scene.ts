@@ -20,7 +20,9 @@ export class Scene {
     const bounds = this.element.getBoundingClientRect();
     this.width = bounds.width;
     this.height = bounds.height;
-    this.scale = Math.max(this.width / 1600, this.height / 600);
+    // The hero grows with the panorama on wide screens; mobile crops only its sides.
+    // This matches the artwork without the former vertical stretch at widths above 1600px.
+    this.scale = this.height / 600;
     this.offset = (this.width - 1600 * this.scale) / 2;
     this.ground = 492;
     const left = this.toWorld(0);

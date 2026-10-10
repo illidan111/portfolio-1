@@ -27,21 +27,7 @@ export function mountMinimap(): () => void {
   const timers = new Set<ReturnType<typeof setTimeout>>();
   const links = [...map.querySelectorAll<HTMLAnchorElement>('[data-map-landmark]')];
   const mobile = window.matchMedia('(max-width: 700px)');
-  const container = map.closest<HTMLElement>('.minimap');
-  const toast = document.getElementById('achievement-toast');
   const summary = map.querySelector('summary');
-  function placeAboveToast(): void {
-    const offset = toast && !toast.hidden ? window.innerHeight - toast.getBoundingClientRect().top + 16 : 0;
-    container?.style.setProperty('--map-toast-offset', `${Math.max(0, Math.ceil(offset))}px`);
-  }
-  const toastSize = new ResizeObserver(placeAboveToast);
-  const toastVisibility = new MutationObserver(placeAboveToast);
-  if (toast) {
-    toastSize.observe(toast);
-    toastVisibility.observe(toast, { attributes: true, attributeFilter: ['hidden'] });
-  }
-  window.addEventListener('resize', placeAboveToast, { signal, passive: true });
-  placeAboveToast();
   map.open = expanded ?? false;
   map.addEventListener('toggle', () => { expanded = map.open; }, { signal });
   document.addEventListener('keydown', event => {
@@ -104,7 +90,7 @@ export function mountMinimap(): () => void {
     if (settings.isReduced()) links.forEach(link => { delete link.dataset.revealing; });
   });
   return () => {
-    controller.abort(); observer.disconnect(); toastSize.disconnect(); toastVisibility.disconnect(); unsubscribe();
+    controller.abort(); observer.disconnect(); unsubscribe();
     timers.forEach(timer => clearTimeout(timer)); timers.clear();
   };
 }

@@ -1,4 +1,6 @@
 {
+  "scope": "Historical ten-feature Game baseline, before the Classic/contact/mobile/deployment update. Shared screenshots and flags-off.json have since been refreshed.",
+  "currentVerification": "../performance/current/summary.json",
   "date": "2026-10-10",
   "runtime": "Node 24.14.0; installed Microsoft Edge",
   "build": { "pages": 4, "errors": 0, "warnings": 0 },

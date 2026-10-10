@@ -7,40 +7,75 @@ import Avatar from '../components/Avatar.astro';
 import Settings from '../components/Settings.astro';
 import PageTransition from '../components/PageTransition.astro';
 import Minimap from '../components/Minimap.astro';
+import ViewNotice from '../components/ViewNotice.astro';
+import { profile } from '../site.config';
 import '../styles/tokens.css';
-interface Props { title?: string; description?: string; }
-const { title = 'Alex — Developer & Explorer', description = 'A little world of thoughtful interfaces, creative experiments, and things made for the web. Explore Alex’s pixel-art developer portfolio.' } = Astro.props;
+import '../styles/classic.css';
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const { title = `${profile.name} — Developer & Explorer`, description = profile.summary, noindex = false } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site!);
+const profileURL = new URL('/', Astro.site!).href;
+const displayName = profile.name.replace(/\s*\(demo\)$/, '');
+const person = { '@context': 'https://schema.org', '@type': 'Person', name: profile.name, url: profileURL, description: profile.summary, jobTitle: profile.role, email: profile.email, knowsAbout: profile.coreStack, sameAs: [profile.github] };
 ---
 <!doctype html>
-<html lang="en" data-theme="day">
+<html lang="en" data-theme="day" data-mode="game">
   <head>
-    <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <meta name="description" content={description}/><meta name="theme-color" content="#121d3a"/>
     <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>
+    {!noindex && <link rel="canonical" href={canonicalURL.href}/>}
+    <meta property="og:url" content={canonicalURL.href}/>
+    <meta property="og:site_name" content={`${profile.name} — Developer Portfolio`}/>
+    <meta property="og:image" content={new URL('/art/world.svg', Astro.site!).href}/>
+    <meta property="og:image:type" content="image/svg+xml"/>
+    <meta property="og:image:alt" content="Original pixel-art woodland with a small house and forest path"/>
+    {noindex && <meta name="robots" content="noindex, follow"/>}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/><title>{title}</title>
+    <link rel="me" href={profile.github}/>
+    <script type="application/ld+json" set:html={JSON.stringify(person).replaceAll('<', '\\u003c')}/>
     <Font cssVariable="--font-pixel" preload/><ClientRouter fallback="swap"/>
-    <script is:inline>try { document.documentElement.dataset.theme = localStorage.getItem('pixel-theme') === 'night' ? 'night' : 'day'; } catch {}</script>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const read = key => { try { return localStorage.getItem(key); } catch { return null; } };
+        root.dataset.theme = read('pixel-theme') === 'night' ? 'night' : 'day';
+        const query = new URLSearchParams(location.search).get('mode');
+        const valid = value => value === 'game' || value === 'classic';
+        const saved = read('pixel-view');
+        const landscape = matchMedia('(pointer: coarse) and (orientation: landscape) and (max-height: 500px)').matches;
+        const preferred = matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData;
+        root.dataset.mode = window.__pixelView || (valid(query) ? query : landscape ? 'classic' : valid(saved) ? saved : preferred ? 'classic' : 'game');
+        window.__pixelView = root.dataset.mode;
+        if (valid(query)) { try { localStorage.setItem('pixel-view', query); } catch {} }
+        root.dataset.noticeState = read('pixel-view-notice') !== 'seen' || (landscape && !valid(query)) ? 'show' : 'hide';
+        root.dataset.landscape = String(landscape && !valid(query));
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header/>
     <Settings/>
     <PageTransition/>
-    <Minimap/>
+    <div class="view-toolbar"><div class="container view-toolbar-inner"><ViewNotice/><Minimap/></div></div>
     <main id="main"><slot/></main>
-    <footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="/"><img src="/favicon.svg" width="24" height="24" alt=""/> Crafted block by block.</a><span>Original pixels. Endless curiosity.</span><span>© {new Date().getFullYear()} Alex <span aria-hidden="true">✦</span></span></div><p class="demo-note container">An illustrative portfolio world. Alex and the project concepts are demo content.</p></footer>
+    <footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="/"><img src="/favicon.svg" width="24" height="24" alt=""/> Crafted block by block.</a><span>Original pixels. Endless curiosity.</span><span>© {new Date().getFullYear()} {profile.name} <span aria-hidden="true">✦</span></span></div><p class="demo-note container">An illustrative portfolio world. {profile.name} and the project concepts are demo content.</p></footer>
     <dialog id="npc-dialog" aria-labelledby="npc-title" class="panel npc-dialog">
       <div class="dialog-heading"><div><span class="eyebrow">FRIENDLY NPC · FOREST BIOME</span><h2 id="npc-title">Pixel the Wanderer</h2></div><button type="button" data-close-dialog aria-label="Close conversation">×</button></div>
-      <div class="npc-conversation"><div class="npc-portrait"><Avatar size={96}/></div><div><p class="npc-name">Pixel says…</p><p id="npc-message" aria-live="polite">Hey, traveler! Welcome to Alex’s little corner of the internet. Looking for a project, a skill, or a good conversation?</p></div></div>
-      <div class="dialog-options"><button type="button" data-dialog-topic="about">Tell me about Alex <span>↗</span></button><button type="button" data-dialog-topic="work">What does Alex build? <span>↗</span></button><button type="button" data-dialog-topic="contact">Let’s work together <span>↗</span></button></div>
+      <div class="npc-conversation"><div class="npc-portrait"><Avatar size={96}/></div><div><p class="npc-name">Pixel says…</p><p id="npc-message" aria-live="polite">Hey, traveler! Welcome to {displayName}’s little corner of the internet. Looking for a project, a skill, or a good conversation?</p></div></div>
+      <div class="dialog-options"><button type="button" data-dialog-topic="about">Tell me about {displayName} <span>↗</span></button><button type="button" data-dialog-topic="work">What does {displayName} build? <span>↗</span></button><button type="button" data-dialog-topic="contact">Let’s work together <span>↗</span></button></div>
       <p class="dialog-hint">Take your time. There are no wrong dialogue choices.</p>
     </dialog>
     <div class="achievement-toast panel" id="achievement-toast" role="status" aria-live="polite" hidden><Icon name="trophy" size={32}/><div><span class="eyebrow">ACHIEVEMENT UNLOCKED</span><p id="toast-text"></p></div></div>
-    <script src="../scripts/world.ts"></script>
-    <script src="../scripts/engine/bootstrap.ts"></script>
+    <script src="../scripts/app.ts"></script>
   </body>
 </html>
 <style>
+  .view-toolbar { background:var(--color-panel-deep); border-bottom:var(--px) solid #080e23; }
+  .view-toolbar-inner { display:flex; justify-content:space-between; align-items:center; gap:calc(4 * var(--px)); padding-block:calc(2 * var(--px)); }
+  .view-toolbar :global(.world-tools) { padding:0; border:0; margin-left:auto; flex:none; }
+  .view-toolbar :global(.world-tools-inner) { width:auto; margin:0; }
   .site-footer { border-top: calc(.5 * var(--px)) solid var(--color-border-dim); padding: calc(7 * var(--px)) 0 calc(5 * var(--px)); background: #0d152b; color: var(--color-muted); font-size: calc(3 * var(--px)); }
   .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:calc(4 * var(--px)); }
   .footer-brand { display:flex; align-items:center; gap:calc(3 * var(--px)); color: var(--color-text); font-size:calc(4 * var(--px)); }
@@ -58,7 +93,7 @@ const { title = 'Alex — Developer & Explorer', description = 'A little world o
   .dialog-options button { background:#243868; border:calc(.5 * var(--px)) solid #516593; padding:calc(3 * var(--px)); text-align:left; display:flex; justify-content:space-between; }
   .dialog-options button:hover, .dialog-options button[aria-pressed='true'] { border-color:var(--color-accent); color:var(--color-accent); background:#31446b; }
   .dialog-hint { font-size:calc(3 * var(--px)); color:var(--color-muted); margin-top:calc(5 * var(--px)); }
-  .achievement-toast { position:fixed; bottom:calc(6 * var(--px)); right:calc(6 * var(--px)); z-index:40; display:flex; align-items:center; gap:calc(4 * var(--px)); padding:calc(4 * var(--px)) calc(6 * var(--px)); background:#253254; max-width:calc(100% - 12 * var(--px)); }
+  .achievement-toast { position:fixed; bottom:max(calc(6 * var(--px)),env(safe-area-inset-bottom)); right:max(calc(6 * var(--px)),env(safe-area-inset-right)); z-index:40; display:flex; align-items:center; gap:calc(4 * var(--px)); padding:calc(4 * var(--px)) calc(6 * var(--px)); background:#253254; max-width:calc(100% - 2 * max(calc(6 * var(--px)),env(safe-area-inset-left),env(safe-area-inset-right))); }
   .achievement-toast svg { color:var(--color-accent); }
   .achievement-toast p { font-size:calc(5 * var(--px)); }
   @media (max-width:700px) { .footer-inner { flex-wrap:wrap; } .footer-inner > span:nth-child(2) { display:none; } }

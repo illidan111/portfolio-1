@@ -1,0 +1,306 @@
+{
+  "status": "passed",
+  "timestamp": "2026-10-10T18:07:56.510Z",
+  "baseURL": "http://127.0.0.1:4323/",
+  "node": "v22.23.3",
+  "browser": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+  "mobile": true,
+  "cpuThrottle": 4,
+  "observationMs": 4000,
+  "checks": {
+    "requestsComplete": true,
+    "correctModes": true,
+    "noBrowserOrNetworkErrors": true,
+    "gameExternalBudget": true,
+    "gameInclusiveBudget": true,
+    "classicIsLighter": true,
+    "classicHasNoGameRequests": true,
+    "classicHasNoRunningEngine": true,
+    "gamePositiveControl": true,
+    "cls": true,
+    "observedLcp": true
+  },
+  "budget": {
+    "baselineExternalGzipBytes": 24887,
+    "baselineInlineGzipBytes": 121,
+    "allowanceBytes": 5000,
+    "strictInclusiveCeilingBytes": 29887,
+    "externalDeltaBytes": 1414,
+    "likeForLikeTotalDeltaBytes": 1805
+  },
+  "methodology": "Fresh profile and disabled cache for each explicit URL. Unique decoded JS responses are gzip-compressed separately using Node zlib defaults; these are reproducible gzip equivalents, not observed network transfer bytes. Initial means network idle plus 1 second; later requests remain in the graph. Inline executable scripts are included separately, excluding JSON-LD/data. CLS uses maximum session windows. LCP/CLS are native observations without Lighthouse network simulation; use the separate Lighthouse reports for its mobile gate. Chromium touch/CPU emulation does not prove physical-device performance. Filename exclusions depend on the stable game-engine and lazy graphics chunk names and need the build graph review/Classic functional test as corroboration.",
+  "reports": [
+    {
+      "mode": "game",
+      "url": "http://127.0.0.1:4323/?mode=game",
+      "status": 200,
+      "scripts": [
+        {
+          "url": "http://127.0.0.1:4323/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 15896,
+          "gzipBytes": 5450,
+          "sha256": "ce17b2d6ab7edc2bcdc37aad0fc7dbea0f54b50b0fe9e6669ecfa46577b8a70f",
+          "serverEncoding": "gzip"
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/Layout.astro_astro_type_script_index_0_lang.DuaG47WJ.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 5660,
+          "gzipBytes": 2038,
+          "sha256": "664a712e2603f32237f7430067eb66e91cb8adac516ff2a714c7cde8738fcd7e",
+          "serverEncoding": "gzip"
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/preload-helper.CVfkMyKi.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 1254,
+          "gzipBytes": 704,
+          "sha256": "85e5bce520b05cd220340e7815428be99114786ea26185b6c0a7e9efc8182bf5",
+          "serverEncoding": "gzip"
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/recipes.CmZ17gVK.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 416,
+          "gzipBytes": 312,
+          "sha256": "c448ef99e57ff639e89c792b200accca97ca180682bf4c60779226fd24b26b0a",
+          "serverEncoding": null
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/game.DW0SBO5q.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 6434,
+          "gzipBytes": 2702,
+          "sha256": "d07df0b2b269ff2b08555613f1b8086f1606826223824fbdb6340e8a388d0b82",
+          "serverEncoding": "gzip"
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/game-engine.BU4jZC-f.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 42173,
+          "gzipBytes": 15095,
+          "sha256": "fa09feee0c6f0cbd29f004514901f7257edc58335211a1b568f0c3d091d09e64",
+          "serverEncoding": "gzip"
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "failedRequests": [],
+      "failedResponses": [],
+      "collectionErrors": [],
+      "documentSHA256": "ffeae008f3a402cc894311af8e817619d654da865a484bcca2106ecfd40f3633",
+      "inlineScripts": [
+        {
+          "type": "classic",
+          "rawBytes": 1163,
+          "gzipBytes": 512,
+          "sha256": "b0b28596ded1800e5139d33a4f60c90d99a744eeac70cc1f5455fd11f30cea73"
+        }
+      ],
+      "documentEntries": {
+        "scripts": [
+          "http://127.0.0.1:4323/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js",
+          "http://127.0.0.1:4323/_astro/Layout.astro_astro_type_script_index_0_lang.DuaG47WJ.js"
+        ],
+        "modulePreloads": [
+          "http://127.0.0.1:4323/_astro/game.DW0SBO5q.js",
+          "http://127.0.0.1:4323/_astro/game-engine.BU4jZC-f.js",
+          "http://127.0.0.1:4323/_astro/preload-helper.CVfkMyKi.js",
+          "http://127.0.0.1:4323/_astro/recipes.CmZ17gVK.js"
+        ]
+      },
+      "performance": {
+        "lcpMs": 928,
+        "cls": 0.0011700868055555557,
+        "cumulativeLayoutShift": 0.0011700868055555557,
+        "shifts": [
+          {
+            "at": 1569.2000000476837,
+            "value": 0.0011700868055555557
+          }
+        ],
+        "longTasks": [
+          {
+            "at": 155.59999990463257,
+            "duration": 57
+          },
+          {
+            "at": 839,
+            "duration": 96
+          },
+          {
+            "at": 936.3999998569489,
+            "duration": 63
+          },
+          {
+            "at": 1118,
+            "duration": 189
+          },
+          {
+            "at": 1415.2999999523163,
+            "duration": 148
+          }
+        ],
+        "sessionStart": 1569.2000000476837,
+        "sessionLast": 1569.2000000476837,
+        "sessionValue": 0.0011700868055555557,
+        "resolvedMode": "game",
+        "runningEngines": 1,
+        "visibleGameCanvases": 1
+      },
+      "initialJS": {
+        "externalGzipBytes": 26301,
+        "inlineGzipBytes": 512,
+        "totalGzipBytes": 26813,
+        "files": 6
+      },
+      "allObservedJS": {
+        "externalGzipBytes": 26301,
+        "files": 6
+      },
+      "forbiddenRequests": [
+        {
+          "url": "http://127.0.0.1:4323/_astro/game.DW0SBO5q.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 6434,
+          "gzipBytes": 2702,
+          "sha256": "d07df0b2b269ff2b08555613f1b8086f1606826223824fbdb6340e8a388d0b82",
+          "serverEncoding": "gzip"
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/game-engine.BU4jZC-f.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 42173,
+          "gzipBytes": 15095,
+          "sha256": "fa09feee0c6f0cbd29f004514901f7257edc58335211a1b568f0c3d091d09e64",
+          "serverEncoding": "gzip"
+        }
+      ]
+    },
+    {
+      "mode": "classic",
+      "url": "http://127.0.0.1:4323/?mode=classic",
+      "status": 200,
+      "scripts": [
+        {
+          "url": "http://127.0.0.1:4323/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 15896,
+          "gzipBytes": 5450,
+          "sha256": "ce17b2d6ab7edc2bcdc37aad0fc7dbea0f54b50b0fe9e6669ecfa46577b8a70f",
+          "serverEncoding": "gzip"
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/Layout.astro_astro_type_script_index_0_lang.DuaG47WJ.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 5660,
+          "gzipBytes": 2038,
+          "sha256": "664a712e2603f32237f7430067eb66e91cb8adac516ff2a714c7cde8738fcd7e",
+          "serverEncoding": "gzip"
+        },
+        {
+          "url": "http://127.0.0.1:4323/_astro/preload-helper.CVfkMyKi.js",
+          "initial": true,
+          "status": 200,
+          "resourceType": "script",
+          "rawBytes": 1254,
+          "gzipBytes": 704,
+          "sha256": "85e5bce520b05cd220340e7815428be99114786ea26185b6c0a7e9efc8182bf5",
+          "serverEncoding": "gzip"
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "failedRequests": [],
+      "failedResponses": [],
+      "collectionErrors": [],
+      "documentSHA256": "ffeae008f3a402cc894311af8e817619d654da865a484bcca2106ecfd40f3633",
+      "inlineScripts": [
+        {
+          "type": "classic",
+          "rawBytes": 1163,
+          "gzipBytes": 512,
+          "sha256": "b0b28596ded1800e5139d33a4f60c90d99a744eeac70cc1f5455fd11f30cea73"
+        }
+      ],
+      "documentEntries": {
+        "scripts": [
+          "http://127.0.0.1:4323/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js",
+          "http://127.0.0.1:4323/_astro/Layout.astro_astro_type_script_index_0_lang.DuaG47WJ.js"
+        ],
+        "modulePreloads": []
+      },
+      "performance": {
+        "lcpMs": 664,
+        "cls": 0.000632849392361111,
+        "cumulativeLayoutShift": 0.000632849392361111,
+        "shifts": [
+          {
+            "at": 1354.5999999046326,
+            "value": 0.000632849392361111
+          }
+        ],
+        "longTasks": [
+          {
+            "at": 635.2999999523163,
+            "duration": 81
+          },
+          {
+            "at": 718.3999998569489,
+            "duration": 95
+          },
+          {
+            "at": 815.3999998569489,
+            "duration": 63
+          },
+          {
+            "at": 998.5999999046326,
+            "duration": 109
+          },
+          {
+            "at": 1155.8999998569489,
+            "duration": 195
+          }
+        ],
+        "sessionStart": 1354.5999999046326,
+        "sessionLast": 1354.5999999046326,
+        "sessionValue": 0.000632849392361111,
+        "resolvedMode": "classic",
+        "runningEngines": 0,
+        "visibleGameCanvases": 0
+      },
+      "initialJS": {
+        "externalGzipBytes": 8192,
+        "inlineGzipBytes": 512,
+        "totalGzipBytes": 8704,
+        "files": 3
+      },
+      "allObservedJS": {
+        "externalGzipBytes": 8192,
+        "files": 3
+      },
+      "forbiddenRequests": []
+    }
+  ]
+}

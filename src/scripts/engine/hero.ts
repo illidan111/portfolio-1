@@ -12,6 +12,8 @@ export function heroModule(scene: Scene): EngineModule {
   const controls = scene.element.querySelector<HTMLElement>('[data-game-controls]')!;
   const input = scene.element.querySelector<HTMLElement>('[data-game-input]')!;
   const door = scene.element.querySelector<HTMLAnchorElement>('[data-house-door]')!;
+  const prompt = door.querySelector<HTMLElement>('[data-door-prompt]')!;
+  const bubble = scene.element.closest('.hero')?.querySelector<HTMLButtonElement>('.speech-bubble');
   const message = scene.element.querySelector<HTMLElement>('[data-game-message]')!;
   function sound(name: string): void { document.dispatchEvent(new CustomEvent('pixel:sound', { detail: name })); }
   function release(): void { controlled = false; pressed.clear(); input.blur(); scene.element.dataset.controlling = 'false'; }
@@ -27,6 +29,9 @@ export function heroModule(scene: Scene): EngineModule {
   function updatePrompt(): void {
     const nearby = Math.abs(scene.player.x + 16 - scene.door.x) < 76;
     door.dataset.near = String(nearby);
+    prompt.hidden = !nearby;
+    if (bubble) bubble.hidden = nearby;
+    controls.hidden = !!engine?.reduced || !settings.get().controlsHint || nearby;
     door.setAttribute('aria-label', 'Enter the house — go to Contact');
   }
   return {
@@ -106,17 +111,17 @@ export function heroModule(scene: Scene): EngineModule {
       const p = scene.player;
       if (engine?.reduced) { pressed.clear(); controlled = false; p.vx = 0; p.y = scene.ground - p.h; }
       const step = !engine?.reduced && p.grounded && p.vx ? Math.floor(frame * 10) % 2 * 2 : 0;
-      playerElement.style.transform = `translate(${Math.round(scene.toScreen(p.x))}px, ${Math.round((p.y - step) * scene.scale)}px) scale(${scene.scale})`;
+      // Keep the original sprite on whole CSS pixels while its feet follow the scaled terrain.
+      playerElement.style.transform = `translate(${Math.round(scene.toScreen(p.x + p.w / 2) - p.w / 2)}px, ${Math.round((p.y + p.h - step) * scene.scale - p.h)}px)`;
       playerElement.dataset.x = p.x.toFixed(1); playerElement.dataset.y = p.y.toFixed(1);
       playerElement.dataset.grounded = String(p.grounded);
       playerElement.style.setProperty('--facing', String(p.facing));
       door.style.left = `${Math.round(scene.toScreen(scene.door.x))}px`;
       door.style.top = `${Math.round(scene.door.y * scene.scale)}px`;
-      controls.hidden = !!engine?.reduced || !settings.get().controlsHint;
       input.hidden = !!engine?.reduced;
       scene.element.dataset.reduced = String(!!engine?.reduced);
       updatePrompt();
     },
-    destroy() { pressed.clear(); }
+    destroy() { pressed.clear(); if (bubble) bubble.hidden = false; }
   };
 }

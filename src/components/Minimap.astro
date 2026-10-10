@@ -11,9 +11,9 @@ const landmarks = [
 const initial = Astro.url.pathname.startsWith('/projects/') ? 'projects' : 'home';
 const destination = (id: string) => Astro.url.pathname === '/' ? `#${id}` : `/#${id}`;
 ---
-{features.minimap && <aside class="minimap panel" aria-label="World map">
+{features.minimap && <div class="world-tools"><div class="container world-tools-inner"><aside class="minimap panel" aria-label="World map">
   <details data-minimap>
-    <summary><Icon name="flag" size={16}/><span>World map</span><span class="map-toggle" aria-hidden="true">+</span></summary>
+    <summary aria-label="World map"><Icon name="flag" size={20}/><span class="map-title">World map</span><span class="map-toggle" aria-hidden="true">+</span></summary>
     <div class="map-content">
       <nav class="map-landscape" aria-label="Discovered landmarks">
         <svg class="map-art" viewBox="0 0 56 38" width="224" height="152" shape-rendering="crispEdges" aria-hidden="true"><path fill="#25464e" d="M0 0h56v38H0z"/><path fill="#356245" d="M0 2h20v3h12v4h15v6h9v23H0z"/><path fill="#498358" d="M0 2h18v4h8v7h-5v4H6v-5H0zm39 10h11v4h6v15H40v-5h-6v-8h5zM4 25h23v13H0v-9h4z"/><path fill="#314e77" d="M30 0h7v5h-4v7h-6v9h5v5h-5v6h-5v6h-4V27h5v-8h-3v-6h6V6h4z"/><path fill="#718875" d="M13 10h17v3H13zm15 2h3v9h-3zm2 7h16v3H30zm8 2h3v11h-3zM13 11h3v18h17v3H13z"/><path fill="#213b3d" d="M1 18h3v5H1zm5 1h3v4H6zm42-17h4v6h-4zm-4 2h3v5h-3zm5 29h4v5h-4z"/></svg>
@@ -23,17 +23,23 @@ const destination = (id: string) => Astro.url.pathname === '/' ? `#${id}` : `/#$
       <nav class="map-equivalent sr-only" aria-label="All landmarks and exploration status"><ul>{landmarks.map(({ id, label }) => <li><a href={destination(id)}>{label}<span data-map-state={id}> — {id === initial ? 'visited' : 'unvisited'}</span></a></li>)}</ul></nav>
     </div>
   </details>
-</aside>}
+</aside></div></div>}
 <style>
-  .minimap { position:fixed; right:max(calc(4 * var(--px)),env(safe-area-inset-right)); bottom:max(calc(4 * var(--px)),env(safe-area-inset-bottom),var(--map-toast-offset,0px)); z-index:15; background:#172747f5; color:var(--color-text); max-width:calc(100% - 8 * var(--px)); }
-  .minimap summary { display:flex; align-items:center; gap:calc(2 * var(--px)); min-height:calc(12 * var(--px)); padding:calc(2 * var(--px)) calc(3 * var(--px)); list-style:none; cursor:pointer; font-size:calc(3 * var(--px)); }
+  .world-tools { padding-block:calc(2 * var(--px)); background:var(--color-panel-deep); border-bottom:var(--px) solid #080e23; }
+  .world-tools-inner { display:flex; justify-content:flex-end; align-items:flex-start; }
+  .minimap { position:relative; background:#172747; color:var(--color-text); max-width:100%; }
+  .minimap summary { display:flex; align-items:center; justify-content:center; gap:var(--px); min-width:calc(12 * var(--px)); min-height:calc(12 * var(--px)); height:calc(12 * var(--px)); padding:calc(2 * var(--px)); list-style:none; cursor:pointer; font-size:calc(3 * var(--px)); }
   .minimap summary::-webkit-details-marker { display:none; }
   .minimap summary > svg { color:var(--color-accent); }
-  .map-toggle { margin-left:auto; font-size:calc(5 * var(--px)); line-height:1; }
+  .map-title { display:none; }
+  details[open] summary { justify-content:flex-start; gap:calc(2 * var(--px)); }
+  details[open] .map-title { display:inline; }
+  .map-toggle { font-size:calc(4 * var(--px)); line-height:1; }
+  details[open] .map-toggle { margin-left:auto; }
   details[open] .map-toggle { font-size:0; }
   details[open] .map-toggle::after { content:'−'; font-size:calc(5 * var(--px)); }
   .map-content { padding:0 calc(2 * var(--px)) calc(2 * var(--px)); }
-  .map-landscape { position:relative; width:calc(56 * var(--px)); height:calc(38 * var(--px)); border:calc(.5 * var(--px)) solid #5d7391; overflow:hidden; }
+  .map-landscape { position:relative; width:calc(56 * var(--px)); height:calc(42 * var(--px)); border:calc(.5 * var(--px)) solid #5d7391; overflow:hidden; }
   .map-art { position:absolute; inset:0; width:100%; height:100%; }
   .map-landmark { position:absolute; display:grid; place-content:center; justify-items:center; gap:0; width:calc(16 * var(--px)); height:calc(10 * var(--px)); color:#eff8de; background:#172a40ed; border:calc(.5 * var(--px)) solid #a2b880; font-size:calc(2.5 * var(--px)); line-height:1.2; }
   .map-landmark:hover { background:#304b43; border-color:#e5d496; }
@@ -41,8 +47,8 @@ const destination = (id: string) => Astro.url.pathname === '/' ? `#${id}` : `/#$
   [data-map-landmark='home'] { left:var(--px); top:calc(2 * var(--px)); }
   [data-map-landmark='projects'] { left:calc(20 * var(--px)); top:calc(3 * var(--px)); }
   [data-map-landmark='skills'] { left:calc(38 * var(--px)); top:calc(15 * var(--px)); }
-  [data-map-landmark='about'] { left:calc(7 * var(--px)); top:calc(25 * var(--px)); }
-  [data-map-landmark='contact'] { left:calc(33 * var(--px)); top:calc(27 * var(--px)); }
+  [data-map-landmark='about'] { left:calc(7 * var(--px)); top:calc(29 * var(--px)); }
+  [data-map-landmark='contact'] { left:calc(33 * var(--px)); top:calc(29 * var(--px)); }
   .map-landmark[data-visited='false'] { pointer-events:none; border-color:#596271; background:repeating-linear-gradient(90deg,#354052 0 calc(2 * var(--px)),#3f495a calc(2 * var(--px)) calc(4 * var(--px))); }
   .map-landmark[data-visited='false'] svg, .map-landmark[data-visited='false'] span { visibility:hidden; }
   .map-landmark[data-visited='false']::after { content:'?'; position:absolute; inset:0; display:grid; place-items:center; color:#c1c9d7; font-size:calc(4 * var(--px)); }
@@ -53,5 +59,6 @@ const destination = (id: string) => Astro.url.pathname === '/' ? `#${id}` : `/#$
   .map-equivalent a { display:block; padding:calc(2 * var(--px)); font-size:calc(3 * var(--px)); }
   :global([data-motion='reduced']) .map-landmark::before { animation:none !important; display:none; }
   @keyframes map-fog-lift { from { clip-path:inset(0); } to { clip-path:inset(0 0 100% 0); } }
+  @media(min-width:701px) { .map-title { display:inline; } .minimap summary { gap:calc(2 * var(--px)); padding-inline:calc(3 * var(--px)); } }
   @media(prefers-reduced-motion:reduce) { .map-landmark::before { animation:none !important; display:none; } }
 </style>

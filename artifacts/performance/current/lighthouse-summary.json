@@ -1,0 +1,64 @@
+{
+  "Timestamp": "2026-10-10T18:09:29.8973573Z",
+  "Node": "v22.23.3",
+  "BaseURL": "http://127.0.0.1:4323",
+  "Passed": true,
+  "Reports": [
+    {
+      "Page": "home-game",
+      "URL": "http://127.0.0.1:4323/?mode=game",
+      "Passed": true,
+      "Performance": 99.0,
+      "Accessibility": 100,
+      "BestPractices": 100,
+      "SEO": 100,
+      "CLS": 0.0009660590434268173,
+      "LCPms": 1805.1215000000004,
+      "TBTms": 45,
+      "RuntimeError": null,
+      "RunWarnings": []
+    },
+    {
+      "Page": "project-game",
+      "URL": "http://127.0.0.1:4323/projects/fieldnotes/?mode=game",
+      "Passed": true,
+      "Performance": 99.0,
+      "Accessibility": 100,
+      "BestPractices": 100,
+      "SEO": 100,
+      "CLS": 0,
+      "LCPms": 1892.9006999999997,
+      "TBTms": 0,
+      "RuntimeError": null,
+      "RunWarnings": []
+    },
+    {
+      "Page": "skills-game",
+      "URL": "http://127.0.0.1:4323/?mode=game#skills",
+      "Passed": true,
+      "Performance": 99.0,
+      "Accessibility": 100,
+      "BestPractices": 100,
+      "SEO": 100,
+      "CLS": 0.0009660590434268173,
+      "LCPms": 1809.5615,
+      "TBTms": 46.5,
+      "RuntimeError": null,
+      "RunWarnings": []
+    },
+    {
+      "Page": "home-classic",
+      "URL": "http://127.0.0.1:4323/?mode=classic",
+      "Passed": true,
+      "Performance": 100,
+      "Accessibility": 100,
+      "BestPractices": 100,
+      "SEO": 100,
+      "CLS": 0.0005224995920942293,
+      "LCPms": 1248.579825,
+      "TBTms": 9,
+      "RuntimeError": null,
+      "RunWarnings": []
+    }
+  ]
+}

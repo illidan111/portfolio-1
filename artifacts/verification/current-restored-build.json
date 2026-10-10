@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "expectedCount": 30,
+  "actualCount": 30,
+  "homeSHA256": "ffeae008f3a402cc894311af8e817619d654da865a484bcca2106ecfd40f3633",
+  "differences": [],
+  "missing": [],
+  "unexpected": [],
+  "node": "v22.23.3"
+}

@@ -85,7 +85,7 @@ test.describe('original sky visitor', () => {
     const boss = page.locator('[data-boss]');
     await expect(boss).toBeVisible({ timeout:12_000 });
     const bounds = (await boss.boundingBox())!;
-    for (const selector of ['[data-game-controls]', '.touch-controls', '.hero-actions a', '.hero-actions button']) {
+    for (const selector of ['[data-game-controls]', '.touch-controls', '.hero-actions a:visible', '.hero-actions button']) {
       const other = (await page.locator(selector).boundingBox())!;
       expect(bounds.x < other.x + other.width && bounds.x + bounds.width > other.x && bounds.y < other.y + other.height && bounds.y + bounds.height > other.y,selector).toBe(false);
     }
@@ -106,7 +106,7 @@ test.describe('original sky visitor', () => {
       await expect(boss).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       const bounds = await boss.boundingBox();
-      for (const selector of ['#hero-title', '.hero-copy > p', '.hero-actions a', '.hero-actions button', '.biome-strip']) {
+      for (const selector of ['#hero-title', '.hero-copy > p', '.hero-actions a:visible', '.hero-actions button', '.biome-strip']) {
         const other = await page.locator(selector).evaluate(element => { const range = document.createRange(); range.selectNodeContents(element); const rect = range.getBoundingClientRect(); return { x:rect.x, y:rect.y, width:rect.width, height:rect.height }; });
         expect(bounds && other && bounds.x < other.x + other.width && bounds.x + bounds.width > other.x && bounds.y < other.y + other.height && bounds.y + bounds.height > other.y, selector).toBe(false);
       }

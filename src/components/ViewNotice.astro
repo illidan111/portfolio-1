@@ -1,0 +1,15 @@
+<aside class="view-notice" data-view-notice aria-label="Portfolio view preference">
+  <p><span class="view-suggestion">Prefer a classic view?</span><span class="landscape-suggestion">Classic fits this landscape screen.</span></p>
+  <a href="/?mode=classic" data-view-link="classic" data-astro-reload>Classic view <span aria-hidden="true">↗</span></a>
+  <button type="button" aria-label="Dismiss view suggestion">×</button>
+</aside>
+<style>
+  .view-notice { display:none; align-items:center; gap:calc(3 * var(--px)); font-size:calc(3.5 * var(--px)); color:var(--color-muted); }
+  :global([data-notice-state='show']) .view-notice { display:flex; }
+  .view-notice a { display:flex; align-items:center; justify-content:center; gap:var(--px); min-height:calc(11 * var(--px)); padding:calc(2 * var(--px)); color:var(--color-accent); text-decoration:underline; text-underline-offset:var(--px); white-space:nowrap; }
+  .view-notice button { width:calc(11 * var(--px)); min-height:calc(11 * var(--px)); background:#253769; border:calc(.5 * var(--px)) solid #6173a3; flex:none; font-size:calc(6 * var(--px)); }
+  .landscape-suggestion { display:none; }
+  :global([data-landscape='true']) .view-suggestion { display:none; }
+  :global([data-landscape='true']) .landscape-suggestion { display:inline; }
+  @media(max-width:540px) { .view-notice { gap:var(--px); flex-wrap:wrap; } .view-notice p { width:100%; } .view-notice button { margin-left:auto; } }
+</style>

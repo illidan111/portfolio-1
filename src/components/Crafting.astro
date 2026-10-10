@@ -18,7 +18,7 @@ const firstSkill = skills[0];
   <div class="recipe-heading"><span class="eyebrow">PROJECT RECIPES</span><span data-recipe-count>{projects.length} projects to explore</span></div>
   <p class="recipe-status" role="status" aria-live="polite" aria-atomic="true" data-craft-status>Add 1–3 skills to discover the projects that use them together.</p>
   <ul class="recipe-results" aria-label="Matching project recipes">
-    {projects.map(project => <li data-recipe-result={project.id}><a href={`/projects/${project.id}/`} class="recipe-link" aria-label={`Open ${project.data.title} recipe result`} aria-describedby={`recipe-tooltip-${project.id}`}><Icon name={project.data.icon} size={28}/><span><strong>{project.data.title}</strong><span>{project.data.tagline}</span></span><span class="recipe-arrow" aria-hidden="true">↗</span></a><span class="recipe-tooltip" id={`recipe-tooltip-${project.id}`} role="tooltip" data-recipe-tooltip>Project skills: {project.data.skills.map(skill => names.get(skill.id)).join(', ')}.</span></li>)}
+    {projects.map(project => <li data-recipe-result={project.id}><a href={`/projects/${project.id}/`} class="recipe-link" aria-label={`Open ${project.data.title} recipe result`} aria-describedby={`recipe-tooltip-${project.id}`}><Icon name={project.data.icon} size={28}/><span><strong>{project.data.title}</strong><span>{project.data.tagline}</span></span><span class="recipe-arrow" aria-hidden="true">↗</span></a><button class="recipe-info" type="button" data-recipe-info aria-label={`Show ${project.data.title} recipe details`} aria-expanded="false" aria-controls={`recipe-tooltip-${project.id}`}>i</button><span class="recipe-tooltip" id={`recipe-tooltip-${project.id}`} role="tooltip" data-recipe-tooltip>Project skills: {project.data.skills.map(skill => names.get(skill.id)).join(', ')}.</span></li>)}
   </ul>
   <noscript><p class="crafting-help">Recipe matching needs JavaScript. Every project above is still ready to explore.</p></noscript>
 </section>
@@ -47,7 +47,9 @@ const firstSkill = skills[0];
   .recipe-heading > span:last-child { font-size:calc(3 * var(--px)); color:var(--rarity-blue); }
   .recipe-status { font-size:calc(3.5 * var(--px)); color:#ccd7ed; min-height:calc(11 * var(--px)); margin-block:calc(2 * var(--px)) calc(3 * var(--px)); }
   .recipe-results { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:calc(3 * var(--px)); }
-  .recipe-results > li { position:relative; min-width:0; }
+  .recipe-results > li { position:relative; min-width:0; display:grid; grid-template-columns:minmax(0,1fr) calc(11 * var(--px)); gap:calc(2 * var(--px)); }
+  .recipe-info { width:calc(11 * var(--px)); height:calc(11 * var(--px)); align-self:center; color:var(--color-accent); background:#223357; border:calc(.5 * var(--px)) solid #7186ad; font-size:calc(5 * var(--px)); }
+  .recipe-info:hover { background:#2b4066; border-color:#9daf8a; }
   .recipe-results > li::after { content:''; position:absolute; bottom:100%; left:0; width:100%; height:calc(2 * var(--px)); }
   .recipe-link { display:flex; align-items:center; gap:calc(3 * var(--px)); height:100%; min-height:calc(20 * var(--px)); padding:calc(3 * var(--px)); border:calc(.5 * var(--px)) solid #536995; background:#223357; box-shadow:var(--bevel); }
   .recipe-link:hover { background:#2b4066; border-color:#9daf8a; }

@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Page not found — Developer Portfolio" description="This path is uncharted. Return to the portfolio or explore the projects." noindex>
+  <section class="missing-page container" aria-labelledby="missing-title">
+    <span class="eyebrow">404 / UNCHARTED TERRITORY</span>
+    <h1 id="missing-title">This path ends here.</h1>
+    <p>The page may have moved, or the address may have a typo. Your next stop is close by.</p>
+    <div class="missing-actions">
+      <a class="pixel-button" href="/">Return to the portfolio</a>
+      <a class="pixel-button secondary" href="/#projects">Explore projects</a>
+    </div>
+  </section>
+</Layout>
+<style>
+  .missing-page { padding-block:calc(20 * var(--px)); min-height:calc(90 * var(--px)); }
+  h1 { font-size:calc(16 * var(--px)); line-height:1.1; margin-block:calc(4 * var(--px)); }
+  p { max-width:calc(150 * var(--px)); color:var(--color-muted); line-height:1.6; font-size:calc(5 * var(--px)); }
+  .missing-actions { display:flex; flex-wrap:wrap; gap:calc(4 * var(--px)); margin-top:calc(8 * var(--px)); }
+  @media(max-width:700px) { h1 { font-size:calc(11 * var(--px)); } }
+</style>

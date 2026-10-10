@@ -238,16 +238,26 @@ test('desktop playable-world screenshots in day and night', async ({ page }) => 
   await page.screenshot({ path: 'artifacts/screenshots/feature1-desktop-night.png' });
 });
 
-test('night lightmap brightens the moving hero while leaving the interface unchanged', async ({ page }) => {
+test('night lightmap brightens the moving hero while leaving the interface unchanged', async ({ page }, testInfo) => {
   await openWorld(page);
   const canvas = page.locator('[data-effects]');
   const action = page.getByRole('link', { name: 'Explore my work' });
-  const buttonInDay = await action.screenshot({ animations: 'disabled' });
+  await action.scrollIntoViewIfNeeded();
+  const bounds = (await action.boundingBox())!;
+  // Fractional layout edges include a row of the changing world in an element
+  // screenshot. Compare the opaque button interior, including its content.
+  const clip = { x: Math.ceil(bounds.x) + 1, y: Math.ceil(bounds.y) + 1, width: Math.floor(bounds.width) - 2, height: Math.floor(bounds.height) - 2 };
+  const buttonInDay = await page.screenshot({ clip, animations: 'disabled' });
   const dayAlpha = await canvas.evaluate(element => (element as HTMLCanvasElement).getContext('2d')!.getImageData(8, 8, 1, 1).data[3]);
   expect(dayAlpha).toBe(0);
   await page.getByRole('button', { name: 'Switch to night' }).click();
   await expect.poll(async () => canvas.evaluate(element => (element as HTMLCanvasElement).getContext('2d')!.getImageData(8, 8, 1, 1).data[3])).toBeGreaterThan(100);
-  const buttonAtNight = await action.screenshot({ animations: 'disabled' });
+  expect(await action.boundingBox()).toEqual(bounds);
+  const buttonAtNight = await page.screenshot({ clip, animations: 'disabled' });
+  if (!buttonAtNight.equals(buttonInDay)) {
+    await testInfo.attach('button-day', { body: buttonInDay, contentType: 'image/png' });
+    await testInfo.attach('button-night', { body: buttonAtNight, contentType: 'image/png' });
+  }
   expect(buttonAtNight.equals(buttonInDay)).toBe(true);
   const initialLight = await page.evaluate(() => {
     const surface = document.querySelector<HTMLCanvasElement>('[data-effects]')!;
@@ -379,6 +389,7 @@ test.describe('coarse-pointer mobile world', () => {
       expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(360);
     }
     const startX = await coordinate(page, 'x');
+    await right.scrollIntoViewIfNeeded();
     const bounds = (await right.boundingBox())!;
     const touch = await page.context().newCDPSession(page);
     await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 }] });

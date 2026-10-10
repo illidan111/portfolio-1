@@ -1,5 +1,15 @@
 # Performance measurements
 
+## Current Classic / Game update
+
+Use Node 22.12+ within the 22.x release line. The current budget starts at **24,887 external + 121 inline gzip bytes**, with at most 5,000 additional bytes. `scripts/measure-modes.mjs` measures both explicit mode URLs with fresh profiles, includes inline executable scripts, and enforces a conservative 29,887-byte combined ceiling. Run it with labels `current-modes` and `current-modes-mobile` (the latter with `--mobile --cpu=4`).
+
+`scripts/lighthouse.ps1 -Label current` audits Game home, Fieldnotes, the Skills anchor, and Classic home. If the shell resolves a different Node version, pass `-NodePath` with the Node 22 executable. The script records all four categories, LCP, CLS, runtime warnings, and a pass/fail summary. Keep other test browsers closed during measurement. Final current results and deployment status are recorded in the root README; local results do not establish live Vercel performance.
+
+## Historical ten-feature Game measurements
+
+The remaining measurements below belong to the earlier Game-only implementation and its separate 25,000-byte growth allowance. They are retained for comparison and are not the current update's gate.
+
 Run the production preview first (`npm run build`, then `npm run preview -- --port 4323`). The baseline static output was preserved in `baseline-dist` before feature implementation.
 
 ```powershell
