@@ -32,7 +32,12 @@ export function mountTransitions(): () => void {
     transition.newDocument.documentElement.dataset.motion = animate ? 'full' : 'reduced';
     transition.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme ?? 'day';
     transition.newDocument.documentElement.dataset.quality = settings.quality();
-    if (!animate) { transition.viewTransition.skipTransition(); return; }
+    if (!animate) {
+      // Native ViewTransition.ready intentionally rejects when a transition is skipped.
+      void transition.viewTransition.ready.catch(() => {});
+      transition.viewTransition.skipTransition();
+      return;
+    }
     document.dispatchEvent(new CustomEvent('pixel:sound', { detail: 'page-dig' }));
     if (!native) return;
     // Keep the named source rendered until completion: hiding it at ready cancels

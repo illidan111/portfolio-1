@@ -198,6 +198,37 @@ test('reduced-motion project retains its SVG without requesting three.js', async
   expect(graphicsRequests).toEqual([]);
 });
 
+test('a denied WebGL context keeps the SVG and never downloads three.js', async ({ page }) => {
+  const graphicsRequests: string[] = [];
+  const errors: string[] = [];
+  page.on('request', request => {
+    if (/\/three[.-]/i.test(new URL(request.url()).pathname)) graphicsRequests.push(request.url());
+  });
+  page.on('pageerror', error => errors.push(error.message));
+  await page.addInitScript(() => {
+    const getContext = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+      value(this: HTMLCanvasElement, kind: string, ...options: unknown[]) {
+        if (kind === 'webgl2') {
+          const observed = window as Window & { deniedWebGLCalls?: number };
+          observed.deniedWebGLCalls = (observed.deniedWebGLCalls ?? 0) + 1;
+          return null;
+        }
+        return Reflect.apply(getContext, this, [kind, ...options]);
+      },
+    });
+  });
+  await page.goto('/projects/fieldnotes/');
+  const voxel = page.locator('[data-voxel]');
+  test.skip(await voxel.count() === 0, 'Voxel feature flag is disabled in this build.');
+  await expect.poll(() => page.evaluate(() => (window as Window & { deniedWebGLCalls?: number }).deniedWebGLCalls ?? 0)).toBeGreaterThan(0);
+  await expect(voxel).toHaveAttribute('data-voxel-state', 'static');
+  await expect(voxel.locator('[data-voxel-fallback] svg')).toBeVisible();
+  await expect(voxel.locator('canvas')).toBeHidden();
+  expect(graphicsRequests).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
 test('desktop playable-world screenshots in day and night', async ({ page }) => {
   await mkdir('artifacts/screenshots', { recursive: true });
   await openWorld(page);
@@ -303,6 +334,34 @@ test('every portfolio page passes axe in day and night with lighting enabled', a
 
 test.describe('coarse-pointer mobile world', () => {
   test.use({ viewport: { width: 360, height: 800 }, isMobile: true, hasTouch: true });
+
+  test('mobile voxel starts with a download-free Low fallback and follows manual motion settings', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('pixel-settings', JSON.stringify({ quality: 'low', weather: 'off' })));
+    const graphicsRequests: string[] = [];
+    page.on('request', request => {
+      if (/\/three[.-]/i.test(new URL(request.url()).pathname)) graphicsRequests.push(request.url());
+    });
+    await page.goto('/projects/pixel-forge/');
+    const voxel = page.locator('[data-voxel]');
+    test.skip(await voxel.count() === 0, 'Voxel feature flag is disabled in this build.');
+    await expect(page.locator('html')).toHaveAttribute('data-quality', 'low');
+    await expect(voxel.locator('[data-voxel-fallback] svg')).toBeVisible();
+    await page.waitForTimeout(200);
+    expect(graphicsRequests).toEqual([]);
+    await openSettings(page);
+    await page.getByLabel('Quality', { exact: true }).selectOption('high');
+    await page.keyboard.press('Escape');
+    await expect(voxel).toHaveAttribute('data-voxel-state', 'active');
+    const resolution = await voxel.locator('canvas').evaluate(canvas => ({ width: (canvas as HTMLCanvasElement).width, cssWidth: canvas.clientWidth }));
+    expect(resolution).toEqual({ width: 18, cssWidth: 72 });
+    await openSettings(page);
+    await page.getByLabel('Motion', { exact: true }).selectOption('reduced');
+    await page.keyboard.press('Escape');
+    await expect(voxel).toHaveAttribute('data-voxel-state', 'static');
+    await expect(voxel.locator('canvas')).toBeHidden();
+    await expect(voxel.locator('[data-voxel-fallback] svg')).toBeVisible();
+    await expect(voxel).toHaveAttribute('data-engine-running', 'false');
+  });
 
   test('48px touch controls move and jump, and hide under Reduced Motion', async ({ page }) => {
     await openWorld(page);

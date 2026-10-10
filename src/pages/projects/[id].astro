@@ -38,3 +38,6 @@ const { Content } = await render(project);
   .case-footer { margin-top:calc(12 * var(--px)); padding-top:calc(8 * var(--px)); border-top:calc(.5 * var(--px)) solid #3c5074; display:flex; justify-content:space-between; align-items:center; gap:calc(6 * var(--px)); color:#b5c1d9; }
   @media(max-width:700px) { h1 { font-size:calc(12 * var(--px)); } .case-body { grid-template-columns:1fr; gap:calc(8 * var(--px)); } .case-footer { flex-direction:column; text-align:center; } .case-intro > p { font-size:calc(4 * var(--px)); } .prose { font-size:calc(4 * var(--px)); } }
 </style>
+<style>
+  @media(max-width:700px) { h1 { gap:0; } }
+</style>

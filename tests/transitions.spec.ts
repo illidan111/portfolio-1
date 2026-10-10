@@ -89,6 +89,8 @@ test('fallback curtain works without native View Transitions and cleans up withi
 
 for (const preference of ['device', 'manual'] as const) {
   test(`${preference} reduced motion skips digging while retaining focus and announcements`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
     if (preference === 'device') await page.emulateMedia({ reducedMotion: 'reduce' });
     else await page.addInitScript(() => { localStorage.setItem('pixel-settings', JSON.stringify({ motion: 'reduced' })); });
     await installProbe(page);
@@ -100,5 +102,6 @@ for (const preference of ['device', 'manual'] as const) {
     await expect(page.locator('html')).not.toHaveAttribute('data-dig-fallback', 'true');
     await expect(page.locator('[data-dig-curtain]')).toBeHidden();
     expect(await page.evaluate(() => document.getAnimations().filter(animation => animation instanceof CSSAnimation && animation.animationName.startsWith('pixel-')).length)).toBe(0);
+    expect(errors).toEqual([]);
   });
 }

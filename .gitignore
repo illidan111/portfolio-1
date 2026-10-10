@@ -9,5 +9,11 @@ artifacts/playwright-report/
 artifacts/test-results/
 artifacts/performance/baseline-dist/
 artifacts/performance/profiles/
+artifacts/performance/**/profile-*/
+artifacts/performance/lighthouse-profile-*/
+artifacts/performance/npm-cache/
+artifacts/performance/tmp/
+artifacts/performance/**/*.trace.json
+artifacts/performance/**/*.devtoolslog.json
 artifacts/performance/*.html
 *.log
