@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import Avatar from '../components/Avatar.astro';
 import WorldGame from '../components/WorldGame.astro';
+import Digging from '../components/Digging.astro';
 import { features } from '../site.config';
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const skills = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
@@ -21,10 +22,11 @@ const skillIcons: Record<string, string> = { brush:'hammer', palette:'gem', bran
       <div class="world-label"><span class="eyebrow">WORLD 01</span><span>The creative wilderness</span><span class="world-dots" aria-hidden="true">▪ ▪ ▪</span></div>
       <div class="npc-world"><button class="speech-bubble" type="button" data-open-dialog>Oh, a new adventurer!<br/><span>Stay a while. Look around.</span><span class="bubble-key" aria-hidden="true">↗</span></button><div class="wanderer"><Avatar size={72}/><span>Pixel the Wanderer</span></div></div>
     </div>
-    <div class="biome-strip"><div class="container"><span><span class="biome-dot"></span> Forest biome <span class="biome-extra"> / Creativity grows here</span></span><a href="#projects">Scroll to explore <span aria-hidden="true">↓</span></a></div></div>
+    <div class="biome-strip" data-weather-hud={features.weather || undefined}><div class="container"><span><span class="biome-dot"></span><span class="biome-name">Forest biome</span>{features.weather ? <span class="biome-weather" data-weather-label>Clear skies</span> : <span class="biome-extra"> / Creativity grows here</span>}</span><a href="#projects">Scroll to explore <span aria-hidden="true">↓</span></a></div></div>
   </section>
 
   <div class="underground">
+    {features.digging && <Digging variant="world"/>}
     <section class="projects-section container" id="projects" aria-labelledby="projects-title">
       <div class="section-topline"><span class="eyebrow">01 / THE INVENTORY</span><span class="collection-label"><Icon name="chest" size={16}/> <span id="project-count" aria-live="polite">3 items</span> collected</span></div>
       <div class="section-toolbar"><div><div class="section-heading"><h2 id="projects-title">Things I’ve crafted<span class="heading-dot">.</span></h2></div><p class="section-description">A few favorite ideas from the workbench.</p></div><div class="filters" role="group" aria-label="Filter projects"><button type="button" data-filter="all" aria-pressed="true">All items</button><button type="button" data-filter="Web apps" aria-pressed="false">Web apps</button><button type="button" data-filter="Creative tools" aria-pressed="false">Creative tools</button></div></div>
@@ -35,6 +37,7 @@ const skillIcons: Record<string, string> = { brush:'hammer', palette:'gem', bran
         </article>)}
       </div>
       <p class="inventory-hint"><Icon name="sparkle" size={12}/> Every project starts with “what if?” <span>Pick an item to inspect it.</span></p>
+      {features.digging && <Digging variant="guide"/>}
     </section>
 
     <section class="skills-section container" id="skills" aria-labelledby="skills-title">
@@ -81,6 +84,9 @@ const skillIcons: Record<string, string> = { brush:'hammer', palette:'gem', bran
   .biome-strip .container { display:flex; align-items:center; justify-content:space-between; }
   .biome-dot { display:inline-block; width:calc(1.5 * var(--px)); height:calc(1.5 * var(--px)); background:#afd473; margin-right:calc(2 * var(--px)); }
   .biome-extra { color:#a2b494; }
+  .biome-weather { color:#cedcc0; }
+  .biome-weather::before { content:' / '; }
+  @media(max-width:700px) { .biome-strip[data-weather-hud] .biome-name, .biome-strip[data-weather-hud] a { display:none; } .biome-weather::before { content:''; } }
   .biome-strip a > span { margin-left:calc(4 * var(--px)); }
   .stars { display:none; position:absolute; inset:0; background-image:radial-gradient(#fff5 1px, transparent 1px); background-size:calc(17 * var(--px)) calc(19 * var(--px)); z-index:-1; }
   :global([data-theme='night']) .stars { display:block; }

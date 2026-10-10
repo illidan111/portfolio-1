@@ -19,6 +19,16 @@ function readCount(): number {
   catch { return 0; }
 }
 
+export function refreshLootCount(count = readCount()): void {
+  const safeCount = Number.isFinite(count) ? Math.min(9999, Math.max(0, Math.floor(count))) : 0;
+  document.querySelectorAll<HTMLElement>('[data-loot-count]').forEach(element => {
+    element.textContent = String(safeCount);
+    element.setAttribute('aria-label', `Collected blocks: ${safeCount}`);
+    const label = element.parentElement?.querySelector<HTMLElement>('[data-loot-label]');
+    if (label) label.textContent = safeCount === 1 ? 'block' : 'blocks';
+  });
+}
+
 function seededSlots(size: number): Map<number, Secret> {
   let seed = 0;
   try { seed = Number(sessionStorage.getItem('pixel-dig-seed')); } catch { /* Use an in-memory seed when storage is blocked. */ }
@@ -39,13 +49,13 @@ function seededSlots(size: number): Map<number, Secret> {
   return result;
 }
 
-export function diggingModule(scene: Scene): EngineModule {
-  const buttons = [...scene.element.querySelectorAll<HTMLButtonElement>('[data-dig-block]')];
+export function diggingModule(scene: Scene, root: HTMLElement = scene.element): EngineModule {
+  const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-dig-block]')];
   const secrets = seededSlots(buttons.length);
   const blocks: Block[] = buttons.map((button, index) => ({ button, index, crack: 0, broken: false, regrowAt: 0, secret: secrets.get(index) }));
   const flights: Flight[] = [];
-  const panel = scene.element.querySelector<HTMLElement>('[data-secret-panel]');
-  const status = scene.element.querySelector<HTMLElement>('[data-loot-status]');
+  const panel = root.querySelector<HTMLElement>('[data-secret-panel]');
+  const status = root.querySelector<HTMLElement>('[data-loot-status]');
   let engine: Engine;
   let count = readCount();
   let lastAnnouncement = -Infinity;
@@ -53,14 +63,10 @@ export function diggingModule(scene: Scene): EngineModule {
   let regrowTimer: ReturnType<typeof setTimeout> | undefined;
   let unsubscribe = () => {};
   let activeBlock: HTMLButtonElement | undefined;
+  let visible = true;
+  let visibilityObserver: IntersectionObserver | undefined;
 
   function sound(name: string): void { document.dispatchEvent(new CustomEvent('pixel:sound', { detail: name })); }
-  function renderCount(): void {
-    document.querySelectorAll<HTMLElement>('[data-loot-count]').forEach(element => {
-      element.textContent = String(count);
-      element.setAttribute('aria-label', `Collected blocks: ${count}`);
-    });
-  }
   function announce(message: string): void {
     clearTimeout(announcementTimer);
     const delay = Math.max(0, 1000 - (performance.now() - lastAnnouncement));
@@ -70,7 +76,7 @@ export function diggingModule(scene: Scene): EngineModule {
     }, delay);
   }
   function confetti(x: number, y: number): void {
-    if (settings.isReduced()) return;
+    if (!visible || settings.isReduced()) return;
     for (const color of ['#ffdf82', '#96ff96', '#96c8ff', '#ff96ff']) {
       document.dispatchEvent(new CustomEvent('pixel:burst', { detail: { x, y, color, count: 8 } }));
     }
@@ -94,7 +100,7 @@ export function diggingModule(scene: Scene): EngineModule {
     if (secret === 'golden') confetti(x, y);
   }
   function fly(rect: DOMRect): void {
-    if (settings.isReduced() || flights.length >= 12) return;
+    if (!visible || settings.isReduced() || flights.length >= 12) return;
     const target = document.querySelector<HTMLElement>('[data-loot-count]')?.getBoundingClientRect();
     if (!target) return;
     const element = document.createElement('span');
@@ -127,12 +133,13 @@ export function diggingModule(scene: Scene): EngineModule {
     block.button.setAttribute('aria-label', `Block ${block.index + 1} is regrowing`);
     count = Math.min(9999, count + 1);
     try { sessionStorage.setItem('pixel-loot', String(count)); } catch { /* The counter still works during this visit. */ }
-    renderCount();
+    refreshLootCount(count);
     const rect = block.button.getBoundingClientRect();
     const bounds = scene.element.getBoundingClientRect();
-    const x = scene.toWorld(rect.left - bounds.left + rect.width / 2);
-    const y = (rect.top - bounds.top + rect.height / 2) / scene.scale;
-    if (!settings.isReduced()) document.dispatchEvent(new CustomEvent('pixel:burst', { detail: { x, y, color: block.index % 3 === 0 ? '#a4a9ae' : '#c18a4c', count: 12 } }));
+    const x = scene.toWorld(Math.max(8, Math.min(scene.width - 8, rect.left - bounds.left + rect.width / 2)));
+    // The excavation band sits below the scene; its shared-canvas burst meets the woodland edge.
+    const y = Math.min(scene.ground - 4, (rect.top - bounds.top + rect.height / 2) / scene.scale);
+    if (visible && !settings.isReduced()) document.dispatchEvent(new CustomEvent('pixel:burst', { detail: { x, y, color: block.index % 3 === 0 ? '#a4a9ae' : '#c18a4c', count: 12 } }));
     sound('block'); sound('loot');
     fly(rect);
     if (block.secret) reveal(block.secret, block, x, y);
@@ -143,7 +150,14 @@ export function diggingModule(scene: Scene): EngineModule {
     init(instance) {
       engine = instance;
       const options = { signal: engine.signal };
-      renderCount();
+      refreshLootCount(count);
+      visibilityObserver = new IntersectionObserver(entries => {
+        visible = entries.some(entry => entry.isIntersecting);
+        if (visible) return;
+        flights.forEach(flight => flight.element.remove()); flights.length = 0;
+        blocks.forEach(block => { if (block.crack > 0) finish(block); });
+      }, { threshold: 0.01 });
+      visibilityObserver.observe(root);
       blocks.forEach(block => {
         if (block.secret) block.button.dataset.easterEgg = block.secret;
         block.button.addEventListener('click', () => {
@@ -196,7 +210,7 @@ export function diggingModule(scene: Scene): EngineModule {
       }
     },
     destroy() {
-      unsubscribe(); clearTimeout(announcementTimer); clearTimeout(regrowTimer);
+      unsubscribe(); visibilityObserver?.disconnect(); clearTimeout(announcementTimer); clearTimeout(regrowTimer);
       flights.forEach(flight => flight.element.remove()); flights.length = 0;
     },
   };

@@ -1,15 +1,18 @@
 ---
 import Avatar from './Avatar.astro';
 import { features } from '../site.config';
+const enabled = features.hero || features.lighting || features.weather || features.digging || features.boss;
 ---
-{features.hero && <div class="world-game" data-world>
+{enabled && <div class="world-game" data-world>
   <canvas data-effects aria-hidden="true"></canvas>
+  {features.hero && <>
   <div class="game-input" data-game-input tabindex="0" role="group" aria-label="Playable forest. A and D or arrow keys move, Space jumps, E enters the house. Escape releases controls." aria-describedby="game-controls-hint"></div>
   <div class="player" data-player aria-hidden="true"><Avatar size={40}/></div>
   <a class="house-door" href="#contact" data-house-door><span>Press E</span><span class="door-glyph" aria-hidden="true">▥</span><span class="sr-only">Enter the house — go to Contact</span></a>
   <div class="game-controls" data-game-controls><p id="game-controls-hint">Game controls: A/D move, Space jump, E interact</p><span>Click the ground to play · Esc to release</span><button type="button" data-hide-controls aria-label="Hide game controls hint">×</button></div>
   <div class="touch-controls" aria-label="Touch game controls"><button type="button" data-move="left" aria-label="Move left">←</button><button type="button" data-move="right" aria-label="Move right">→</button><button type="button" data-move="jump" aria-label="Jump">↑</button></div>
   <p class="sr-only" role="status" aria-live="polite" data-game-message></p>
+  </>}
 </div>}
 <style>
   .world-game { position:absolute; inset:0; pointer-events:none; z-index:1; }

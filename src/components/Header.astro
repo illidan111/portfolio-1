@@ -12,7 +12,7 @@ const isHome = Astro.url.pathname === '/';
       <button class="hotbar-item" type="button" data-open-settings aria-label="Settings — shortcut 6" aria-haspopup="dialog" aria-controls="settings-dialog" aria-expanded="false"><span class="slot-number" aria-hidden="true">6</span><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><path d="M9 1h6v3h3v3h3v6h-3v3h-3v3H9v-3H6v-3H3V7h3V4h3zm0 6v6h6V7zM4 19h4v4H4zm12 0h4v4h-4z"/></svg><span class="slot-label">Settings</span></button>
     </nav>
     <div class="world-controls">
-      {features.digging && <span class="loot-count" title="Collected blocks"><Icon name="gem" size={12}/><span data-loot-count aria-label="Collected blocks: 0">0</span><span class="loot-label">blocks</span></span>}
+      {features.digging && <span class="loot-count" title="Collected blocks"><Icon name="gem" size={12}/><span data-loot-count aria-label="Collected blocks: 0">0</span><span class="loot-label" data-loot-label>blocks</span></span>}
       <div class="life" role="img" aria-label="Life: five full hearts">{Array.from({length: 5}, () => <Icon name="heart" size={16}/>)}</div>
       <button class="day-toggle" id="day-toggle" type="button" aria-label="Switch to night" aria-pressed="false"><span class="day-icon"><Icon name="sun" size={16}/></span><span class="night-icon"><Icon name="moon" size={16}/></span><span data-time-label>Daytime</span><span aria-hidden="true">↔</span></button>
     </div>
@@ -40,4 +40,7 @@ const isHome = Astro.url.pathname === '/';
   :global([data-theme='night']) .night-icon { display:flex; }
   @media (max-width: 760px) { .brand-sub { display:none; } .brand { font-size: calc(6 * var(--px)); } .header-inner { gap: calc(3 * var(--px)); } .hotbar-item { width: calc(12 * var(--px)); height: calc(12 * var(--px)); } .slot-label { top: calc(12 * var(--px)); } }
   @media (max-width: 540px) { .header-inner { min-height: calc(36 * var(--px)); flex-wrap: wrap; padding-block: calc(3 * var(--px)); gap: calc(2 * var(--px)); } .brand { flex: 1; } .brand img { width: calc(7 * var(--px)); height: calc(7 * var(--px)); } .hotbar { order: 3; width: 100%; justify-content: center; } .hotbar-item { width: calc(12 * var(--px)); min-width:calc(12 * var(--px)); height: calc(12 * var(--px)); } .world-controls { display: flex; align-items: center; gap: calc(2 * var(--px)); } .life svg { width: calc(3 * var(--px)); height: calc(3 * var(--px)); } .loot-label { display:none; } }
+</style>
+<style>
+  @media(max-width:540px) { .loot-count { position:absolute; top:calc(11 * var(--px)); right:calc(4 * var(--px)); font-size:calc(2.5 * var(--px)); } }
 </style>

@@ -3,7 +3,8 @@ import { profile } from '../site.config';
 interface Props { variant?: 'world' | 'guide'; }
 const { variant = 'world' } = Astro.props;
 ---
-{variant === 'world' ? <>
+{variant === 'world' ? <section class="excavation-band" data-digging aria-labelledby="excavation-title"><div class="container excavation-inner">
+  <div class="excavation-copy"><h2 id="excavation-title">Dig a little deeper.</h2><p>Tap a block. There might be a little discovery underneath.</p></div>
   <div class="digging-strip" role="group" aria-label="Dig for little discoveries">
     {Array.from({ length: 8 }, (_, index) => <button type="button" class:list={['dig-block', { stone: index % 3 === 0 }]} data-dig-block={index} aria-label={`Dig block ${index + 1}`} title={`Dig ${index % 3 === 0 ? 'stone' : 'dirt'} block`}><span aria-hidden="true"></span></button>)}
   </div>
@@ -12,7 +13,7 @@ const { variant = 'world' } = Astro.props;
     <p data-secret-body></p><a data-secret-link hidden></a>
   </div>
   <p class="sr-only" role="status" aria-live="polite" data-loot-status></p>
-</> : <details class="field-guide panel">
+</div></section> : <details class="field-guide panel">
   <summary>Field notes · little things to discover</summary>
   <div class="field-guide-content"><p>There are four surprises under the woodland blocks. Every discovery is also right here.</p>
     <div class="field-guide-links"><a href={profile.cv} download>Download the illustrative profile / CV</a><a href={profile.github} target="_blank" rel="noopener noreferrer">Visit the developer’s GitHub ↗</a></div>
@@ -21,7 +22,11 @@ const { variant = 'world' } = Astro.props;
   </div>
 </details>}
 <style>
-  .digging-strip { position:absolute; right:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(9.5 * var(--px)); display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:var(--px); width:min(calc(104 * var(--px)),calc(100% - 8 * var(--px))); pointer-events:auto; }
+  .excavation-band { position:relative; background:#362d29; border-top:var(--px) solid #6b4423; border-bottom:var(--px) solid #241d1b; padding-block:calc(4 * var(--px)); }
+  .excavation-inner { display:grid; grid-template-columns:1fr calc(104 * var(--px)); align-items:center; gap:calc(4 * var(--px)) calc(8 * var(--px)); }
+  .excavation-copy h2 { font-size:calc(5 * var(--px)); font-weight:400; color:#f4ddb9; }
+  .excavation-copy p { font-size:calc(3 * var(--px)); margin-top:var(--px); color:#d8c7b3; }
+  .digging-strip { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:var(--px); width:100%; }
   .dig-block { position:relative; width:100%; height:calc(12 * var(--px)); min-width:0; background:#80512a; border:calc(.5 * var(--px)) solid #c18a4c; border-right-color:#422a1a; border-bottom-color:#422a1a; box-shadow:inset var(--px) var(--px) #9b6735,inset calc(-1 * var(--px)) calc(-1 * var(--px)) #52361f; }
   .dig-block::before { content:''; position:absolute; width:calc(2 * var(--px)); height:var(--px); left:calc(2 * var(--px)); top:calc(3 * var(--px)); background:#b7793c; box-shadow:calc(3 * var(--px)) calc(3 * var(--px)) #563922,calc(-1 * var(--px)) calc(5 * var(--px)) #a56b36; }
   .dig-block.stone { background:#626872; border-top-color:#a4a9ae; border-left-color:#a4a9ae; border-bottom-color:#343a45; border-right-color:#343a45; box-shadow:inset var(--px) var(--px) #828992,inset calc(-1 * var(--px)) calc(-1 * var(--px)) #424953; }
@@ -31,7 +36,7 @@ const { variant = 'world' } = Astro.props;
   .dig-block[data-crack='2'] span { height:calc(6 * var(--px)); box-shadow:calc(-1 * var(--px)) calc(3 * var(--px)) #251e1b,var(--px) calc(5 * var(--px)) #251e1b; }
   .dig-block[data-broken='true'] { background:#352d29; border-color:#493b30; box-shadow:inset var(--px) var(--px) #221c19; }
   .dig-block[data-broken='true']::before { display:none; }
-  .secret-panel { position:absolute; right:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(24 * var(--px)); padding:calc(3 * var(--px)); width:min(calc(88 * var(--px)),calc(100% - 8 * var(--px))); pointer-events:auto; background:#1c2b59; font-size:calc(3 * var(--px)); }
+  .secret-panel { grid-column:1 / -1; padding:calc(3 * var(--px)); width:100%; background:#1c2b59; font-size:calc(3 * var(--px)); }
   .secret-heading { display:flex; justify-content:space-between; align-items:center; gap:calc(3 * var(--px)); }
   .secret-heading h3 { color:var(--color-accent); font-size:calc(4 * var(--px)); font-weight:400; }
   .secret-heading button { width:calc(10 * var(--px)); height:calc(10 * var(--px)); flex-shrink:0; background:#26396c; border:calc(.5 * var(--px)) solid #7889b5; font-size:calc(6 * var(--px)); }
@@ -46,5 +51,6 @@ const { variant = 'world' } = Astro.props;
   .field-guide .pixel-button { justify-self:start; font-size:calc(3 * var(--px)); }
   .golden-result:empty { display:none; }
   .golden-result { color:var(--color-accent); }
-  @media(max-width:700px) { .digging-strip { right:var(--px); bottom:calc(9.5 * var(--px)); width:calc(100% - 2 * var(--px)); } }
+  @media(max-width:860px) { .excavation-inner { grid-template-columns:1fr; } .digging-strip { max-width:calc(104 * var(--px)); } }
+  @media(max-width:540px) { .digging-strip { grid-template-columns:repeat(4,minmax(0,1fr)); } }
 </style>
