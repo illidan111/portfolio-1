@@ -230,6 +230,14 @@ test.describe('weather and seasons', () => {
       const page = await context.newPage();
       await page.goto('/');
       await page.evaluate(async () => { await document.fonts.ready; });
+      if (width === 768) {
+        const doorPromptOverlapsDialogue = await page.evaluate(() => {
+          const prompt = document.querySelector('[data-house-door] > span:first-child')!.getBoundingClientRect();
+          const dialogue = document.querySelector('.speech-bubble')!.getBoundingClientRect();
+          return prompt.left < dialogue.right && prompt.right > dialogue.left && prompt.top < dialogue.bottom && prompt.bottom > dialogue.top;
+        });
+        expect(doorPromptOverlapsDialogue).toBe(false);
+      }
       for (const weather of ['rain', 'snow']) {
         await setWeather(page, weather);
         await expect(page.locator('[data-world]')).toHaveAttribute('data-weather', weather);
