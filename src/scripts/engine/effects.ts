@@ -4,12 +4,12 @@ import type { Scene } from './scene';
 import { settings, type Settings } from './settings';
 
 type Weather = Exclude<Settings['weather'], 'auto'>;
-type ParticleKind = 'spark' | 'rain' | 'snow' | 'fog' | 'leaf' | 'firefly';
+type ParticleKind = 'spark' | 'coin' | 'rain' | 'snow' | 'fog' | 'leaf' | 'firefly';
 interface Particle {
   active: boolean; kind: ParticleKind; x: number; y: number; vx: number; vy: number;
   life: number; total: number; size: number; phase: number; color: string;
 }
-interface Burst { x: number; y: number; color?: string; count?: number; }
+interface Burst { x: number; y: number; color?: string; count?: number; kind?: 'coin'; }
 
 const descriptions: Record<Weather, string> = {
   off: 'Weather off', clear: 'Clear skies', rain: 'A little woodland rain', snow: 'Soft snowfall',
@@ -114,7 +114,7 @@ export function effectsModule(scene: Scene): EngineModule {
     if (!Number.isFinite(detail.x) || !Number.isFinite(detail.y)) return;
     const count = Math.min(32, Math.max(0, Math.floor(detail.count ?? 12)));
     for (let index = 0; index < count; index++) {
-      const particle = spawn('spark', detail.x, detail.y);
+      const particle = spawn(detail.kind === 'coin' ? 'coin' : 'spark', detail.x, detail.y);
       if (!particle) break;
       particle.vx = (Math.random() - 0.5) * 180;
       particle.vy = -40 - Math.random() * 140;
@@ -253,6 +253,7 @@ export function effectsModule(scene: Scene): EngineModule {
       context.globalAlpha = particle.kind === 'fog' ? 0.045 : particle.kind === 'rain' ? 0.48 : particle.kind === 'spark' ? Math.min(1, particle.life * 3) : 0.85;
       if (particle.kind === 'rain') context.fillRect(x, y, 1, Math.max(2, Math.round(12 * scene.scale / divisor)));
       else if (particle.kind === 'fog') context.fillRect(x, y, size * 4, size);
+      else if (particle.kind === 'coin') { context.fillRect(x, y, size, size * 2); context.fillStyle = '#fff2ae'; context.fillRect(x, y, 1, size); }
       else context.fillRect(x, y, size, size);
     }
     context.globalAlpha = 1;
@@ -264,6 +265,7 @@ export function effectsModule(scene: Scene): EngineModule {
     init(instance) {
       engine = instance;
       const options = { signal: engine.signal };
+      document.addEventListener('pixel:rainbow', () => { dirty = true; render(); }, options);
       const pointerSurface = scene.element.parentElement ?? scene.element;
       pointerSurface.addEventListener('pointermove', (event) => {
         const bounds = scene.element.getBoundingClientRect();
@@ -289,7 +291,7 @@ export function effectsModule(scene: Scene): EngineModule {
         if (!particle.active) continue;
         particle.life -= dt;
         if (particle.life <= 0 || particle.y > 510 || particle.x < left || particle.x > right) { particle.active = false; continue; }
-        if (particle.kind === 'spark') particle.vy += 230 * dt;
+        if (particle.kind === 'spark' || particle.kind === 'coin') particle.vy += 230 * dt;
         if (particle.kind === 'firefly') {
           const dx = particle.x - scene.pointer.x;
           const dy = particle.y - scene.pointer.y;

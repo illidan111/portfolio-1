@@ -1,10 +1,12 @@
 ---
 import Avatar from './Avatar.astro';
+import Boss from './Boss.astro';
 import { features } from '../site.config';
 const enabled = features.hero || features.lighting || features.weather || features.digging || features.boss;
 ---
 {enabled && <div class="world-game" data-world>
   <canvas data-effects aria-hidden="true"></canvas>
+  <Boss/>
   {features.hero && <>
   <div class="game-input" data-game-input tabindex="0" role="group" aria-label="Playable forest. A and D or arrow keys move, Space jumps, E enters the house. Escape releases controls." aria-describedby="game-controls-hint"></div>
   <div class="player" data-player aria-hidden="true"><Avatar size={40}/></div>

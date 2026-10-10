@@ -5,6 +5,7 @@ import { heroModule } from './hero';
 import { effectsModule } from './effects';
 import { diggingModule, refreshLootCount } from './digging';
 import { mountSettings } from './settings';
+import { bossModule } from './boss';
 
 let dispose: (() => void) | undefined;
 function mount(): void {
@@ -19,6 +20,7 @@ function mount(): void {
     const modules: EngineModule[] = [];
     if (features.hero) modules.push(heroModule(scene));
     modules.push(effectsModule(scene));
+    if (features.boss) modules.push(bossModule(scene));
     const engine = createEngine(world, modules);
     const resize = new ResizeObserver(() => { scene.resize(); engine.invalidate(); });
     resize.observe(world);

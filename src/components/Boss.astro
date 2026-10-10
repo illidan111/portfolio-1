@@ -1,0 +1,47 @@
+---
+import Icon from './Icon.astro';
+import { features } from '../site.config';
+interface Props { variant?: 'sky' | 'shelf'; }
+const { variant = 'sky' } = Astro.props;
+---
+{features.boss && (variant === 'sky' ? <>
+  <div class="sky-visitor" data-boss hidden>
+    <button type="button" class="mote" data-boss-hit aria-label="Challenge Mote the Overthinker" aria-describedby="mote-description">
+      <svg data-boss-sprite viewBox="0 0 32 32" width="112" height="112" shape-rendering="crispEdges" aria-hidden="true">
+        <path fill="#314963" d="M12 0h8v4h4v4h4v4h4v8h-4v4h-4v4h-4v4h-8v-4H8v-4H4v-4H0v-8h4V8h4V4h4z"/>
+        <path fill="#d6b975" d="M12 2h8v4h4v4h4v4h2v4h-2v4h-4v4h-4v4h-8v-4H8v-4H4v-4H2v-4h2v-4h4V6h4z"/>
+        <path fill="#506e76" d="M12 6h8v4h4v4h2v4h-2v4h-4v4h-8v-4H8v-4H6v-4h2v-4h4z"/>
+        <path fill="#a8e0cb" d="M10 10h12v4h4v6h-4v4H10v-4H6v-6h4z"/>
+        <path fill="#f1efd5" d="M10 12h12v8H10z"/><path fill="#9b83cd" d="M14 10h8v12h-8z"/>
+        <path fill="#202b47" d="M16 12h4v8h-4z"/><path fill="#fff6cb" d="M14 12h2v2h-2zM12 2h4v4h-4z"/>
+        <path fill="#d6b975" d="M0 2h2v2H0zM28 28h4v2h-4zM30 26h2v6h-2z"/>
+      </svg>
+    </button>
+    <div class="visitor-caption"><strong>Mote the Overthinker</strong><div class="visitor-hp" role="progressbar" aria-label="Mote health" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5"><span data-boss-hp></span></div><button type="button" data-boss-dismiss>Dismiss <span aria-hidden="true">×</span></button></div>
+    <p id="mote-description" class="sr-only">A friendly clockwork eye. Challenge it five times to earn a trophy. In reduced motion, one click is enough. It is just keeping an eye on your tabs.</p>
+  </div>
+  <div class="sky-message" data-boss-message hidden><p role="status" aria-live="polite" data-boss-status></p><button type="button" data-boss-message-close aria-label="Close sky discovery">×</button></div>
+</> : <aside class="trophy-shelf" aria-label="Trophy shelf" data-boss-shelf data-earned="false"><span class="trophy-item"><Icon name="trophy" size={32}/></span><div><span class="eyebrow">TROPHY SHELF · NIGHT DISCOVERY</span><h3 data-trophy-title>An eye for detail</h3><p data-trophy-copy>A curious sky visitor carries this keepsake. Look up after dark.</p></div><span data-trophy-state>Undiscovered</span></aside>)}
+<style>
+  .sky-visitor { position:absolute; top:calc(20 * var(--px)); right:24%; width:calc(48 * var(--px)); pointer-events:auto; text-align:center; }
+  .mote { display:grid; place-items:center; margin:auto; width:calc(32 * var(--px)); height:calc(32 * var(--px)); background:transparent; }
+  .mote svg { width:calc(28 * var(--px)); height:calc(28 * var(--px)); }
+  .mote[data-hit='true'] svg { filter:brightness(1.35); }
+  .visitor-caption { color:#eee9cc; background:#152743f2; border:calc(.5 * var(--px)) solid #8aa09b; padding:var(--px) calc(2 * var(--px)); }
+  .visitor-caption strong { display:block; font-size:calc(3.5 * var(--px)); font-weight:400; }
+  .visitor-hp { height:var(--px); margin-top:var(--px); background:#3d4a63; }
+  .visitor-hp span { display:block; height:100%; width:100%; background:#b7dca7; }
+  .visitor-caption button { min-height:calc(8 * var(--px)); width:100%; background:transparent; font-size:calc(3 * var(--px)); color:#bfcde0; }
+  .sky-message { position:absolute; top:calc(19 * var(--px)); right:calc(5 * var(--px)); width:calc(64 * var(--px)); max-width:calc(100% - 8 * var(--px)); padding:calc(3 * var(--px)) calc(10 * var(--px)) calc(3 * var(--px)) calc(3 * var(--px)); background:#172746; border:calc(.5 * var(--px)) solid #bcae88; color:#eee5bf; pointer-events:auto; font-size:calc(3.5 * var(--px)); }
+  .sky-message button { position:absolute; right:0; top:0; width:calc(9 * var(--px)); height:calc(9 * var(--px)); background:transparent; font-size:calc(5 * var(--px)); }
+  .trophy-shelf { display:flex; align-items:center; gap:calc(4 * var(--px)); margin-top:calc(6 * var(--px)); padding:calc(4 * var(--px)); background:#15223e; border:calc(.5 * var(--px)) solid #53617d; min-height:calc(26 * var(--px)); }
+  .trophy-item { display:grid; place-items:center; min-width:calc(13 * var(--px)); height:calc(13 * var(--px)); color:#98a5bd; background:#26324a; border:calc(.5 * var(--px)) solid #62718a; }
+  .trophy-shelf h3 { font-size:calc(4 * var(--px)); font-weight:400; margin-block:var(--px); }
+  .trophy-shelf p, [data-trophy-state] { color:#b6c2da; font-size:calc(3 * var(--px)); }
+  .trophy-shelf .eyebrow { font-size:calc(2.5 * var(--px)); }
+  [data-trophy-state] { margin-left:auto; }
+  [data-earned='true'] .trophy-item { color:#f2d486; background:#3f4035; border-color:#b5ad79; }
+  [data-earned='true'] [data-trophy-state] { color:#c9dfa4; }
+  @media(max-width:1000px) { .sky-visitor { right:calc(4 * var(--px)); top:calc(29 * var(--px)); width:calc(40 * var(--px)); } .sky-message { top:calc(4 * var(--px)); } }
+  @media(max-width:700px) { .sky-visitor { display:flex; align-items:center; width:calc(48 * var(--px)); top:calc(97 * var(--px)); right:calc(4 * var(--px)); } .mote { width:calc(18 * var(--px)); height:calc(18 * var(--px)); flex-shrink:0; } .mote svg { width:calc(16 * var(--px)); height:calc(16 * var(--px)); } .visitor-caption { flex:1; padding-inline:var(--px); } .visitor-caption strong { font-size:calc(3 * var(--px)); line-height:1; } .visitor-caption button { font-size:calc(2.5 * var(--px)); } .sky-message { top:calc(98 * var(--px)); right:calc(4 * var(--px)); width:calc(82 * var(--px)); font-size:calc(3 * var(--px)); } .trophy-shelf { flex-wrap:wrap; } [data-trophy-state] { margin-left:calc(17 * var(--px)); } .trophy-shelf > div { flex:1; } }
+</style>
