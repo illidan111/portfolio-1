@@ -106,8 +106,11 @@ export function mountCrafting(): () => void {
   reset.addEventListener('click', () => {
     selected.length = 0; stopAnimation(); render(true); add.focus({ preventScroll: true });
   }, options);
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    results.forEach(result => { if (result.matches(':hover') || result.contains(document.activeElement)) result.dataset.tooltipDismissed = 'true'; });
+  }, options);
   results.forEach(result => {
-    result.addEventListener('keydown', event => { if (event.key === 'Escape') result.dataset.tooltipDismissed = 'true'; }, options);
     result.addEventListener('pointerleave', () => { delete result.dataset.tooltipDismissed; }, options);
     result.addEventListener('focusout', () => { delete result.dataset.tooltipDismissed; }, options);
   });

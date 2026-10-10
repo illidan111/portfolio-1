@@ -40,8 +40,17 @@ test('keyboard recipes use AND matching, preserve skill inspection, and announce
   await expect(page.locator('[data-skill][aria-pressed="true"]')).toHaveCount(1);
   await expect(page.locator('#skill-name')).toHaveText('Astro');
   const result = page.getByRole('link', { name: 'Open Fieldnotes recipe result', exact: true });
-  await result.focus();
   const tooltip = page.locator('#recipe-tooltip-fieldnotes');
+  const reset = page.getByRole('button', { name:'Reset recipe', exact:true });
+  await reset.focus();
+  await result.hover();
+  await tooltip.hover();
+  await expect(tooltip).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(tooltip).toBeHidden();
+  await expect(reset).toBeFocused();
+  await page.mouse.move(0,0);
+  await result.focus();
   await expect(tooltip).toBeVisible();
   await expect(tooltip).toContainText('Shared ingredients: TypeScript, Astro');
   await result.hover();

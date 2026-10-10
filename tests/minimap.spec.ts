@@ -9,6 +9,17 @@ test.use({ reducedMotion: 'no-preference' });
 test('visiting a section removes its fog, persists after reload, and unlocks its map link', async ({ page }) => {
   await page.goto('/');
   const map = page.locator('[data-minimap]');
+  await expect(map).not.toHaveAttribute('open');
+  const overlap = await page.evaluate(() => {
+    const bounds = document.querySelector('.minimap')!.getBoundingClientRect();
+    const targets = [...document.querySelectorAll('[data-dig-block], .biome-strip a')];
+    return targets.some(element => {
+      const rect = element.getBoundingClientRect();
+      return rect.left < bounds.right && rect.right > bounds.left && rect.top < bounds.bottom && rect.bottom > bounds.top;
+    });
+  });
+  expect(overlap).toBe(false);
+  await map.locator('summary').click();
   await expect(map).toHaveAttribute('open');
   await expect(map.locator('[data-map-landmark="home"]')).toHaveAttribute('data-visited', 'true');
   const skills = map.locator('[data-map-landmark="skills"]');
@@ -19,6 +30,7 @@ test('visiting a section removes its fog, persists after reload, and unlocks its
   await expect(skills).not.toHaveAttribute('aria-disabled');
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('pixel-map-visited') ?? '[]'))).toContain('skills');
   await page.reload();
+  await map.locator('summary').click();
   await expect(skills).toHaveAttribute('data-visited', 'true');
   await expect(map.locator('[data-map-state="skills"]')).toHaveText(' — visited');
   await map.locator('[data-map-landmark="home"]').click();
@@ -30,6 +42,7 @@ test('visiting a section removes its fog, persists after reload, and unlocks its
 test('project routes reveal Projects and expose equivalent links with visited state', async ({ page }) => {
   await page.goto('/projects/fieldnotes/');
   const map = page.locator('[data-minimap]');
+  await map.locator('summary').click();
   await expect(map.locator('[data-map-landmark="projects"]')).toHaveAttribute('data-visited', 'true');
   const equivalent = page.getByRole('navigation', { name: 'All landmarks and exploration status' });
   await expect(equivalent.getByRole('link')).toHaveCount(5);

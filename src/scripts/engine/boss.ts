@@ -36,7 +36,7 @@ export function bossModule(scene: Scene): EngineModule {
     clearTimeout(messageTimer);
     if (status) status.textContent = text;
     if (message) message.hidden = false;
-    messageTimer = setTimeout(() => { if (message) message.hidden = true; }, 8_000);
+    messageTimer = setTimeout(() => { if (message && !message.contains(document.activeElement)) message.hidden = true; }, 8_000);
   }
   function rainbow(value: boolean): void {
     scene.rainbow = value;
@@ -60,6 +60,7 @@ export function bossModule(scene: Scene): EngineModule {
   function sync(): void {
     const previousReduced = reduced;
     reduced = settings.isReduced(); enabled = settings.get().boss;
+    if (reduced) cooldown = flash = 0;
     night = document.documentElement.dataset.theme === 'night';
     if (!enabled || !night || dismissed) active = false;
     else if (reduced && !active) show();

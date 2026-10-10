@@ -60,6 +60,23 @@ test.describe('original sky visitor', () => {
     await page.locator('[data-boss-message-close]').click();
     await expect(page.locator('[data-boss-message]')).toBeHidden();
   });
+  test('entering Reduced during a hit keeps the last hit usable and preserves discovery focus', async ({ page }) => {
+    await page.goto('/');
+    const hit = page.locator('[data-boss-hit]');
+    await expect(hit).toBeVisible({ timeout:12_000 });
+    await hit.click();
+    await page.emulateMedia({ reducedMotion:'reduce' });
+    await expect(hit).toHaveAccessibleName(/1 hit remaining/);
+    await hit.focus();
+    await page.keyboard.press('Enter');
+    const close = page.locator('[data-boss-message-close]');
+    await expect(close).toBeFocused();
+    await page.waitForTimeout(8_100);
+    await expect(close).toBeVisible();
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#day-toggle')).toBeFocused();
+  });
   test('touch sky keeps controls clear while Mote drifts, and daylight hides the visitor', async ({ browser }, testInfo) => {
     const context = await browser.newContext({ baseURL: testInfo.project.use.baseURL, viewport:{ width:360, height:900 }, hasTouch:true, isMobile:true, reducedMotion:'no-preference' });
     const page = await context.newPage();

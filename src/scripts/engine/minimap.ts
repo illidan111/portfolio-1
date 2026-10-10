@@ -42,7 +42,7 @@ export function mountMinimap(): () => void {
   }
   window.addEventListener('resize', placeAboveToast, { signal, passive: true });
   placeAboveToast();
-  map.open = expanded ?? !mobile.matches;
+  map.open = expanded ?? false;
   map.addEventListener('toggle', () => { expanded = map.open; }, { signal });
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape' || !map.open || !map.contains(document.activeElement) || document.querySelector('dialog[open]')) return;
