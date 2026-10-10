@@ -1,0 +1,8 @@
+{
+  "name": "Git",
+  "category": "Workflow",
+  "description": "Small, understandable changes with a clear history, making collaboration and recovery less mysterious.",
+  "icon": "branch",
+  "rarity": "Rare",
+  "order": 7
+}

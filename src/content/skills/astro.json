@@ -1,0 +1,8 @@
+{
+  "name": "Astro",
+  "category": "Frontend",
+  "description": "Fast, content-led websites with semantic HTML and just enough JavaScript for the interactive parts.",
+  "icon": "star",
+  "rarity": "Epic",
+  "order": 2
+}

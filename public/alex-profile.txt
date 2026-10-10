@@ -1,0 +1,18 @@
+ALEX — FRONTEND EXPLORER
+Illustrative portfolio profile, not a personal employment record.
+
+FOCUS
+Thoughtful web interfaces, accessible interactions, and original pixel-art experiments.
+
+TOOLKIT
+TypeScript, Astro, React, CSS, accessibility, design systems, Git, and web performance.
+
+CONCEPT STUDIES
+Fieldnotes — a mindful garden journal.
+Orbit — a calm dashboard for developers.
+Pixel Forge — a small browser-based pixel editor.
+
+ABOUT THIS DOWNLOAD
+The portfolio owner has not supplied a personal CV. This downloadable overview describes
+the illustrative portfolio honestly and contains no invented employment or contact details.
+The repository owner's GitHub profile is linked separately on the site.

@@ -1,0 +1,62 @@
+---
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Icon from '../components/Icon.astro';
+import Avatar from '../components/Avatar.astro';
+import Settings from '../components/Settings.astro';
+import '../styles/tokens.css';
+interface Props { title?: string; description?: string; }
+const { title = 'Alex — Developer & Explorer', description = 'A little world of thoughtful interfaces, creative experiments, and things made for the web. Explore Alex’s pixel-art developer portfolio.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-theme="day">
+  <head>
+    <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content={description}/><meta name="theme-color" content="#121d3a"/>
+    <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/><title>{title}</title>
+    <Font cssVariable="--font-pixel" preload/><ClientRouter fallback="swap"/>
+    <script is:inline>try { document.documentElement.dataset.theme = localStorage.getItem('pixel-theme') === 'night' ? 'night' : 'day'; } catch {}</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header/>
+    <Settings/>
+    <main id="main"><slot/></main>
+    <footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="/"><img src="/favicon.svg" width="24" height="24" alt=""/> Crafted block by block.</a><span>Original pixels. Endless curiosity.</span><span>© {new Date().getFullYear()} Alex <span aria-hidden="true">✦</span></span></div><p class="demo-note container">An illustrative portfolio world. Alex and the project concepts are demo content.</p></footer>
+    <dialog id="npc-dialog" aria-labelledby="npc-title" class="panel npc-dialog">
+      <div class="dialog-heading"><div><span class="eyebrow">FRIENDLY NPC · FOREST BIOME</span><h2 id="npc-title">Pixel the Wanderer</h2></div><button type="button" data-close-dialog aria-label="Close conversation">×</button></div>
+      <div class="npc-conversation"><div class="npc-portrait"><Avatar size={96}/></div><div><p class="npc-name">Pixel says…</p><p id="npc-message" aria-live="polite">Hey, traveler! Welcome to Alex’s little corner of the internet. Looking for a project, a skill, or a good conversation?</p></div></div>
+      <div class="dialog-options"><button type="button" data-dialog-topic="about">Tell me about Alex <span>↗</span></button><button type="button" data-dialog-topic="work">What does Alex build? <span>↗</span></button><button type="button" data-dialog-topic="contact">Let’s work together <span>↗</span></button></div>
+      <p class="dialog-hint">Take your time. There are no wrong dialogue choices.</p>
+    </dialog>
+    <div class="achievement-toast panel" id="achievement-toast" role="status" aria-live="polite" hidden><Icon name="trophy" size={32}/><div><span class="eyebrow">ACHIEVEMENT UNLOCKED</span><p id="toast-text"></p></div></div>
+    <script src="../scripts/world.ts"></script>
+    <script src="../scripts/engine/bootstrap.ts"></script>
+  </body>
+</html>
+<style>
+  .site-footer { border-top: calc(.5 * var(--px)) solid var(--color-border-dim); padding: calc(7 * var(--px)) 0 calc(5 * var(--px)); background: #0d152b; color: var(--color-muted); font-size: calc(3 * var(--px)); }
+  .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:calc(4 * var(--px)); }
+  .footer-brand { display:flex; align-items:center; gap:calc(3 * var(--px)); color: var(--color-text); font-size:calc(4 * var(--px)); }
+  .demo-note { margin-top: calc(4 * var(--px)); color: #8e9bbd; font-size:calc(3 * var(--px)); }
+  .npc-dialog { color: var(--color-text); padding: calc(7 * var(--px)); width:min(calc(150 * var(--px)), calc(100% - 8 * var(--px))); max-height:calc(100dvh - 12 * var(--px)); background:#1c2b59; }
+  .npc-dialog::backdrop { background:#060d25bb; }
+  .dialog-heading { display:flex; justify-content:space-between; align-items:center; gap:calc(4 * var(--px)); border-bottom:calc(.5 * var(--px)) solid #455584; padding-bottom:calc(4 * var(--px)); }
+  .dialog-heading h2 { font-size:calc(7 * var(--px)); font-weight:400; margin-top:var(--px); }
+  .dialog-heading button { background:#26396c; border:calc(.5 * var(--px)) solid #7889b5; width:calc(11 * var(--px)); height:calc(11 * var(--px)); font-size:calc(7 * var(--px)); }
+  .npc-conversation { display:flex; align-items:flex-start; gap:calc(5 * var(--px)); margin-block:calc(6 * var(--px)); min-height:calc(34 * var(--px)); }
+  .npc-portrait { display:grid; place-items:center; background:#122044; border:calc(.5 * var(--px)) solid #596d98; min-width:calc(26 * var(--px)); padding:calc(2 * var(--px)); }
+  .npc-name { color:var(--color-accent); margin-bottom:calc(2 * var(--px)); }
+  #npc-message { font-size:calc(4.5 * var(--px)); line-height:1.5; }
+  .dialog-options { display:grid; gap:calc(2 * var(--px)); }
+  .dialog-options button { background:#243868; border:calc(.5 * var(--px)) solid #516593; padding:calc(3 * var(--px)); text-align:left; display:flex; justify-content:space-between; }
+  .dialog-options button:hover, .dialog-options button[aria-pressed='true'] { border-color:var(--color-accent); color:var(--color-accent); background:#31446b; }
+  .dialog-hint { font-size:calc(3 * var(--px)); color:var(--color-muted); margin-top:calc(5 * var(--px)); }
+  .achievement-toast { position:fixed; bottom:calc(6 * var(--px)); right:calc(6 * var(--px)); z-index:40; display:flex; align-items:center; gap:calc(4 * var(--px)); padding:calc(4 * var(--px)) calc(6 * var(--px)); background:#253254; max-width:calc(100% - 12 * var(--px)); }
+  .achievement-toast svg { color:var(--color-accent); }
+  .achievement-toast p { font-size:calc(5 * var(--px)); }
+  @media (max-width:700px) { .footer-inner { flex-wrap:wrap; } .footer-inner > span:nth-child(2) { display:none; } }
+  @media (max-width:440px) { .npc-dialog { padding:calc(4 * var(--px)); } .npc-conversation { gap:calc(3 * var(--px)); } .npc-portrait { min-width:calc(18 * var(--px)); } .npc-portrait svg { width:calc(16 * var(--px)); height:calc(20 * var(--px)); } }
+</style>

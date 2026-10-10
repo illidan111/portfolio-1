@@ -1,0 +1,50 @@
+---
+import { profile } from '../site.config';
+interface Props { variant?: 'world' | 'guide'; }
+const { variant = 'world' } = Astro.props;
+---
+{variant === 'world' ? <>
+  <div class="digging-strip" role="group" aria-label="Dig for little discoveries">
+    {Array.from({ length: 8 }, (_, index) => <button type="button" class:list={['dig-block', { stone: index % 3 === 0 }]} data-dig-block={index} aria-label={`Dig block ${index + 1}`} title={`Dig ${index % 3 === 0 ? 'stone' : 'dirt'} block`}><span aria-hidden="true"></span></button>)}
+  </div>
+  <div class="secret-panel panel" data-secret-panel hidden role="region" aria-labelledby="secret-title">
+    <div class="secret-heading"><h3 id="secret-title" data-secret-title>A little discovery</h3><button type="button" data-close-secret aria-label="Close discovery">×</button></div>
+    <p data-secret-body></p><a data-secret-link hidden></a>
+  </div>
+  <p class="sr-only" role="status" aria-live="polite" data-loot-status></p>
+</> : <details class="field-guide panel">
+  <summary>Field notes · little things to discover</summary>
+  <div class="field-guide-content"><p>There are four surprises under the woodland blocks. Every discovery is also right here.</p>
+    <div class="field-guide-links"><a href={profile.cv} download>Download the illustrative profile / CV</a><a href={profile.github} target="_blank" rel="noopener noreferrer">Visit the developer’s GitHub ↗</a></div>
+    <p><strong>A small fact:</strong> Every tree, tile, and creature in this world is original artwork built from code. No borrowed game sprites.</p>
+    <button class="pixel-button secondary" type="button" data-golden-block>Celebrate a golden find <span aria-hidden="true">✦</span></button><p class="golden-result" data-guide-status></p>
+  </div>
+</details>}
+<style>
+  .digging-strip { position:absolute; right:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(9.5 * var(--px)); display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:var(--px); width:min(calc(104 * var(--px)),calc(100% - 8 * var(--px))); pointer-events:auto; }
+  .dig-block { position:relative; width:100%; height:calc(12 * var(--px)); min-width:0; background:#80512a; border:calc(.5 * var(--px)) solid #c18a4c; border-right-color:#422a1a; border-bottom-color:#422a1a; box-shadow:inset var(--px) var(--px) #9b6735,inset calc(-1 * var(--px)) calc(-1 * var(--px)) #52361f; }
+  .dig-block::before { content:''; position:absolute; width:calc(2 * var(--px)); height:var(--px); left:calc(2 * var(--px)); top:calc(3 * var(--px)); background:#b7793c; box-shadow:calc(3 * var(--px)) calc(3 * var(--px)) #563922,calc(-1 * var(--px)) calc(5 * var(--px)) #a56b36; }
+  .dig-block.stone { background:#626872; border-top-color:#a4a9ae; border-left-color:#a4a9ae; border-bottom-color:#343a45; border-right-color:#343a45; box-shadow:inset var(--px) var(--px) #828992,inset calc(-1 * var(--px)) calc(-1 * var(--px)) #424953; }
+  .dig-block.stone::before { background:#969b9f; box-shadow:calc(3 * var(--px)) calc(3 * var(--px)) #424953,calc(-1 * var(--px)) calc(5 * var(--px)) #7a8188; }
+  .dig-block:hover:not(:disabled) { outline:calc(.5 * var(--px)) solid #f8d695; outline-offset:0; }
+  .dig-block[data-crack] span { position:absolute; top:var(--px); left:50%; width:var(--px); height:calc(4 * var(--px)); background:#251e1b; box-shadow:calc(-1 * var(--px)) calc(3 * var(--px)) #251e1b; }
+  .dig-block[data-crack='2'] span { height:calc(6 * var(--px)); box-shadow:calc(-1 * var(--px)) calc(3 * var(--px)) #251e1b,var(--px) calc(5 * var(--px)) #251e1b; }
+  .dig-block[data-broken='true'] { background:#352d29; border-color:#493b30; box-shadow:inset var(--px) var(--px) #221c19; }
+  .dig-block[data-broken='true']::before { display:none; }
+  .secret-panel { position:absolute; right:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(24 * var(--px)); padding:calc(3 * var(--px)); width:min(calc(88 * var(--px)),calc(100% - 8 * var(--px))); pointer-events:auto; background:#1c2b59; font-size:calc(3 * var(--px)); }
+  .secret-heading { display:flex; justify-content:space-between; align-items:center; gap:calc(3 * var(--px)); }
+  .secret-heading h3 { color:var(--color-accent); font-size:calc(4 * var(--px)); font-weight:400; }
+  .secret-heading button { width:calc(10 * var(--px)); height:calc(10 * var(--px)); flex-shrink:0; background:#26396c; border:calc(.5 * var(--px)) solid #7889b5; font-size:calc(6 * var(--px)); }
+  .secret-panel p { margin-top:calc(2 * var(--px)); }
+  .secret-panel a { display:inline-block; color:var(--rarity-blue); text-decoration:underline; text-underline-offset:var(--px); margin-top:calc(3 * var(--px)); padding-block:calc(2 * var(--px)); }
+  .field-guide { margin-block:calc(5 * var(--px)); color:var(--color-muted); background:#152044; font-size:calc(3 * var(--px)); }
+  .field-guide summary { padding:calc(4 * var(--px)); cursor:pointer; color:var(--color-text); }
+  .field-guide-content { display:grid; gap:calc(4 * var(--px)); padding:0 calc(4 * var(--px)) calc(4 * var(--px)); }
+  .field-guide-links { display:flex; flex-wrap:wrap; gap:calc(3 * var(--px)) calc(6 * var(--px)); }
+  .field-guide-links a { color:var(--rarity-blue); text-decoration:underline; text-underline-offset:var(--px); padding-block:calc(2 * var(--px)); }
+  .field-guide strong { color:var(--color-text); font-weight:400; }
+  .field-guide .pixel-button { justify-self:start; font-size:calc(3 * var(--px)); }
+  .golden-result:empty { display:none; }
+  .golden-result { color:var(--color-accent); }
+  @media(max-width:700px) { .digging-strip { right:var(--px); bottom:calc(9.5 * var(--px)); width:calc(100% - 2 * var(--px)); } }
+</style>

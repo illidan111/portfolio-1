@@ -1,0 +1,8 @@
+{
+  "name": "Accessibility",
+  "category": "Design",
+  "description": "Keyboard-friendly controls, readable contrast, useful labels, and respect for reduced motion.",
+  "icon": "heart",
+  "rarity": "Epic",
+  "order": 5
+}

@@ -1,0 +1,51 @@
+:root {
+  --px: 4px;
+  --dirt: #6b4423; --dirt-light: #8b5a2b; --dirt-dark: #4a2f18;
+  --grass: #4caf2e; --grass-dark: #2e7d1e;
+  --stone: #7a7f87; --stone-mid: #555a62; --stone-dark: #3a3d44;
+  --sky-day-top: #6ec6ff; --sky-day-bottom: #cfefff;
+  --sky-night-top: #0b1030; --sky-night-bottom: #1b2a5c;
+  --rarity-white: #fff; --rarity-blue: #96c8ff; --rarity-green: #96ff96;
+  --rarity-orange: #ffc896; --rarity-red: #ff9696; --rarity-pink: #ff96ff; --rarity-purple: #c896ff;
+  --color-text: #edf2ff; --color-muted: #b2bcd9; --color-panel-bg: #1a2a6cdb;
+  --color-panel-border: #7182b8; --color-border-dim: #354577; --color-bg: #101932;
+  --color-panel-deep: #152044; --color-accent: #d3e88a; --color-focus: #ffe49a;
+  --color-sky-top: var(--sky-day-top); --color-sky-bottom: var(--sky-day-bottom);
+  --bevel: inset var(--px) var(--px) 0 #ffffff0d, inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 #00000026;
+}
+:root[data-theme='night'] { --color-sky-top: var(--sky-night-top); --color-sky-bottom: var(--sky-night-bottom); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(30 * var(--px)); background: var(--color-bg); }
+body { margin: 0; color: var(--color-text); font-family: var(--font-pixel), monospace; font-size: calc(4 * var(--px)); line-height: 1.5; }
+body:has(dialog[open]) { overflow: hidden; }
+button, input, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+button { color: inherit; }
+button:disabled { cursor: default; }
+button, input, textarea, dialog { border-radius: 0; }
+img, canvas, svg { image-rendering: pixelated; }
+img { max-width: 100%; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: var(--px) solid var(--color-focus); outline-offset: var(--px); }
+::selection { background: #96c8ff; color: #101932; }
+h1, h2, h3, p { margin: 0; }
+button { border: 0; }
+[hidden] { display: none !important; }
+html[data-motion='reduced'] { scroll-behavior:auto; }
+html[data-motion='reduced'] *, html[data-motion='reduced'] *::before, html[data-motion='reduced'] *::after { animation:none !important; transition:none !important; }
+.container { width: min(calc(284 * var(--px)), calc(100% - 16 * var(--px))); margin-inline: auto; }
+.eyebrow { text-transform: uppercase; letter-spacing: calc(.5 * var(--px)); font-size: calc(3 * var(--px)); color: var(--color-muted); }
+.section-heading { display: flex; align-items: center; gap: calc(3 * var(--px)); margin-bottom: calc(2 * var(--px)); }
+.section-heading > svg { color: var(--color-accent); }
+.section-heading h2 { font-size: calc(7 * var(--px)); font-weight: 400; line-height: 1.25; }
+.panel { background: var(--color-panel-bg); border: calc(.5 * var(--px)) solid var(--color-panel-border); box-shadow: var(--bevel), 0 var(--px) 0 #080e23; }
+.pixel-button { display: inline-flex; align-items: center; justify-content: center; gap: calc(3 * var(--px)); min-height: calc(12 * var(--px)); padding: calc(3 * var(--px)) calc(5 * var(--px)); background: #294638; border: calc(.5 * var(--px)) solid #a6c96a; box-shadow: inset var(--px) var(--px) 0 #ffffff17, inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 #00000035, 0 var(--px) 0 #172e25; color: #e8f7bd; font-size: calc(4 * var(--px)); }
+.pixel-button:hover { background: #365b3e; transform: translateY(calc(-1 * var(--px))); }
+.pixel-button.secondary { background: #1c2a4c; border-color: #7283ae; color: var(--color-text); box-shadow: var(--bevel), 0 var(--px) 0 #101a31; }
+.pixel-button.secondary:hover { background: #2c3d65; }
+.skip-link { position: fixed; top: calc(-30 * var(--px)); left: calc(4 * var(--px)); z-index: 100; background: var(--color-bg); padding: calc(3 * var(--px)); }
+.skip-link:focus { top: calc(4 * var(--px)); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 700px) { .container { width: calc(100% - 8 * var(--px)); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; } }

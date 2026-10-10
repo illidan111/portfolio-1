@@ -1,0 +1,8 @@
+{
+  "name": "TypeScript",
+  "category": "Frontend",
+  "description": "A reliable spellbook for clear data models, predictable interactions, and code that explains its intent.",
+  "icon": "code",
+  "rarity": "Epic",
+  "order": 1
+}

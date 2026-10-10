@@ -1,0 +1,37 @@
+---
+import { features } from '../site.config';
+---
+<dialog id="settings-dialog" class="panel settings-dialog" aria-labelledby="settings-title" aria-describedby="settings-description">
+  <div class="settings-heading"><div><span class="eyebrow">YOUR CORNER OF THE WORLD</span><h2 id="settings-title">World settings</h2></div><button type="button" data-close-settings aria-label="Close settings">×</button></div>
+  <p id="settings-description">Make yourself comfortable. Your preferences are saved on this device.</p>
+  <div class="settings-fields">
+    <div class="setting"><label for="setting-motion">Motion</label><select id="setting-motion" data-setting="motion"><option value="auto">Auto</option><option value="reduced">Reduced</option></select><p class="setting-note" data-motion-note>Auto follows your device’s motion preference.</p></div>
+    <div class="setting"><label for="setting-quality">Quality</label><select id="setting-quality" data-setting="quality"><option value="auto">Auto</option><option value="high">High</option><option value="low">Low</option></select><p class="setting-note">Auto adjusts effects for a smoother adventure.</p></div>
+    <div class="setting"><label for="setting-weather">Weather</label><select id="setting-weather" data-setting="weather"><option value="auto">Auto · seasonal</option><option value="off">Off</option><option value="clear">Clear</option><option value="rain">Rain</option><option value="snow">Snow</option><option value="fog">Fog</option><option value="blood-moon">Blood moon</option><option value="leaves">Autumn leaves</option></select></div>
+    <div class="setting"><label for="setting-boss">Boss encounters</label><select id="setting-boss" data-setting="boss"><option value="true">On</option><option value="false">Off</option></select></div>
+    <div class="setting"><label for="setting-controls-hint">Controls hint</label><select id="setting-controls-hint" data-setting="controlsHint"><option value="true">Show</option><option value="false">Hide</option></select></div>
+    {features.audio && <div class="setting sound-setting"><span>Audio</span><button type="button" data-sound-toggle aria-pressed="false">Sound: Off</button><p class="setting-note">Original 8-bit sounds. Starts only when you turn it on.</p><label for="setting-volume">Master volume</label><div class="volume-control"><input id="setting-volume" type="range" min="0" max="0.3" step="0.01" value="0.08" data-setting="volume"/><output for="setting-volume" data-volume-output>8%</output></div></div>}
+  </div>
+  <p class="settings-status" role="status" aria-live="polite" data-live-region></p>
+  <p class="settings-footnote">Press Escape to close. Adventure at your own pace.</p>
+</dialog>
+<style>
+  .settings-dialog { color:var(--color-text); padding:calc(6 * var(--px)); width:min(calc(140 * var(--px)), calc(100% - 8 * var(--px))); max-height:calc(100dvh - 12 * var(--px)); background:#1c2b59; }
+  .settings-dialog::backdrop { background:#060d25bb; }
+  .settings-heading { display:flex; justify-content:space-between; align-items:center; gap:calc(4 * var(--px)); border-bottom:calc(.5 * var(--px)) solid #455584; padding-bottom:calc(4 * var(--px)); }
+  .settings-heading h2 { margin-top:var(--px); font-size:calc(7 * var(--px)); font-weight:400; }
+  .settings-heading button { flex-shrink:0; width:calc(12 * var(--px)); height:calc(12 * var(--px)); font-size:calc(7 * var(--px)); }
+  #settings-description { color:var(--color-muted); margin-block:calc(4 * var(--px)); }
+  .settings-fields { display:grid; gap:calc(4 * var(--px)); }
+  .setting { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:calc(2 * var(--px)) calc(4 * var(--px)); }
+  select, .settings-heading button, [data-sound-toggle] { color:var(--color-text); background:#26396c; border:calc(.5 * var(--px)) solid #7889b5; box-shadow:var(--bevel); }
+  select, [data-sound-toggle] { font:inherit; border-radius:0; width:100%; min-height:calc(12 * var(--px)); padding:calc(2 * var(--px)); }
+  select:focus-visible { outline:var(--px) solid var(--color-focus); outline-offset:var(--px); }
+  .setting-note { grid-column:1 / -1; font-size:calc(3 * var(--px)); color:var(--color-muted); }
+  .volume-control { display:flex; align-items:center; gap:calc(2 * var(--px)); }
+  .volume-control input { min-width:0; width:100%; min-height:calc(12 * var(--px)); accent-color:var(--color-accent); }
+  .volume-control output { min-width:calc(8 * var(--px)); }
+  .settings-status { color:var(--color-accent); font-size:calc(3 * var(--px)); min-height:calc(5 * var(--px)); margin-top:calc(4 * var(--px)); }
+  .settings-footnote { color:var(--color-muted); font-size:calc(3 * var(--px)); margin-top:calc(2 * var(--px)); }
+  @media (max-width:440px) { .settings-dialog { padding:calc(4 * var(--px)); } .setting { gap:calc(2 * var(--px)); } }
+</style>

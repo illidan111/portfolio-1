@@ -1,0 +1,13 @@
+---
+interface Props { size?: number; }
+const { size = 80 } = Astro.props;
+---
+<svg width={size} height={size} viewBox="0 0 32 40" shape-rendering="crispEdges" aria-hidden="true">
+  <path fill="#222c42" d="M8 3h16v4h4v13h-4v5h4v12H4V25h4v-5H4V7h4z"/>
+  <path fill="#755332" d="M8 4h16v4h4v8H4V8h4z"/><path fill="#ac7e45" d="M8 4h12v4H8zM4 8h8v4H4z"/>
+  <path fill="#edbb88" d="M8 12h16v8h-4v4h-8v-4H8z"/><path fill="#f9d5a5" d="M12 12h12v4H12z"/>
+  <path fill="#263545" d="M12 14h3v3h-3zm8 0h3v3h-3z"/>
+  <path fill="#82a785" d="M8 24h16v9H8z"/><path fill="#b4ca83" d="M8 24h8v5H8z"/>
+  <path fill="#efc293" d="M4 25h4v8H4zm20 0h4v8h-4z"/><path fill="#cf844e" d="M8 29h16v3H8z"/>
+  <path fill="#3a4a68" d="M8 32h7v6H8zm10 0h6v6h-6z"/><path fill="#8b6951" d="M4 36h11v4H4zm14 0h10v4H18z"/>
+</svg>

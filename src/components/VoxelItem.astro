@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { features } from '../site.config';
+interface Props {
+  icon: string;
+  model: CollectionEntry<'projects'>['data']['voxel'];
+}
+const { icon, model } = Astro.props;
+---
+<span class="voxel-item" data-voxel={features.voxels ? JSON.stringify(model) : undefined} data-voxel-state="static" aria-hidden="true">
+  <span class="voxel-fallback" data-voxel-fallback><Icon name={icon} size={40}/></span>
+  <canvas data-voxel-canvas width="24" height="24" hidden></canvas>
+</span>
+<style>
+  .voxel-item { position:relative; display:inline-grid; place-items:center; flex:none; width:calc(24 * var(--px)); height:calc(24 * var(--px)); color:var(--color-accent); }
+  .voxel-fallback { display:grid; place-items:center; }
+  .voxel-item :global(canvas) { position:absolute; inset:0; width:100%; height:100%; image-rendering:pixelated; }
+  .voxel-item :global([hidden]) { display:none; }
+  @media(max-width:700px) { .voxel-item { width:calc(18 * var(--px)); height:calc(18 * var(--px)); } }
+  .voxel-item:not([data-voxel]) { width:calc(10 * var(--px)); height:calc(10 * var(--px)); }
+</style>

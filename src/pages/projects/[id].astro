@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import VoxelItem from '../../components/VoxelItem.astro';
+export async function getStaticPaths() { return (await getCollection('projects')).map(project => ({ params: { id: project.id }, props: { project } })); }
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<Layout title={`${project.data.title} — Alex’s Workbench`} description={project.data.description}>
+  <article class="case-study container"><a href="/#projects" class="back-link">← Back to inventory</a><div class="case-intro"><span class="eyebrow">SELF-DIRECTED CONCEPT / {project.data.year}</span><h1>{project.data.title}<VoxelItem icon={project.data.icon} model={project.data.voxel}/></h1><p>{project.data.description}</p><div class="case-tags">{project.data.stack.map(tech => <span>{tech}</span>)}<span class="case-rarity">{project.data.rarity} item</span></div></div><img class="case-image" src={project.data.image} width="600" height="280" alt={`${project.data.title} original pixel-art concept illustration`}/><div class="case-body"><aside class="case-aside panel"><span class="eyebrow">ITEM DETAILS</span><h2>From the workbench</h2><dl><dt>Category</dt><dd>{project.data.category}</dd><dt>Role</dt><dd>Design & frontend exploration</dd><dt>Status</dt><dd>Concept study</dd></dl><p>This is an exploration of an idea, with an original art direction and a considered implementation plan.</p></aside><div class="prose"><Content/></div></div><div class="case-footer"><p>Every good idea is a new place to start.</p><a class="pixel-button" href="/#projects"><Icon name="chest" size={20}/> Explore more items</a></div></article>
+</Layout>
+<style>
+  .case-study { padding-block:calc(12 * var(--px)) calc(18 * var(--px)); }
+  .back-link { color:var(--color-accent); display:inline-block; margin-bottom:calc(10 * var(--px)); }
+  .case-intro { max-width:calc(196 * var(--px)); }
+  h1 { font-size:calc(16 * var(--px)); color:#f1f0d7; display:flex; align-items:center; gap:calc(6 * var(--px)); margin-block:calc(3 * var(--px)); line-height:1.1; }
+  h1 svg { color:var(--color-accent); }
+  .case-intro > p { font-size:calc(5 * var(--px)); color:#bbc8e1; }
+  .case-tags { display:flex; flex-wrap:wrap; gap:calc(3 * var(--px)); margin-block:calc(6 * var(--px)) calc(10 * var(--px)); }
+  .case-tags > span { background:#26365c; border:calc(.5 * var(--px)) solid #50648c; padding:var(--px) calc(3 * var(--px)); font-size:calc(3.5 * var(--px)); }
+  .case-tags > .case-rarity { color:var(--rarity-purple); border-color:#8f75ae; }
+  .case-image { width:100%; height:auto; display:block; max-height:calc(120 * var(--px)); object-fit:cover; border:var(--px) solid #52638b; }
+  .case-body { display:grid; grid-template-columns:1fr 2.2fr; gap:calc(12 * var(--px)); margin-top:calc(12 * var(--px)); align-items:start; }
+  .case-aside { padding:calc(6 * var(--px)); background:#1a294e; }
+  .case-aside h2 { font-size:calc(6 * var(--px)); font-weight:400; line-height:1.2; margin-top:calc(3 * var(--px)); }
+  dl { margin-block:calc(6 * var(--px)); } dt { color:#92a7ce; font-size:calc(3 * var(--px)); } dd { margin:var(--px) 0 calc(4 * var(--px)); }
+  .case-aside p { font-size:calc(3.5 * var(--px)); color:#b6c3dc; }
+  .prose { font-size:calc(4.5 * var(--px)); line-height:1.7; color:#c4cfe5; }
+  .prose :global(h2) { margin-block:calc(8 * var(--px)) calc(3 * var(--px)); font-size:calc(8 * var(--px)); font-weight:400; color:#e2e8d0; line-height:1.3; }
+  .prose :global(h2:first-child) { margin-top:0; }
+  .prose :global(p) { margin-bottom:calc(4 * var(--px)); }
+  .prose :global(ul) { padding-left:calc(6 * var(--px)); }
+  .prose :global(li) { margin-bottom:calc(3 * var(--px)); }
+  .prose :global(strong) { color:#eff2e8; }
+  .case-footer { margin-top:calc(12 * var(--px)); padding-top:calc(8 * var(--px)); border-top:calc(.5 * var(--px)) solid #3c5074; display:flex; justify-content:space-between; align-items:center; gap:calc(6 * var(--px)); color:#b5c1d9; }
+  @media(max-width:700px) { h1 { font-size:calc(12 * var(--px)); } .case-body { grid-template-columns:1fr; gap:calc(8 * var(--px)); } .case-footer { flex-direction:column; text-align:center; } .case-intro > p { font-size:calc(4 * var(--px)); } .prose { font-size:calc(4 * var(--px)); } }
+</style>

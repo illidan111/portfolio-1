@@ -1,0 +1,8 @@
+{
+  "name": "CSS",
+  "category": "Frontend",
+  "description": "Responsive layouts, sturdy design tokens, and the small visual details that make an interface feel considered.",
+  "icon": "brush",
+  "rarity": "Legendary",
+  "order": 4
+}

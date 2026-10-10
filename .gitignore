@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.npm-cache/
+.browsers/
+test-results/
+playwright-report/
+artifacts/playwright-report/
+artifacts/test-results/
+artifacts/performance/baseline-dist/
+artifacts/performance/profiles/
+artifacts/performance/*.html
+*.log
