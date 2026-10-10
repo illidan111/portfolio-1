@@ -20,7 +20,7 @@ import { features } from '../site.config';
   .player[data-x] { visibility:visible; }
   .player svg { display:block; width:100%; height:100%; transform:scaleX(var(--facing,1)); }
   .house-door { position:absolute; pointer-events:auto; display:grid; justify-items:center; min-width:calc(12 * var(--px)); min-height:calc(12 * var(--px)); transform:translate(-50%,-50%); color:#f1e6b8; }
-  .house-door > span:first-child { position:absolute; bottom:100%; right:calc(100% + var(--px)); background:#132939; border:calc(.5 * var(--px)) solid #adba83; padding:var(--px) calc(2 * var(--px)); font-size:calc(3 * var(--px)); white-space:nowrap; }
+  .house-door > span:first-child { position:absolute; bottom:100%; right:calc(100% + 7 * var(--px)); background:#132939; border:calc(.5 * var(--px)) solid #adba83; padding:var(--px) calc(2 * var(--px)); font-size:calc(3 * var(--px)); white-space:nowrap; }
   .house-door[data-near='true'] > span:first-child { background:#385534; border-color:#f4e4a0; }
   .door-glyph { background:#40352c; border:var(--px) solid #b3915b; font-size:calc(6 * var(--px)); line-height:1; }
   .game-controls { pointer-events:auto; position:absolute; left:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(11 * var(--px)); padding:calc(2 * var(--px)) calc(10 * var(--px)) calc(2 * var(--px)) calc(3 * var(--px)); background:#132840ee; border:calc(.5 * var(--px)) solid #9cb1ba; color:#e4ebce; font-size:calc(3 * var(--px)); }

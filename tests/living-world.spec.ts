@@ -1,4 +1,5 @@
 import { mkdir } from 'node:fs/promises';
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
 test.use({ reducedMotion: 'no-preference' });
@@ -204,6 +205,100 @@ test('desktop playable-world screenshots in day and night', async ({ page }) => 
   await page.getByRole('button', { name: 'Switch to night' }).click();
   await expect(page.locator('#achievement-toast')).toBeHidden();
   await page.screenshot({ path: 'artifacts/screenshots/feature1-desktop-night.png' });
+});
+
+test('night lightmap brightens the moving hero while leaving the interface unchanged', async ({ page }) => {
+  await openWorld(page);
+  const canvas = page.locator('[data-effects]');
+  const action = page.getByRole('link', { name: 'Explore my work' });
+  const buttonInDay = await action.screenshot({ animations: 'disabled' });
+  const dayAlpha = await canvas.evaluate(element => (element as HTMLCanvasElement).getContext('2d')!.getImageData(8, 8, 1, 1).data[3]);
+  expect(dayAlpha).toBe(0);
+  await page.getByRole('button', { name: 'Switch to night' }).click();
+  await expect.poll(async () => canvas.evaluate(element => (element as HTMLCanvasElement).getContext('2d')!.getImageData(8, 8, 1, 1).data[3])).toBeGreaterThan(100);
+  const buttonAtNight = await action.screenshot({ animations: 'disabled' });
+  expect(buttonAtNight.equals(buttonInDay)).toBe(true);
+  const initialLight = await page.evaluate(() => {
+    const surface = document.querySelector<HTMLCanvasElement>('[data-effects]')!;
+    const bounds = surface.getBoundingClientRect();
+    const hero = document.querySelector('[data-player]')!.getBoundingClientRect();
+    const x = Math.floor((hero.left + hero.width / 2 - bounds.left) / bounds.width * surface.width);
+    const y = Math.floor((hero.top + hero.height / 2 - bounds.top) / bounds.height * surface.height);
+    return { x, y, alpha: surface.getContext('2d')!.getImageData(x, y, 1, 1).data[3] };
+  });
+  expect(initialLight.alpha).toBeLessThan(130);
+  const initialX = await coordinate(page, 'x');
+  await page.locator('[data-game-input]').focus();
+  await page.keyboard.down('a');
+  await expect.poll(() => coordinate(page, 'x')).toBeLessThan(initialX - 110);
+  await page.keyboard.up('a');
+  await page.keyboard.press('Escape');
+  await expect.poll(async () => canvas.evaluate((element, point) => (element as HTMLCanvasElement).getContext('2d')!.getImageData(point.x, point.y, 1, 1).data[3], initialLight)).toBeGreaterThan(initialLight.alpha + 20);
+  await mkdir('artifacts/screenshots', { recursive: true });
+  await page.screenshot({ path: 'artifacts/screenshots/feature2-desktop-night.png' });
+});
+
+test('cursor light responds across the open sky without dimming navigation', async ({ page }) => {
+  await openWorld(page);
+  await page.getByRole('button', { name: 'Switch to night' }).click();
+  const canvas = page.locator('[data-effects]');
+  const bounds = (await canvas.boundingBox())!;
+  const point = { x: bounds.width * 0.6, y: bounds.height * 0.3 };
+  const alphaAtCursor = async () => canvas.evaluate((element, point) => {
+    const surface = element as HTMLCanvasElement;
+    return surface.getContext('2d')!.getImageData(Math.floor(point.x / surface.clientWidth * surface.width), Math.floor(point.y / surface.clientHeight * surface.height), 1, 1).data[3];
+  }, point);
+  await expect.poll(alphaAtCursor).toBeGreaterThan(100);
+  const before = await alphaAtCursor();
+  await page.mouse.move(bounds.x + point.x, bounds.y + point.y);
+  await expect.poll(alphaAtCursor).toBeLessThan(before - 20);
+  await expect(page.locator('[data-nav="home"]')).toBeVisible();
+});
+
+test('lighting quality reduces canvas resolution and respects particle and motion limits', async ({ page }) => {
+  await openWorld(page);
+  await openSettings(page);
+  await page.getByLabel('Weather', { exact: true }).selectOption('clear');
+  await page.getByLabel('Quality', { exact: true }).selectOption('high');
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Switch to night' }).click();
+  const canvas = page.locator('[data-effects]');
+  const particleCount = async () => Number(await canvas.getAttribute('data-particle-count'));
+  await expect.poll(particleCount).toBeGreaterThan(0);
+  expect(await particleCount()).toBeLessThanOrEqual(150);
+  const high = await canvas.evaluate(element => ({ width: (element as HTMLCanvasElement).width, cssWidth: element.clientWidth }));
+  expect(high.width).toBe(Math.ceil(high.cssWidth / 4));
+  await expect(canvas).toHaveAttribute('data-lightmap-width', String(high.width));
+  await openSettings(page);
+  await page.getByLabel('Quality', { exact: true }).selectOption('low');
+  await page.keyboard.press('Escape');
+  const low = await canvas.evaluate(element => ({ width: (element as HTMLCanvasElement).width, cssWidth: element.clientWidth }));
+  expect(low.width).toBe(Math.ceil(low.cssWidth / 8));
+  await expect(canvas).toHaveAttribute('data-lightmap-width', String(low.width));
+  expect(await particleCount()).toBeLessThanOrEqual(50);
+  await openSettings(page);
+  await page.getByLabel('Motion', { exact: true }).selectOption('reduced');
+  await page.keyboard.press('Escape');
+  await expect(canvas).toHaveAttribute('data-particle-count', '0');
+  await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-running', 'false');
+  const staticPixels = await canvas.evaluate(element => (element as HTMLCanvasElement).toDataURL());
+  await page.waitForTimeout(600);
+  expect(await canvas.evaluate(element => (element as HTMLCanvasElement).toDataURL())).toBe(staticPixels);
+});
+
+test('every portfolio page passes axe in day and night with lighting enabled', async ({ page }) => {
+  test.setTimeout(90_000);
+  for (const route of ['/', '/projects/fieldnotes/', '/projects/orbit/', '/projects/pixel-forge/']) {
+    await page.goto(route);
+    await page.evaluate(async () => { await document.fonts.ready; });
+    for (const theme of ['day', 'night']) {
+      if (await page.locator('html').getAttribute('data-theme') !== theme) {
+        await page.getByRole('button', { name: theme === 'day' ? 'Switch to day' : 'Switch to night' }).click();
+      }
+      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+      expect(results.violations, `${route} in ${theme}`).toEqual([]);
+    }
+  }
 });
 
 test.describe('coarse-pointer mobile world', () => {

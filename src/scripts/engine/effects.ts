@@ -79,6 +79,7 @@ export function effectsModule(scene: Scene): EngineModule {
     let count = 0;
     particles.forEach(particle => { if (particle.active && ++count > cap) particle.active = false; });
     scene.element.dataset.weather = weather;
+    scene.element.dataset.lighting = features.lighting && night ? 'on' : 'off';
     document.querySelectorAll<HTMLElement>('[data-weather-label]').forEach(label => {
       label.textContent = descriptions[weather];
     });
@@ -263,12 +264,13 @@ export function effectsModule(scene: Scene): EngineModule {
     init(instance) {
       engine = instance;
       const options = { signal: engine.signal };
-      scene.element.addEventListener('pointermove', (event) => {
+      const pointerSurface = scene.element.parentElement ?? scene.element;
+      pointerSurface.addEventListener('pointermove', (event) => {
         const bounds = scene.element.getBoundingClientRect();
         scene.pointer.x = scene.toWorld(event.clientX - bounds.left);
         scene.pointer.y = (event.clientY - bounds.top) / scene.scale;
       }, { ...options, passive: true });
-      scene.element.addEventListener('pointerleave', () => { scene.pointer.x = scene.pointer.y = -999; }, options);
+      pointerSurface.addEventListener('pointerleave', () => { scene.pointer.x = scene.pointer.y = -999; }, options);
       document.addEventListener('pixel:burst', (event) => {
         const detail: unknown = (event as CustomEvent<unknown>).detail;
         if (detail && typeof detail === 'object' && 'x' in detail && 'y' in detail) burst(detail as Burst);

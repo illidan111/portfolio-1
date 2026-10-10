@@ -1,7 +1,7 @@
 /** Build-time switches. Disabled features render their ordinary, static fallback. */
 export const features: Record<'hero' | 'lighting' | 'voxels' | 'digging' | 'weather' | 'transitions' | 'boss' | 'minimap' | 'crafting' | 'audio', boolean> = {
   hero: true,
-  lighting: false,
+  lighting: true,
   voxels: false,
   digging: false,
   weather: false,

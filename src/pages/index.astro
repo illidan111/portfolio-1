@@ -85,6 +85,7 @@ const skillIcons: Record<string, string> = { brush:'hammer', palette:'gem', bran
   .stars { display:none; position:absolute; inset:0; background-image:radial-gradient(#fff5 1px, transparent 1px); background-size:calc(17 * var(--px)) calc(19 * var(--px)); z-index:-1; }
   :global([data-theme='night']) .stars { display:block; }
   :global([data-theme='night']) .world-art { filter:brightness(.57) saturate(.7); }
+  :global([data-theme='night']) .hero:has([data-lighting='on']) .world-art { filter:none; }
   :global([data-theme='night']) .sun { background:#e2e8f2; box-shadow:calc(-2 * var(--px)) 0 0 #e2e8f2, calc(2 * var(--px)) 0 0 #e2e8f2, 0 calc(-2 * var(--px)) 0 #e2e8f2, 0 calc(2 * var(--px)) 0 #e2e8f2; }
   :global([data-theme='night']) .sun::after { content:''; position:absolute; width:calc(4 * var(--px)); height:calc(4 * var(--px)); left:calc(2 * var(--px)); top:calc(3 * var(--px)); background:#b5bfd5; box-shadow:calc(6 * var(--px)) calc(6 * var(--px)) 0 #b5bfd5; }
   :global([data-theme='night']) .hero-copy > p { color:#e2e8f7; background:#142349e8; }
