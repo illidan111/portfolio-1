@@ -5,7 +5,7 @@ export const features: Record<'hero' | 'lighting' | 'voxels' | 'digging' | 'weat
   voxels: true,
   digging: true,
   weather: true,
-  transitions: false,
+  transitions: true,
   boss: false,
   minimap: false,
   crafting: false,

@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import Icon from '../components/Icon.astro';
 import Avatar from '../components/Avatar.astro';
 import Settings from '../components/Settings.astro';
+import PageTransition from '../components/PageTransition.astro';
 import '../styles/tokens.css';
 interface Props { title?: string; description?: string; }
 const { title = 'Alex — Developer & Explorer', description = 'A little world of thoughtful interfaces, creative experiments, and things made for the web. Explore Alex’s pixel-art developer portfolio.' } = Astro.props;
@@ -23,6 +24,7 @@ const { title = 'Alex — Developer & Explorer', description = 'A little world o
     <a class="skip-link" href="#main">Skip to content</a>
     <Header/>
     <Settings/>
+    <PageTransition/>
     <main id="main"><slot/></main>
     <footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="/"><img src="/favicon.svg" width="24" height="24" alt=""/> Crafted block by block.</a><span>Original pixels. Endless curiosity.</span><span>© {new Date().getFullYear()} Alex <span aria-hidden="true">✦</span></span></div><p class="demo-note container">An illustrative portfolio world. Alex and the project concepts are demo content.</p></footer>
     <dialog id="npc-dialog" aria-labelledby="npc-title" class="panel npc-dialog">
