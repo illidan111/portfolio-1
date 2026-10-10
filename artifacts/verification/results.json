@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-10",
+  "runtime": "Node 24.14.0; installed Microsoft Edge",
+  "build": { "pages": 4, "errors": 0, "warnings": 0 },
+  "astroCheck": { "errors": 0, "warnings": 0, "hints": 0 },
+  "fullPlaywrightSuite": { "passed": 71, "failed": 0, "durationMinutes": 3.6, "report": "full-suite-report/index.html" },
+  "finalMapAndSettingsFollowup": { "passed": 7, "failed": 0 },
+  "projectLocalTestLauncherSmoke": { "passed": 1, "failed": 0 },
+  "allFeatureFlagsDisabled": { "passed": true, "report": "flags-off.json" },
+  "screenshotMatrix": { "widths": [1440, 768, 360], "themes": ["day", "night"], "weather": ["rain", "snow"], "reviewed": true },
+  "performanceReport": "../performance/final/summary.json",
+  "limitations": ["Mobile performance uses viewport and CPU emulation, not a physical phone.", "The portfolio identity and project/CV content remain explicitly disclosed demonstrations."]
+}

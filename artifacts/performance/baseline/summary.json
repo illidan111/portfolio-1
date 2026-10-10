@@ -1,0 +1,58 @@
+{
+  "externalInitialJSgzipBytes": 8227,
+  "inlineInitialJSgzipBytes": 120,
+  "maximumAdditionalHomeJSgzipBytes": 25000,
+  "lighthouse": [
+    {
+      "name": "home",
+      "url": "http://127.0.0.1:4323/",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0,
+      "lcpMs": 1220.9027999999998,
+      "tbtMs": 0,
+      "runWarnings": []
+    },
+    {
+      "name": "project",
+      "url": "http://127.0.0.1:4323/projects/fieldnotes/",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0,
+      "lcpMs": 1098.189875,
+      "tbtMs": 0,
+      "runWarnings": []
+    },
+    {
+      "name": "skills",
+      "url": "http://127.0.0.1:4323/#skills",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0,
+      "lcpMs": 1219.20585,
+      "tbtMs": 0,
+      "runWarnings": []
+    }
+  ],
+  "notes": [
+    "Skills is an existing home-page anchor, not a standalone route.",
+    "Baseline raw output preserved in ../baseline-dist.",
+    "Frame samples describe the actual Windows Edge host, not physical mid-range hardware.",
+    "An unscored existing label-content-name-mismatch audit remains; all scored categories pass."
+  ]
+}

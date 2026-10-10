@@ -1,0 +1,222 @@
+{
+  "status": "passed",
+  "timestamp": "2026-10-10T16:22:01.143Z",
+  "buildIndexSHA256": "b0bb1a6483bc78a0cf8061e64b37fbfb5a8850d2a6b9c08faae1d5fc581d6ae7",
+  "featureFlags": {
+    "hero": true,
+    "lighting": true,
+    "voxels": true,
+    "digging": true,
+    "weather": true,
+    "transitions": true,
+    "boss": true,
+    "minimap": true,
+    "crafting": true,
+    "audio": true
+  },
+  "checks": {
+    "allTenFeaturesEnabled": true,
+    "jsBudget": true,
+    "lighthouse": true,
+    "cls": true,
+    "idleLongTasks": true,
+    "lowFPS": true,
+    "errors": true
+  },
+  "baselineHomeJSgzipBytes": 8227,
+  "homeJSgzipBytes": 24887,
+  "deltaHomeJSgzipBytes": 16660,
+  "unchangedInlineJSgzipBytes": 120,
+  "additionalBudgetBytes": 25000,
+  "remainingAdditionalBudgetBytes": 8340,
+  "maximumMeasuredCLS": 0.006382291666666667,
+  "lighthouse": [
+    {
+      "name": "home",
+      "url": "http://127.0.0.1:4323/",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0.005269412964146276,
+      "lcpMs": 1564.3723,
+      "tbtMs": 22.5,
+      "runWarnings": []
+    },
+    {
+      "name": "project",
+      "url": "http://127.0.0.1:4323/projects/fieldnotes/",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0,
+      "lcpMs": 1522.5908,
+      "tbtMs": 0,
+      "runWarnings": []
+    },
+    {
+      "name": "skills",
+      "url": "http://127.0.0.1:4323/#skills",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0.005269412964146276,
+      "lcpMs": 1574.9371499999997,
+      "tbtMs": 74.97904999999969,
+      "runWarnings": []
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "high-day",
+      "jsGzipBytes": 24887,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.3,
+          "lifetimeMaxWorkMs": 0.7,
+          "weather": "clear",
+          "lighting": "off"
+        },
+        {
+          "id": "engine-1",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.3,
+          "lifetimeMaxWorkMs": 0.1,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0.001388888888888889,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 1,
+      "monitorRAFmaxFrameMs": 12.199999999999818,
+      "errors": []
+    },
+    {
+      "name": "high-night",
+      "jsGzipBytes": 24887,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.3,
+          "lifetimeMaxWorkMs": 1,
+          "weather": "rain",
+          "lighting": "on"
+        },
+        {
+          "id": "engine-1",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.3,
+          "lifetimeMaxWorkMs": 0.1,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0.0025925925925925925,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 1,
+      "monitorRAFmaxFrameMs": 10.699999999999818,
+      "errors": []
+    },
+    {
+      "name": "low-mobile-day",
+      "jsGzipBytes": 24887,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "low",
+          "fps": 58.9,
+          "lifetimeMaxWorkMs": 14,
+          "weather": "clear",
+          "lighting": "off"
+        },
+        {
+          "id": "engine-1",
+          "running": false,
+          "reduced": false,
+          "quality": "low",
+          "fps": null,
+          "lifetimeMaxWorkMs": null,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0.006382291666666667,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 4,
+      "monitorRAFmaxFrameMs": 12.200000000000728,
+      "errors": []
+    },
+    {
+      "name": "low-mobile-night",
+      "jsGzipBytes": 24887,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "low",
+          "fps": 58.6,
+          "lifetimeMaxWorkMs": 11.4,
+          "weather": "snow",
+          "lighting": "on"
+        },
+        {
+          "id": "engine-1",
+          "running": false,
+          "reduced": false,
+          "quality": "low",
+          "fps": null,
+          "lifetimeMaxWorkMs": null,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 4,
+      "monitorRAFmaxFrameMs": 48.399999999999636,
+      "errors": []
+    }
+  ],
+  "notes": [
+    "All10build-time feature flags are true.",
+    "Lighthouse13.5.0 mobile defaults; three targets audited sequentially against the frozen production build with no concurrent tests.",
+    "Actual High engine59.3fps approximates60Hz target; Low4xCPU58.6–58.9fps exceeds30fps target. Monitor165Hz rAF is not engine FPS.",
+    "The Low night sample contained one48.4ms monitor-frame interval; no idle main-thread task exceeded100ms.",
+    "Four10second home samples; maximum engine update/render work is lifetime maximum including initial load.",
+    "Mobile360x800 plus4xCPU is emulation on this Windows host, not a physical mid-range phone.",
+    "Skills is the existing home section /#skills, not a separate document.",
+    "Auto startsLow on coarse-pointer screens <=700px to avoid expensive initial WebGL driver work. ExplicitHigh still offers mobile voxel models.",
+    "No Lighthouse internal NO_LCP diagnostic was emitted in this final audit; the final report runWarnings arrays are empty.",
+    "Baseline and initial failedP2 audits remain preserved for comparison."
+  ]
+}

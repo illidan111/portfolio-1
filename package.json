@@ -11,7 +11,7 @@
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check",
-    "test:e2e": "playwright test"
+    "test:e2e": "node scripts/e2e.mjs"
   },
   "dependencies": {
     "@fontsource/pixelify-sans": "^5.2.0",

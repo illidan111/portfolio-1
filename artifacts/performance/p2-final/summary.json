@@ -1,0 +1,197 @@
+{
+  "status": "passed",
+  "checks": {
+    "jsBudget": true,
+    "lighthouse": true,
+    "cls": true,
+    "idleLongTasks": true,
+    "lowFPS": true,
+    "errors": true
+  },
+  "baselineHomeJSgzipBytes": 8227,
+  "homeJSgzipBytes": 19651,
+  "deltaHomeJSgzipBytes": 11424,
+  "additionalBudgetBytes": 25000,
+  "remainingAdditionalBudgetBytes": 13576,
+  "lighthouse": [
+    {
+      "name": "home",
+      "url": "http://127.0.0.1:4323/",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0.005269412964146276,
+      "lcpMs": 1460.0662,
+      "tbtMs": 0,
+      "runWarnings": []
+    },
+    {
+      "name": "project",
+      "url": "http://127.0.0.1:4323/projects/fieldnotes/",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0,
+      "lcpMs": 1372.718475,
+      "tbtMs": 0,
+      "runWarnings": []
+    },
+    {
+      "name": "skills",
+      "url": "http://127.0.0.1:4323/#skills",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "cls": 0.005269412964146276,
+      "lcpMs": 1473.4235,
+      "tbtMs": 4,
+      "runWarnings": []
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "high-day",
+      "jsGzipBytes": 19651,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.3,
+          "lifetimeMaxWorkMs": 0.9,
+          "weather": "clear",
+          "lighting": "off"
+        },
+        {
+          "id": "engine-1",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.3,
+          "lifetimeMaxWorkMs": 0.2,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0.001388888888888889,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 1,
+      "errors": []
+    },
+    {
+      "name": "high-night",
+      "jsGzipBytes": 19651,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.4,
+          "lifetimeMaxWorkMs": 1.4,
+          "weather": "rain",
+          "lighting": "on"
+        },
+        {
+          "id": "engine-1",
+          "running": true,
+          "reduced": false,
+          "quality": "high",
+          "fps": 59.4,
+          "lifetimeMaxWorkMs": 0.1,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0.0025925925925925925,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 1,
+      "errors": []
+    },
+    {
+      "name": "low-mobile-day",
+      "jsGzipBytes": 19651,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "low",
+          "fps": 59,
+          "lifetimeMaxWorkMs": 3.2,
+          "weather": "clear",
+          "lighting": "off"
+        },
+        {
+          "id": "engine-1",
+          "running": false,
+          "reduced": false,
+          "quality": "low",
+          "fps": null,
+          "lifetimeMaxWorkMs": null,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0.006382291666666667,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 4,
+      "errors": []
+    },
+    {
+      "name": "low-mobile-night",
+      "jsGzipBytes": 19651,
+      "inlineGzipBytes": 120,
+      "engines": [
+        {
+          "id": "engine-0",
+          "running": true,
+          "reduced": false,
+          "quality": "low",
+          "fps": 59.2,
+          "lifetimeMaxWorkMs": 5.1,
+          "weather": "snow",
+          "lighting": "on"
+        },
+        {
+          "id": "engine-1",
+          "running": false,
+          "reduced": false,
+          "quality": "low",
+          "fps": null,
+          "lifetimeMaxWorkMs": null,
+          "weather": null,
+          "lighting": null
+        }
+      ],
+      "cls": 0.018953472222222222,
+      "idleLongTasksOver100ms": 0,
+      "cpuThrottle": 4,
+      "errors": []
+    }
+  ],
+  "fixes": [
+    "Hidden discovery link now has a valid href.",
+    "Auto quality conservatively starts Low on coarse-pointer screens <=700px. Explicit High retains mobile3D; desktop Auto still begins High with frame-time downgrade."
+  ],
+  "notes": [
+    "Actual High engine59.3–59.4fps approximates60Hz target; Low4xCPU59.0–59.2fps. Monitor165Hz rAF is not engine FPS.",
+    "Mobile360x800 plus4xCPU is emulation on this host, not a physical mid-range phone.",
+    "Skills is the existing home section /#skills, not a separate document.",
+    "Lighthouse13.5 emits an internal NO_LCP trace-insight diagnostic for the Skills hash navigation while producing valid scored LCP and no report runWarnings; the same diagnostic existed in baseline.",
+    "Original failed p2 reports and WebGL startup diagnosis are preserved in ../p2."
+  ]
+}

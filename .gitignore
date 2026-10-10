@@ -5,6 +5,7 @@ dist/
 .browsers/
 test-results/
 playwright-report/
+artifacts/
 artifacts/playwright-report/
 artifacts/test-results/
 artifacts/performance/baseline-dist/
