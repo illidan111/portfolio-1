@@ -9,6 +9,7 @@ let dispose: (() => void) | undefined;
 function mount(): void {
   dispose?.();
   const cleanups: (() => void)[] = [mountSettings()];
+  let disposed = false;
   const world = document.querySelector<HTMLElement>('[data-world]');
   if (world && features.hero) {
     const scene = new Scene(world);
@@ -17,7 +18,15 @@ function mount(): void {
     resize.observe(world);
     cleanups.push(() => { resize.disconnect(); engine.destroy(); });
   }
-  dispose = () => cleanups.forEach(cleanup => cleanup());
+  if (features.voxels) document.querySelectorAll<HTMLElement>('[data-voxel]').forEach(element => {
+    void import('./voxel').then(async ({ mountVoxel }) => {
+      if (disposed) return;
+      const cleanup = await mountVoxel(element);
+      if (disposed) cleanup();
+      else cleanups.push(cleanup);
+    });
+  });
+  dispose = () => { disposed = true; cleanups.forEach(cleanup => cleanup()); };
 }
 document.addEventListener('astro:page-load', mount);
 document.addEventListener('astro:before-swap', () => { dispose?.(); dispose = undefined; });

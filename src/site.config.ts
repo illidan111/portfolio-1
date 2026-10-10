@@ -2,7 +2,7 @@
 export const features: Record<'hero' | 'lighting' | 'voxels' | 'digging' | 'weather' | 'transitions' | 'boss' | 'minimap' | 'crafting' | 'audio', boolean> = {
   hero: true,
   lighting: true,
-  voxels: false,
+  voxels: true,
   digging: false,
   weather: false,
   transitions: false,

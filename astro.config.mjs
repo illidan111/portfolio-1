@@ -3,6 +3,12 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
   output: 'static',
   devToolbar: { enabled: false },
+  // Both graphics chunks stay behind the project-only visibility import.
+  vite: { build: { rollupOptions: { output: {
+    manualChunks(id) {
+      if (id.replaceAll('\\', '/').includes('/node_modules/three/build/three.core.js')) return 'three-core';
+    },
+  } } } },
   fonts: [{
     name: 'Pixelify Sans',
     cssVariable: '--font-pixel',

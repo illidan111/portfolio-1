@@ -3,7 +3,7 @@ import { settings } from './settings';
 import { features } from '../../site.config';
 
 interface VoxelModel { palette: string[]; layers: string[][]; }
-type Three = typeof import('three');
+type Three = typeof import('./three-runtime');
 
 /** A project-only enhancement. Neither this module nor three is needed by home. */
 export async function mountVoxel(element: HTMLElement): Promise<() => void> {
@@ -57,7 +57,7 @@ export async function mountVoxel(element: HTMLElement): Promise<() => void> {
     releasePending = releaseContext;
     let module: EngineModule | undefined;
     try {
-      const THREE = await import('three');
+      const THREE = await import('./three-runtime');
       if (version !== generation || !visible || !allowed() || !element.isConnected) {
         releaseContext();
         if (version === generation) { loading = false; releasePending = undefined; }
