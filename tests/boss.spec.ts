@@ -60,6 +60,25 @@ test.describe('original sky visitor', () => {
     await page.locator('[data-boss-message-close]').click();
     await expect(page.locator('[data-boss-message]')).toBeHidden();
   });
+  test('touch sky keeps controls clear while Mote drifts, and daylight hides the visitor', async ({ browser }, testInfo) => {
+    const context = await browser.newContext({ baseURL: testInfo.project.use.baseURL, viewport:{ width:360, height:900 }, hasTouch:true, isMobile:true, reducedMotion:'no-preference' });
+    const page = await context.newPage();
+    await page.addInitScript(() => { localStorage.setItem('pixel-theme','night'); localStorage.setItem('pixel-settings',JSON.stringify({ quality:'low', weather:'snow' })); });
+    await page.goto('/');
+    const boss = page.locator('[data-boss]');
+    await expect(boss).toBeVisible({ timeout:12_000 });
+    const bounds = (await boss.boundingBox())!;
+    for (const selector of ['[data-game-controls]', '.touch-controls', '.hero-actions a', '.hero-actions button']) {
+      const other = (await page.locator(selector).boundingBox())!;
+      expect(bounds.x < other.x + other.width && bounds.x + bounds.width > other.x && bounds.y < other.y + other.height && bounds.y + bounds.height > other.y,selector).toBe(false);
+    }
+    await page.screenshot({ path:'artifacts/screenshots/feature7-touch-night.png' });
+    await page.locator('[data-boss-hit]').tap();
+    await expect(page.getByRole('progressbar',{ name:'Mote health' })).toHaveAttribute('aria-valuenow','4');
+    await page.locator('#day-toggle').click();
+    await expect(boss).toBeHidden();
+    await context.close();
+  });
   test('visitor and trophy are accessible and fit desktop, tablet and touch sky', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await mkdir('artifacts/screenshots', { recursive: true });
