@@ -91,10 +91,10 @@ test('NPC dialog traps focus, changes dialogue, and returns focus on Escape', as
   await opener.click();
   const dialog = page.getByRole('dialog', { name: 'Pixel the Wanderer' });
   await expect(dialog).toBeVisible();
-  await page.getByRole('button', { name: 'What does Alex build?' }).click();
+  await page.getByRole('button', { name: 'What does Akzhol build?' }).click();
   await expect(page.locator('#npc-message')).toContainText('Orbit, Fieldnotes, and Pixel Forge');
-  await page.getByRole('button', { name: 'Tell me about Alex' }).click();
-  await expect(page.locator('#npc-message')).toContainText('illustrative developer');
+  await page.getByRole('button', { name: 'Tell me about Akzhol' }).click();
+  await expect(page.locator('#npc-message')).toContainText('Akzhol’s portfolio includes illustrative content');
   await page.getByRole('button', { name: 'Let’s work together' }).click();
   await expect(page.locator('#npc-message')).toContainText('no personal contact address');
   await page.keyboard.press('Tab');

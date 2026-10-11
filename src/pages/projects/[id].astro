@@ -10,7 +10,7 @@ interface Props { project: CollectionEntry<'projects'>; }
 const { project } = Astro.props;
 const { Content } = await render(project);
 ---
-<Layout title={`${project.data.title} — ${profile.name}’s Workbench`} description={project.data.description}>
+<Layout title={`${project.data.title} — ${profile.name}’s Workbench`} description={`${profile.name}’s concept project. ${project.data.description}`}>
   <article class="case-study container"><a href="/#projects" class="back-link">← Back to inventory</a><div class="case-intro"><span class="eyebrow">SELF-DIRECTED CONCEPT / {project.data.year}</span><h1>{project.data.title}<VoxelItem icon={project.data.icon} model={project.data.voxel}/></h1><p>{project.data.description}</p><div class="case-tags">{project.data.stack.map(tech => <span>{tech}</span>)}<span class="case-rarity">{project.data.rarity} item</span></div></div><img class="case-image" src={project.data.image} width="600" height="280" alt={`${project.data.title} original pixel-art concept illustration`}/><div class="case-body"><aside class="case-aside panel"><span class="eyebrow">ITEM DETAILS</span><h2>From the workbench</h2><dl><dt>Category</dt><dd>{project.data.category}</dd><dt>Role</dt><dd>Design & frontend exploration</dd><dt>Status</dt><dd>Concept study</dd></dl><p>This is an exploration of an idea, with an original art direction and a considered implementation plan.</p></aside><div class="prose"><Content/></div></div><div class="case-footer"><p>Every good idea is a new place to start.</p><a class="pixel-button" href="/#projects"><Icon name="chest" size={20}/> Explore more items</a></div></article>
 </Layout>
 <style>

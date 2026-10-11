@@ -101,6 +101,18 @@ for (const phone of phones) {
             await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
             await expect(page.locator('#achievement-toast')).toBeHidden();
             await fits(page);
+            const nameFits = await page.locator('.brand').evaluate(element => {
+              const name = element.querySelector('span')!.firstChild!;
+              const range = document.createRange();
+              range.selectNodeContents(name);
+              const text = range.getBoundingClientRect();
+              const header = element.closest('.header-inner')!.getBoundingClientRect();
+              const neighbors = [...document.querySelectorAll('.hotbar, .world-controls')].map(neighbor => neighbor.getBoundingClientRect());
+              const overlaps = neighbors.some(neighbor => text.left < neighbor.right && text.right > neighbor.left && text.top < neighbor.bottom && text.bottom > neighbor.top);
+              // Flex items can shrink while their visible text safely uses the gap.
+              return text.left >= header.left - .5 && text.right <= header.right + .5 && !overlaps;
+            });
+            expect(nameFits, 'Akzhol must fit the header without overlapping navigation or world controls').toBe(true);
             const axe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
             expect(axe.violations, `${phone.name} ${orientation} ${mode} ${theme}`).toEqual([]);
             await page.screenshot({ path: `artifacts/screenshots/mobile-${phone.name}-${orientation}-${mode}-${theme}.png` });

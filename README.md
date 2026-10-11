@@ -1,4 +1,4 @@
-# Alex’s pixel portfolio
+# Akzhol’s pixel portfolio
 
 An original woodland developer portfolio built with Astro 6.4.8, strict TypeScript, and plain CSS. The entire site is static. All scene illustrations, interface icons, tiles, and characters are original SVG or CSS artwork; there are no Terraria assets.
 
@@ -53,7 +53,7 @@ On the home page, enter **↑ ↑ ↓ ↓ ← → ← → B A** outside a text f
 
 ## Content and design decisions
 
-- No personal identity, employment history, contact address, or real project details were supplied. **Alex (demo) is an explicitly disclosed illustrative identity**, and the three projects are complete concept studies rather than claims of shipped client work. `you@example.com` is a visible placeholder, not a working owner contact. The site has no message form or sending service.
+- The supplied developer name is **Akzhol**. Employment history, contact address, and real project details have not been supplied; the three projects are complete concept studies rather than claims of shipped client work. `you@example.com` is a visible placeholder, not a working owner contact. The site has no message form or sending service.
 - `src/content/projects/*.md` contains the project case studies. `src/content/skills/*.json` and `src/content/experience/*.json` contain equipment and practice areas. Zod schemas and glob loaders are in `src/content.config.ts`.
 - `src/styles/tokens.css` is the single global token layer. Spacing and sizes derive from `--px: 4px`, with fractional pixel units for thin borders and smaller type. Component styles are scoped in Astro files.
 - **Pixelify Sans** is the only downloaded font. Game uses it throughout; Classic uses it for headings and navigation with Arial/Helvetica/system sans-serif body text. Astro's stable Fonts API uses the local provider against the installed Fontsource files and copies WOFF2 assets into the build. There are no runtime font-provider requests.
@@ -68,7 +68,7 @@ The shared `profile` object in `src/site.config.ts` drives the header, hero's fa
 
 | Field | Current value / meaning | Replace or confirm |
 | --- | --- | --- |
-| `name` | `Alex (demo)` | Your public name. |
+| `name` | `Akzhol` | Supplied public name. |
 | `role` | `Frontend engineer (placeholder)` | Your actual role. |
 | `experience` | `Experience: add years` | A truthful experience summary; no years have been assumed. |
 | `coreStack` | `TypeScript`, `Astro` | Your actual core technologies; this is an illustrative selection. |
@@ -85,7 +85,7 @@ Additional content to review before publishing as your own portfolio:
 - The eight skill entries in `src/content/skills/` (Accessibility, Astro, CSS, Figma, Git, Performance, React, TypeScript), their descriptions, and game rarity labels are illustrative selections, not evidence of a person's proficiency.
 - `src/content/experience/` contains **Interface craft**, **Building for the web**, and **Always exploring**: practice areas and habits, not employers, dates, or job history. Replace them with accurate experience or keep them explicitly framed as interests.
 - The About section in `src/pages/index.astro` includes “Frontend explorer,” “People first,” “Always growing,” and “Detail driven,” plus concept-portfolio copy. Review these personal claims, the avatar, NPC dialogue in `src/scripts/world.ts`, and demo labels in the layout/contact section when replacing the identity.
-- `public/cv.pdf` is a **one-page placeholder CV generated from the shared profile**, not an employment record. It visibly says so. `public/alex-profile.txt` is a legacy illustrative download; replace or remove it if retaining that URL.
+- `public/cv.pdf` is a **one-page placeholder CV generated from the shared profile**, not an employment record. It visibly says so. `public/akzhol-profile.txt` is a legacy illustrative download; replace or remove it if retaining that URL.
 - The deployment `SITE_URL` fallback is intentionally a non-production placeholder. Set it to your verified production origin; never share placeholder canonical, sitemap, robots, or Open Graph URLs as if they were a live domain.
 
 ### Regenerate the placeholder/profile PDF
@@ -233,6 +233,8 @@ Alternatively, use the dashboard:
 
 ## Current-update verification
 
+The recorded measurements below describe commit `908bd05`, before the profile rename. Historical reports and screenshots retain the former name; they are not served by the site. The package identifier remains unchanged; the profile download uses Akzhol.
+
 Local verification ran on October 10–11, 2026 with **Node 22.23.3**, Astro 6.4.8, and installed Microsoft Edge:
 
 - `npm run build`: five static HTML pages plus sitemap and robots endpoints; `npm run check`: 55 files, zero errors, warnings, or hints.
@@ -325,4 +327,4 @@ Actual shared-engine averages were **59.3fps on High** in day and night, with ma
 
 The historical machine-readable baseline, P2 gate, and final results are in `artifacts/performance/baseline/summary.json`, `artifacts/performance/p2-final/summary.json`, and `artifacts/performance/final/summary.json`. The historical final report includes its measured build's SHA-256. Full audit output and local browser evidence remain in `artifacts/`; artifact availability in a fresh checkout depends on which evidence files were committed.
 
-Before presenting this as a personal portfolio, replace the disclosed demo identity, concept content, contact address, and illustrative CV. The current local gate passed; Vercel sign-in/linking, live deployment verification, and physical phone/browser validation remain to be completed.
+Before presenting this as a personal portfolio, replace the remaining profile placeholders, concept content, contact address, and illustrative CV. The current local gate passed; Vercel sign-in/linking, live deployment verification, and physical phone/browser validation remain to be completed.

@@ -10,7 +10,7 @@ const achievementNames: Record<Achievement, string> = {
   friend: 'A friendly face',
 };
 const dialogue = {
-  about: `${profile.name} is an illustrative developer profile. ${profile.summary} This little world celebrates clear ideas, accessible details, and a little room for play.`,
+  about: `${profile.name}’s portfolio includes illustrative content. ${profile.summary} This little world celebrates clear ideas, accessible details, and a little room for play.`,
   work: 'Useful tools with a spark of personality! Open the project chest to explore Orbit, Fieldnotes, and Pixel Forge. They are original demo concepts, with design decisions and implementation notes in each project journal.',
   contact: 'A new adventure sounds lovely! This is a demo portfolio, and no personal contact address has been supplied. The ordinary Email and CV links are always in the header. Both contain clearly marked demo details until the owner replaces them. This site has no message form or sending service.',
 } as const;

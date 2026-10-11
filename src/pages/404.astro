@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { profile } from '../site.config';
 ---
-<Layout title="Page not found — Developer Portfolio" description="This path is uncharted. Return to the portfolio or explore the projects." noindex>
+<Layout title={`Page not found — ${profile.name}’s Portfolio`} description={`This path is uncharted. Return to ${profile.name}’s portfolio or explore the projects.`} noindex>
   <section class="missing-page container" aria-labelledby="missing-title">
     <span class="eyebrow">404 / UNCHARTED TERRITORY</span>
     <h1 id="missing-title">This path ends here.</h1>
