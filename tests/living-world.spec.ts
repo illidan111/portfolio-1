@@ -160,7 +160,7 @@ test('home and its Skills section never request three.js', async ({ page }) => {
 });
 
 test('visible project voxel runs at low resolution and falls back for Low quality', async ({ page }) => {
-  await page.goto('/projects/fieldnotes/');
+  await page.goto('/projects/astana-explorer/');
   const voxel = page.locator('[data-voxel]');
   test.skip(await voxel.count() === 0, 'Voxel feature flag is disabled in this build.');
   await expect(voxel).toHaveAttribute('data-voxel-state', 'active');
@@ -190,8 +190,8 @@ test('reduced-motion project retains its SVG without requesting three.js', async
   page.on('request', request => {
     if (/\/three[.-]/i.test(new URL(request.url()).pathname)) graphicsRequests.push(request.url());
   });
-  await page.goto('/projects/orbit/');
-  await expect(page.getByRole('heading', { name: 'Orbit', exact: true })).toBeVisible();
+  await page.goto('/projects/job-tracker/');
+  await expect(page.getByRole('heading', { name: 'Job Tracker', exact: true })).toBeVisible();
   await expect(page.locator('[data-voxel-fallback]')).toBeVisible();
   await expect(page.locator('[data-voxel-canvas]')).toBeHidden();
   await page.waitForTimeout(200);
@@ -218,7 +218,7 @@ test('a denied WebGL context keeps the SVG and never downloads three.js', async 
       },
     });
   });
-  await page.goto('/projects/fieldnotes/');
+  await page.goto('/projects/astana-explorer/');
   const voxel = page.locator('[data-voxel]');
   test.skip(await voxel.count() === 0, 'Voxel feature flag is disabled in this build.');
   await expect.poll(() => page.evaluate(() => (window as Window & { deniedWebGLCalls?: number }).deniedWebGLCalls ?? 0)).toBeGreaterThan(0);
@@ -329,7 +329,7 @@ test('lighting quality reduces canvas resolution and respects particle and motio
 
 test('every portfolio page passes axe in day and night with lighting enabled', async ({ page }) => {
   test.setTimeout(90_000);
-  for (const route of ['/', '/projects/fieldnotes/', '/projects/orbit/', '/projects/pixel-forge/']) {
+  for (const route of ['/', '/projects/astana-explorer/', '/projects/job-tracker/', '/projects/pixel-portfolio/']) {
     await page.goto(route);
     await page.evaluate(async () => { await document.fonts.ready; });
     for (const theme of ['day', 'night']) {
@@ -351,7 +351,7 @@ test.describe('coarse-pointer mobile world', () => {
     page.on('request', request => {
       if (/\/three[.-]/i.test(new URL(request.url()).pathname)) graphicsRequests.push(request.url());
     });
-    await page.goto('/projects/pixel-forge/');
+    await page.goto('/projects/pixel-portfolio/');
     const voxel = page.locator('[data-voxel]');
     test.skip(await voxel.count() === 0, 'Voxel feature flag is disabled in this build.');
     await expect(page.locator('html')).toHaveAttribute('data-quality', 'low');

@@ -1,7 +1,7 @@
 {
   "name": "Performance",
   "category": "Workflow",
-  "description": "Measured improvements to loading, rendering, and interaction, with a habit of sending less to the browser.",
+  "description": "Used in: Pixel Portfolio. Deferred game modules, rendering fallbacks and archived Lighthouse and bundle measurements.",
   "icon": "bolt",
   "rarity": "Epic",
   "order": 8

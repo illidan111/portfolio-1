@@ -8,7 +8,7 @@ interface Block { button: HTMLButtonElement; index: number; crack: number; broke
 interface Flight { element: HTMLElement; elapsed: number; startX: number; startY: number; endX: number; endY: number; }
 const secretNames: Record<Secret, string> = { cv: 'A well-travelled chest', github: 'A trail of commits', fact: 'A note between the stones', golden: 'The golden block!' };
 const secretCopy: Record<Secret, string> = {
-  cv: 'A small profile from this illustrative portfolio. Demo content, ready to read and download.',
+  cv: 'A project-based profile, with unconfirmed CV details clearly marked as placeholders.',
   github: 'Follow the trail beyond this woodland and explore the developer’s GitHub profile.',
   fact: 'Every tree, tile, and creature here is original artwork built from code. No borrowed game sprites.',
   golden: 'A rare find! No special stats. Just a very good excuse for a little celebration.',
@@ -91,7 +91,7 @@ export function diggingModule(scene: Scene, root: HTMLElement = scene.element): 
     if (link) {
       link.hidden = secret !== 'cv' && secret !== 'github';
       link.removeAttribute('download'); link.removeAttribute('target'); link.removeAttribute('rel'); link.href = profile.cv;
-      if (secret === 'cv') { link.href = profile.cv; link.download = ''; link.textContent = 'Download the illustrative profile / CV'; }
+      if (secret === 'cv') { link.href = profile.cv; link.download = ''; link.textContent = 'Download the placeholder profile / CV'; }
       if (secret === 'github') { link.href = profile.github; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = 'Explore GitHub ↗'; }
     }
     activeBlock = block.button;

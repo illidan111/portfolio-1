@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { profile } from '../src/site.config';
 
-const routes = ['/', '/projects/fieldnotes/', '/projects/orbit/', '/projects/pixel-forge/'];
+const routes = ['/', '/projects/astana-explorer/', '/projects/job-tracker/', '/projects/pixel-portfolio/'];
 const subtitle = [profile.role, profile.experience, profile.coreStack.join(' / '), profile.availability].join(' · ');
 
 test.use({ storageState: { cookies: [], origins: [] } });

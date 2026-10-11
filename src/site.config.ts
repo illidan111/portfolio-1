@@ -16,11 +16,11 @@ export const profile = {
   name: 'Akzhol',
   role: 'Frontend engineer (placeholder)',
   experience: '2 years',
-  coreStack: ['TypeScript', 'Astro'],
+  coreStack: ['TypeScript', 'React', 'Astro'],
   availability: 'Availability: add status',
   email: 'you@example.com',
   github: 'https://github.com/illidan111',
   cv: '/cv.pdf',
-  summary: 'Developer portfolio for Akzhol with 2 years of experience, original pixel art and concept projects. The role, core stack, availability, and email are placeholders; no personal employment history has been supplied.',
+  summary: 'Akzhol: 2 years of experience, Astana Explorer, Job Tracker and a playable Astro pixel world. Projects use JavaScript, TypeScript, React and Astro; employment history and contact details remain unconfirmed.',
   isPlaceholder: true,
 };

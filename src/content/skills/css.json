@@ -1,7 +1,7 @@
 {
   "name": "CSS",
   "category": "Frontend",
-  "description": "Responsive layouts, sturdy design tokens, and the small visual details that make an interface feel considered.",
+  "description": "Used in: Astana Explorer, Job Tracker, Pixel Portfolio. Responsive layouts, theme tokens and mobile views in plain CSS and Tailwind.",
   "icon": "brush",
   "rarity": "Legendary",
   "order": 4

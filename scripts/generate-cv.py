@@ -89,7 +89,7 @@ for dx, dy in ((0, 0), (8, 0), (16, 0), (8, -8), (16, -8), (16, -16)):
     pdf.rect(width - margin - 24 + dx, height - 51 + dy, 6, 6, fill=1, stroke=0)
 pdf.setFillColor(lime)
 pdf.setFont("Helvetica-Bold", 9)
-pdf.drawString(margin, height - 48, "PLACEHOLDER CV / DEMO PROFILE" if profile["isPlaceholder"] else "DEVELOPER PROFILE / CV")
+pdf.drawString(margin, height - 48, "PLACEHOLDER CV / PROJECT PROFILE" if profile["isPlaceholder"] else "DEVELOPER PROFILE / CV")
 name_bottom = paragraph(profile["name"], margin, height - 73, content_width - 38, 30, 35, colors.white, "Helvetica-Bold")
 role_bottom = paragraph(profile["role"], margin, name_bottom - 12, content_width, 13, 18, lime)
 if role_bottom < height - 175:
@@ -112,7 +112,7 @@ left_bottom = paragraph(profile["availability"], margin, left_bottom - 10, left_
 right_bottom = paragraph("CORE STACK", right_x, row_top, right_width, 8, 12, muted, "Helvetica-Bold")
 right_bottom = paragraph(" / ".join(profile["coreStack"]), right_x, right_bottom - 7, right_width, 12, 18, ink, "Helvetica-Bold")
 if profile["isPlaceholder"]:
-    right_bottom = paragraph("Placeholder values to personalize.", right_x, right_bottom - 7, right_width, 9, 13, muted)
+    right_bottom = paragraph("Technologies evidenced in project repositories.", right_x, right_bottom - 7, right_width, 9, 13, muted)
 
 top = min(left_bottom, right_bottom) - 26
 rule(top)
@@ -129,7 +129,7 @@ pdf.linkURL(profile["github"], (margin + 84, github_bottom, width - margin, cont
 
 top = github_bottom - 29
 if profile["isPlaceholder"]:
-    box_text = "This is a clearly marked demo, not an employment record. Replace the placeholder profile details and add verified work history, education, and outcomes before using this document as a personal CV."
+    box_text = "This project-based placeholder is not an employment record. Confirm the role, contact details and availability, then add verified work history and education before using it as a personal CV."
     block = Paragraph(escape(box_text), ParagraphStyle("notice", fontName="Helvetica", fontSize=10, leading=15, textColor=ink))
     _, box_text_height = block.wrap(content_width - 32, height)
     box_height = box_text_height + 48
@@ -147,7 +147,7 @@ if top < 90:
 rule(61)
 pdf.setFillColor(muted)
 pdf.setFont("Helvetica", 8)
-pdf.drawString(margin, 43, "Illustrative profile - replace demo details" if profile["isPlaceholder"] else profile["name"])
+pdf.drawString(margin, 43, "Project profile - CV details unconfirmed" if profile["isPlaceholder"] else profile["name"])
 pdf.drawRightString(width - margin, 43, "1 / 1")
 pdf.save()
 

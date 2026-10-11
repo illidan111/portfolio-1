@@ -42,6 +42,8 @@ const projects = defineCollection({
     order: z.number().int().nonnegative(),
     icon: z.string().min(1),
     image: z.string().min(1),
+    sourceUrl: z.url(),
+    demoUrl: z.url().optional(),
   }),
 });
 
@@ -51,6 +53,7 @@ const skills = defineCollection({
     name: z.string().min(1),
     category: z.enum(['Frontend', 'Design', 'Workflow']),
     description: z.string().min(1),
+    durationYears: z.number().positive().max(2).optional(),
     icon: z.string().min(1),
     rarity,
     order: z.number().int().nonnegative(),

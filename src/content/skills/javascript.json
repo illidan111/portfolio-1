@@ -1,0 +1,8 @@
+{
+  "name": "JavaScript",
+  "category": "Frontend",
+  "description": "Used in: Astana Explorer, Pixel Portfolio. Catalogue and map synchronisation, guarded browser storage and build tooling without a frontend framework in Astana Explorer.",
+  "icon": "code",
+  "rarity": "Rare",
+  "order": 6
+}

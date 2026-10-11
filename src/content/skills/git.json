@@ -1,7 +1,7 @@
 {
   "name": "Git",
   "category": "Workflow",
-  "description": "Small, understandable changes with a clear history, making collaboration and recovery less mysterious.",
+  "description": "Used in: Astana Explorer, Job Tracker, Pixel Portfolio. Repository history records implementation and documentation changes.",
   "icon": "branch",
   "rarity": "Rare",
   "order": 7

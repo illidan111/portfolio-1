@@ -1,7 +1,7 @@
 {
   "name": "Astro",
   "category": "Frontend",
-  "description": "Fast, content-led websites with semantic HTML and just enough JavaScript for the interactive parts.",
+  "description": "Used in: Pixel Portfolio. Typed content collections, static project routes and shared profile metadata in Astro 6.",
   "icon": "star",
   "rarity": "Epic",
   "order": 2

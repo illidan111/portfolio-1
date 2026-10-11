@@ -1,0 +1,11 @@
+{
+  "title": "First recorded Astana Explorer commit",
+  "period": "27 September 2026",
+  "description": "The first recorded city-guide commit is followed by changes to catalogue navigation, map loading and accessible discovery.",
+  "tags": [
+    "JavaScript",
+    "Leaflet",
+    "Accessibility"
+  ],
+  "order": 2
+}

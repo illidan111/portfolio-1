@@ -187,8 +187,8 @@ for (const mode of ['classic', 'game'] as const) {
     await expect(page.locator('#skill-name')).toHaveText('CSS');
     await page.evaluate(() => { (window as unknown as AuditWindow).deploymentMarker = 'same-document'; });
     for (let trip = 0; trip < 2; trip++) {
-      await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-      await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeFocused();
+      await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+      await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeFocused();
       await expect(page.locator('html')).toHaveAttribute('data-mode', mode);
       await page.getByRole('link', { name: '← Back to inventory', exact: true }).click();
       await expect(page.getByRole('heading', { level: 1 })).toContainText('Crafting code.');
@@ -223,7 +223,7 @@ test('deployment CSP permits lazy High graphics and trusted synthesized audio wi
   const audit = await injectDeploymentHeaders(page, baseURL!);
   const media: string[] = [];
   page.on('request', request => { if (request.resourceType() === 'media') media.push(request.url()); });
-  await page.goto('/projects/fieldnotes/?mode=game');
+  await page.goto('/projects/astana-explorer/?mode=game');
   await page.getByRole('button', { name: 'Settings — shortcut 6', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'World settings' })).toBeVisible();
   await page.getByLabel('Quality', { exact: true }).selectOption('high');

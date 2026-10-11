@@ -10,13 +10,13 @@ const { variant = 'world' } = Astro.props;
   </div>
   <div class="secret-panel panel" data-secret-panel hidden role="region" aria-labelledby="secret-title">
     <div class="secret-heading"><h3 id="secret-title" data-secret-title>A little discovery</h3><button type="button" data-close-secret aria-label="Close discovery">×</button></div>
-    <p data-secret-body></p><a data-secret-link href={profile.cv} download hidden>Download the illustrative profile / CV</a>
+    <p data-secret-body></p><a data-secret-link href={profile.cv} download hidden>Download the placeholder profile / CV</a>
   </div>
   <p class="sr-only" role="status" aria-live="polite" data-loot-status></p>
 </div></section> : <details class="field-guide panel">
   <summary>Field notes · little things to discover</summary>
   <div class="field-guide-content"><p>There are four surprises under the woodland blocks. Every discovery is also right here.</p>
-    <div class="field-guide-links"><a href={profile.cv} download>Download the illustrative profile / CV</a><a href={profile.github} target="_blank" rel="noopener noreferrer">Visit the developer’s GitHub ↗</a></div>
+    <div class="field-guide-links"><a href={profile.cv} download>Download the placeholder profile / CV</a><a href={profile.github} target="_blank" rel="noopener noreferrer">Visit the developer’s GitHub ↗</a></div>
     <p><strong>A small fact:</strong> Every tree, tile, and creature in this world is original artwork built from code. No borrowed game sprites.</p>
     <button class="pixel-button secondary" type="button" data-golden-block>Celebrate a golden find <span aria-hidden="true">✦</span></button><p class="golden-result" data-guide-status></p>
   </div>

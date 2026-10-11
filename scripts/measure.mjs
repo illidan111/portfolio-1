@@ -61,7 +61,7 @@ const context = await chromium.launchPersistentContext(profile, {
   reducedMotion: args.reduced ? 'reduce' : 'no-preference',
   env: { ...process.env, TEMP: temp, TMP: temp },
 });
-const routeList = String(args.routes || '/,/projects/fieldnotes/,/#skills').split(',');
+const routeList = String(args.routes || '/,/projects/astana-explorer/,/#skills').split(',');
 const reports = [];
 try {
   for (const route of routeList) {

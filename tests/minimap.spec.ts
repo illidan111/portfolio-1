@@ -46,7 +46,7 @@ test('visiting a section removes its fog, persists after reload, and unlocks its
 });
 
 test('project routes reveal Projects and expose equivalent links with visited state', async ({ page }) => {
-  await page.goto('/projects/fieldnotes/');
+  await page.goto('/projects/astana-explorer/');
   const map = page.locator('[data-minimap]');
   await map.locator('summary').click();
   await expect(map.locator('[data-map-landmark="projects"]')).toHaveAttribute('data-visited', 'true');

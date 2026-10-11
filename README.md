@@ -24,7 +24,7 @@ npm run test:e2e
 
 ## Classic and Game views
 
-The header's **Classic view / Game view** link switches presentation on every page. Share `/?mode=classic` for the readable recruiter view, or `/?mode=game` for the woodland. Project pages accept the same parameters, for example `/projects/fieldnotes/?mode=classic`. Both presentations use the same content collections and `src/site.config.ts`.
+The header's **Classic view / Game view** link switches presentation on every page. Share `/?mode=classic` for the readable recruiter view, or `/?mode=game` for the woodland. Project pages accept the same parameters, for example `/projects/astana-explorer/?mode=classic`. Both presentations use the same content collections and `src/site.config.ts`.
 
 An explicit valid URL parameter wins and is saved as `pixel-view` in localStorage. Without a mode parameter, a short coarse-pointer landscape viewport (500 CSS pixels high or less) uses Classic and explains the fallback. Otherwise the saved choice wins; a first visit with Reduced Motion or browser-reported Save-Data defaults to Classic, and other first visits default to Game. An explicit `?mode=game` remains available even in a short landscape viewport. In short landscape viewports the header flows with the document instead of remaining sticky, preserving room to read and scroll. Storage reads and writes are guarded; blocked storage preserves the current explicit URL's behavior but cannot remember a future visit.
 
@@ -53,7 +53,7 @@ On the home page, enter **↑ ↑ ↓ ↓ ← → ← → B A** outside a text f
 
 ## Content and design decisions
 
-- The supplied developer name is **Akzhol**. Employment history, contact address, and real project details have not been supplied; the three projects are complete concept studies rather than claims of shipped client work. `you@example.com` is a visible placeholder, not a working owner contact. The site has no message form or sending service.
+- The supplied developer name is **Akzhol**, with **2 years** total experience. The three project descriptions are backed by public repository code and Git history. Employment history and contact details remain unconfirmed. `you@example.com` is a visible placeholder, not a working owner contact. The site has no message form or sending service.
 - `src/content/projects/*.md` contains the project case studies. `src/content/skills/*.json` and `src/content/experience/*.json` contain equipment and practice areas. Zod schemas and glob loaders are in `src/content.config.ts`.
 - `src/styles/tokens.css` is the single global token layer. Spacing and sizes derive from `--px: 4px`, with fractional pixel units for thin borders and smaller type. Component styles are scoped in Astro files.
 - **Pixelify Sans** is the only downloaded font. Game uses it throughout; Classic uses it for headings and navigation with Arial/Helvetica/system sans-serif body text. Astro's stable Fonts API uses the local provider against the installed Fontsource files and copies WOFF2 assets into the build. There are no runtime font-provider requests.
@@ -62,31 +62,33 @@ On the home page, enter **↑ ↑ ↓ ↓ ← → ← → B A** outside a text f
 - The build stays in this repository and tool caches are project-local. The deployment target is Vercel static hosting. The site has no backend, authentication, analytics, trackers, third-party scripts, or external data APIs. The deployment status and required checks are documented below.
 - Font and Three.js license notices are included in `public/licenses/`.
 
-## Replace with your real info
+## Project evidence and remaining personal details
 
-The shared `profile` object in `src/site.config.ts` drives the header, hero's factual line, summary, contact links, `Person` JSON-LD, `rel="me"`, and generated PDF. Review every field:
+The shared `profile` in `src/site.config.ts` drives both views, hero, contact links, `Person` JSON-LD and the generated PDF. The name is **Akzhol** and total experience is **2 years**; this does not assign a duration to any skill. The core stack is **TypeScript / React / Astro**, evidenced in these repositories.
 
-| Field | Current value / meaning | Replace or confirm |
-| --- | --- | --- |
-| `name` | `Akzhol` | Supplied public name. |
-| `role` | `Frontend engineer (placeholder)` | Your actual role. |
-| `experience` | `2 years` | Supplied experience summary. |
-| `coreStack` | `TypeScript`, `Astro` | Your actual core technologies; this is an illustrative selection. |
-| `availability` | `Availability: add status` | Your current availability. |
-| `email` | `you@example.com` | Your public contact address; the current value is deliberately non-personal. |
-| `github` | `https://github.com/illidan111` | Confirm this is the profile you want to publish, or replace it. |
-| `cv` | `/cv.pdf` | Keep the public download path and replace `public/cv.pdf` with your real CV. |
-| `summary` | Explicitly illustrative developer/profile description | Your own factual introduction. |
-| `isPlaceholder` | `true` | Keep true until the profile and CV are genuinely personalized; false removes the generator's placeholder labeling. |
+Exactly three projects are published in `src/content/projects/`. Existing original item icons and voxel models are reused as project emblems, not product screenshots. Rare/Epic/Legendary are game presentation labels, not proficiency ratings or awards.
 
-Additional content to review before publishing as your own portfolio:
+| Project | Evidence inspected | Recorded history | Live URL |
+| --- | --- | --- | --- |
+| [Astana Explorer](https://github.com/illidan111/astana-explorer) | `README.md`, `package.json`, `app.js`, `data.js`, `docs/frontend.md`, vendored Leaflet, configs and Playwright tests at `3c753f6` | 9 commits; first 27 September 2026, latest 7 October 2026 | None verified; Source only |
+| [Job Tracker / Waypoint](https://github.com/illidan111/job-tracker) | README, dependencies, routes, forms, Zustand state, Express auth, migrations and repositories at `9229d9a` | 7 commits; first 26 September 2026, latest 27 September 2026 | None verified; README describes a local product; Source only |
+| [Pixel Portfolio](https://github.com/illidan111/portfolio-1) | Current Astro/TypeScript source, canvas engine, Classic mode, tests, `vercel.json` and archived verification reports | First commit 10 October 2026 (`eb99bf6`) | No hardcoded self-link; Source only. `SITE_URL` controls metadata; live deployment unconfirmed |
 
-- **Fieldnotes, Orbit, and Pixel Forge** in `src/content/projects/` are original concept studies. Their descriptions, implementation plans, technologies, and screenshots are illustrative, not verified employment outcomes or deployed products. Replace them with projects you can accurately describe, or retain clear concept labels.
-- The eight skill entries in `src/content/skills/` (Accessibility, Astro, CSS, Figma, Git, Performance, React, TypeScript), their descriptions, and game rarity labels are illustrative selections, not evidence of a person's proficiency.
-- `src/content/experience/` contains **Interface craft**, **Building for the web**, and **Always exploring**: practice areas and habits, not employers, dates, or job history. Replace them with accurate experience or keep them explicitly framed as interests.
-- The About section in `src/pages/index.astro` includes “Frontend explorer,” “People first,” “Always growing,” and “Detail driven,” plus concept-portfolio copy. Review these personal claims, the avatar, NPC dialogue in `src/scripts/world.ts`, and demo labels in the layout/contact section when replacing the identity.
-- `public/cv.pdf` is a **one-page placeholder CV generated from the shared profile**, not an employment record. It visibly says so. `public/akzhol-profile.txt` is a legacy illustrative download; replace or remove it if retaining that URL.
-- The deployment `SITE_URL` fallback is intentionally a non-production placeholder. Set it to your verified production origin; never share placeholder canonical, sitemap, robots, or Open Graph URLs as if they were a live domain.
+The journey records the first *recorded repository commits*, not employment, project launch dates or years of skill experience. The only achievements are implemented in-world goals: visit sections, switch to night and speak to the NPC.
+
+Skills retained: Accessibility, Astro, CSS, Git, Performance, React and TypeScript. JavaScript replaces the unsupported Figma entry. Descriptions and tooltips name the repositories using each skill. Categories remain Frontend, Design and Workflow. `durationYears` is optional, positive and capped at 2; all entries omit it, and no skill duration appears when it is absent. Buffs use project evidence labels without timers.
+
+Needs confirmation before publishing personal details:
+
+- Role: `Frontend engineer (placeholder)`; code supports frontend work but does not confirm a professional title.
+- Availability: `Availability: add status`.
+- Public email: `you@example.com` is a placeholder; there is no message form or sending service.
+- LinkedIn: no verified URL, so no link is rendered.
+- CV, employment and education: `/cv.pdf` remains a visibly marked project-based placeholder; `public/akzhol-profile.txt` carries the same factual project scope and caveat. Keep `isPlaceholder: true` until those details are confirmed.
+- Skill durations: none assigned; do not infer them from Git dates or apply total experience to every skill.
+- Production origin/deployment: no verified live URLs. Set `SITE_URL` to a verified origin; `https://portfolio.example` is deliberately a non-production fallback.
+
+Astana's catalogue includes explicitly marked sample event entries, not a live event feed. Waypoint's optional seed records are fictional. Neither is represented as real customer activity. The portfolio's cited Lighthouse home scores of 100 in all four categories come from the archived 10 October 2026 report (`artifacts/performance/final/summary.json`, Lighthouse 13.5.0), before this content update. No new performance scores or user outcomes are claimed.
 
 ### Regenerate the placeholder/profile PDF
 
@@ -203,7 +205,7 @@ This is Astro static output. Keep `output: 'static'`; no Vercel adapter or serve
 | Output directory | `dist` |
 | Build environment variable | `SITE_URL=https://your-production-origin.example` — replace the example |
 
-`SITE_URL` is public build-time configuration, not a secret. `astro.config.mjs` reads the inherited variable or a local environment file, validates an HTTP(S) origin without credentials/path/query/hash, and falls back to `https://portfolio.example` for local/demo builds. Canonical URLs, sitemap, robots.txt, Open Graph URLs, and structured profile URLs share this base. Canonicals omit `?mode=...` and anchors because both views present the same content. The Open Graph image reuses the original `/art/world.svg`; some social services do not render SVG previews, so this does not guarantee universal social-card support. Set the variable in Vercel's project environment settings; setting it only in a local terminal does not configure remote builds.
+`SITE_URL` is public build-time configuration, not a secret. `astro.config.mjs` reads the inherited variable or a local environment file, validates an HTTP(S) origin without credentials/path/query/hash, and falls back to `https://portfolio.example` for local builds. Canonical URLs, sitemap, robots.txt, Open Graph URLs, and structured profile URLs share this base. Canonicals omit `?mode=...` and anchors because both views present the same content. The Open Graph image reuses the original `/art/world.svg`; some social services do not render SVG previews, so this does not guarantee universal social-card support. Set the variable in Vercel's project environment settings; setting it only in a local terminal does not configure remote builds.
 
 `vercel.json` sets `npm run build`, `dist`, consistent trailing slashes, immutable caching for fingerprinted `/_astro/` assets, and security headers. HTML and the unversioned `/cv.pdf` retain Vercel's documented default revalidation policy; verify the deployed headers instead of assuming them. The configured headers are `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, a restrictive `Permissions-Policy` for unused camera/microphone/location/payment access, and a CSP compatible with the site's inline startup/style needs. It permits neither `unsafe-eval` nor third-party script origins. Inline permission is a compatibility tradeoff, not strict hash-only protection. Astro's built-in CSP is incompatible with this `ClientRouter`; the deployment tests inject the configured response policy for browser validation. Astro preview alone does not apply `vercel.json` headers, and injected local headers do not establish Vercel's live routing or cache behavior.
 
@@ -231,9 +233,9 @@ Alternatively, use the dashboard:
 3. Deploy, inspect the build log, and record the production URL. Update `SITE_URL` to that origin and redeploy.
 4. Run the live smoke/screenshot and Lighthouse commands against that URL. Do not report local audit numbers as live results.
 
-## Current-update verification
+## Archived verification: Classic-mode update
 
-The recorded measurements below describe commit `908bd05`, before the profile rename. Historical reports and screenshots retain the former name; they are not served by the site. The package identifier remains unchanged; the profile download uses Akzhol.
+The recorded measurements below describe commit `908bd05`, before the profile rename and real-project content update. Historical reports and screenshots retain the former name and project routes; they are not served by the site. The package identifier remains unchanged; the profile download uses Akzhol.
 
 Local verification ran on October 10–11, 2026 with **Node 22.23.3**, Astro 6.4.8, and installed Microsoft Edge:
 
@@ -244,16 +246,16 @@ Local verification ran on October 10–11, 2026 with **Node 22.23.3**, Astro 6.4
 - The configured response CSP passed real browser checks for filters, skills, repeated ClientRouter navigation, CV downloads, mode changes, lazy High graphics, and gesture-activated audio. This validates the policy locally, not Vercel's deployed headers.
 - All ten features disabled together passed the ordinary-navigation/Settings/SVG fallback check. The restored shipping build matched **all 30 files** from the full-suite-tested build exactly. Home SHA-256: `ffeae008f3a402cc894311af8e817619d654da865a484bcca2106ecfd40f3633`.
 
-The following are **localhost mobile Lighthouse 13.5.0** results, using its simulated mobile network/CPU throttling. Every audit had no runtime error or run warning.
+The following archived results predate the real-project content update. They are **localhost mobile Lighthouse 13.5.0** results, using its simulated mobile network/CPU throttling. Every audit had no runtime error or run warning.
 
 | Page | Performance | Accessibility | Best Practices | SEO | LCP | CLS |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Game home | 99 | 100 | 100 | 100 | 1.805s | 0.000966 |
-| Fieldnotes, Game | 99 | 100 | 100 | 100 | 1.893s | 0 |
+| Archived project page, Game | 99 | 100 | 100 | 100 | 1.893s | 0 |
 | Skills anchor, Game | 99 | 100 | 100 | 100 | 1.810s | 0.000966 |
 | Classic home | 100 | 100 | 100 | 100 | 1.249s | 0.0005225 |
 
-Before this update, Game home and Fieldnotes scored 100 Performance and Skills scored 99; their other three categories were 100. Classic is new and has no earlier score. Both current home modes exceed the requested 95-category, LCP <2.5s, and CLS <0.05 gates.
+Before the Classic-mode update, Game home and Archived project page scored 100 Performance and Skills scored 99; their other three categories were 100. Classic is new and has no earlier score. Both measured home modes exceeded the requested 95-category, LCP <2.5s, and CLS <0.05 gates.
 
 | Initial home JavaScript, gzip bytes | External | Inline executable | Total |
 | --- | ---: | ---: | ---: |
@@ -280,7 +282,7 @@ node scripts/measure.mjs --matrix --label=current-game --routes=/?mode=game
 powershell -File scripts/lighthouse.ps1 -Label current
 ```
 
-The Lighthouse runner audits **`/?mode=game`**, **`/projects/fieldnotes/?mode=game`**, **`/?mode=game#skills`**, and **`/?mode=classic`**. Skills is a home-page anchor, not a separate route. Explicit mode URLs matter because Reduced Motion/Save-Data can select Classic automatically. The optional `--devices` live-smoke matrix covers iPhone 13, Pixel 7, and a custom 360×640 Android viewport, each in portrait and landscape; dedicated mobile tests cover fallback behavior and interactions separately.
+The Lighthouse runner audits **`/?mode=game`**, **`/projects/astana-explorer/?mode=game`**, **`/?mode=game#skills`**, and **`/?mode=classic`**. Skills is a home-page anchor, not a separate route. Explicit mode URLs matter because Reduced Motion/Save-Data can select Classic automatically. The optional `--devices` live-smoke matrix covers iPhone 13, Pixel 7, and a custom 360×640 Android viewport, each in portrait and landscape; dedicated mobile tests cover fallback behavior and interactions separately.
 
 The new budget baseline is **24,887 external JS gzip bytes**, with **121 inline gzip bytes** recorded at the start of this update. The additional allowance is 5,000 bytes. `measure-modes.mjs` reports external and inline scripts separately, their total, and the like-for-like total delta; it conservatively checks the combined total against **29,887 bytes**. Classic must be lighter and must request no Game/engine/voxel/Three.js chunks. The runner uses fresh profiles and records actual requested response bodies compressed with Node's gzip; these are comparable gzip sizes, not wire-transfer estimates. Native LCP/CLS observations complement the separate Lighthouse mobile reports. New reports are written only when a runner executes; preparing a script is not a measured pass.
 
@@ -293,7 +295,7 @@ Chromium viewport, touch, user-agent, and CPU emulation do **not** reproduce phy
 1. Open both explicit mode URLs in portrait and landscape, rotate while viewing, and check the short-landscape notice, normal scrolling, no horizontal overflow, and no overlap between the map, CTAs, door prompt, or NPC. Check the notch and home-indicator safe areas with browser bars expanded and collapsed.
 2. On a fresh browser state, enable Reduced Motion or an available data-saving mode and confirm the Classic default and visible dismissible notice. Choose Game explicitly, reload, and confirm the URL/saved-choice behavior. Save-Data only applies when the browser exposes that signal.
 3. Tap navigation, filters, skills, and tooltip targets; tap outside a tooltip to dismiss it. Try the Game movement buttons, then scroll normally outside them. Check that controls and the header never hide page content or contact actions. With VoiceOver or TalkBack, reach the mode switch, Email, CV, and navigation in a sensible order.
-4. Try **Email** and **CV** from home and a project in both modes. Confirm the intended mail address and a readable PDF. Replace the demo email/PDF before sending real correspondence.
+4. Try **Email** and **CV** from home and a project in both modes. Confirm the intended mail address and a readable PDF. Replace the placeholder email/PDF before sending real correspondence.
 5. Try day/night and Low quality; background/restore the tab and scroll the world offscreen. Optional sound must remain silent until a deliberate Settings gesture, with a usable Resume action afterward. Note heat, battery use, or stutter that desktop emulation cannot establish.
 
 ## Historical verification: ten-feature Game baseline
@@ -309,7 +311,7 @@ These checks were completed on October 10, 2026 **before the current Classic/con
 - All ten flags disabled together also built without warnings and retained ordinary navigation, Settings, and SVG project art, with no Three.js requests.
 - Scene, discovery, voxel, boss, crafting, Settings, minimap, and transition screenshots are in `artifacts/screenshots/`. The twelve rain/snow review images cover 1440, 768, and 360px in both themes. `npm run test:e2e` generates the latest Playwright HTML report at `artifacts/playwright-report/index.html`; its launcher keeps temporary profiles and transform caches project-local.
 
-The original measurements used the then-default Game URLs `/`, `/projects/fieldnotes/`, and `/#skills`. The updated runners now require the explicit mode URLs listed above to make comparable measurements.
+The original measurements used the then-default Game URLs `/`, `/projects/astana-explorer/`, and `/#skills`. The updated runners now require the explicit mode URLs listed above to make comparable measurements.
 
 ### Historical final measured budgets
 
@@ -318,7 +320,7 @@ All ten flags were enabled in that measured build. Initial home external JavaScr
 | Mobile Lighthouse 13.5 | Performance | Accessibility | Best Practices | SEO |
 | --- | ---: | ---: | ---: | ---: |
 | Home | 100 | 100 | 100 | 100 |
-| Fieldnotes project | 100 | 100 | 100 | 100 |
+| Archived project page project | 100 | 100 | 100 | 100 |
 | Skills (`/#skills`) | 99 | 100 | 100 | 100 |
 
 The P2 gate also passed before P3 began: 19,651 home JS gzip bytes and 100 in every Lighthouse category on all three targets. Final maximum measured CLS is **0.006382**, below 0.05; no idle gameplay task exceeded 100ms and no application errors were captured.
@@ -327,4 +329,4 @@ Actual shared-engine averages were **59.3fps on High** in day and night, with ma
 
 The historical machine-readable baseline, P2 gate, and final results are in `artifacts/performance/baseline/summary.json`, `artifacts/performance/p2-final/summary.json`, and `artifacts/performance/final/summary.json`. The historical final report includes its measured build's SHA-256. Full audit output and local browser evidence remain in `artifacts/`; artifact availability in a fresh checkout depends on which evidence files were committed.
 
-Before presenting this as a personal portfolio, replace the remaining profile placeholders, concept content, contact address, and illustrative CV. The current local gate passed; Vercel sign-in/linking, live deployment verification, and physical phone/browser validation remain to be completed.
+Before presenting this as a personal portfolio, confirm the remaining role, availability, contact and CV placeholders. The project content now comes from the repositories listed above. The current local gate passed; Vercel sign-in/linking, live deployment verification, and physical phone/browser validation remain to be completed.

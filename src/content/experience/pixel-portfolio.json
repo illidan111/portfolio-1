@@ -1,0 +1,11 @@
+{
+  "title": "First recorded portfolio commit",
+  "period": "10 October 2026",
+  "description": "The portfolio history starts with a playable pixel world and shared settings. Subsequent commits add Classic mode and the supplied Akzhol profile.",
+  "tags": [
+    "Astro",
+    "Canvas",
+    "Classic mode"
+  ],
+  "order": 3
+}

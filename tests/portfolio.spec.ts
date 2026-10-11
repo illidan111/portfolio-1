@@ -32,8 +32,8 @@ for (const width of [360, 390, 768, 1440]) {
     expect(bounds!.x).toBeGreaterThanOrEqual(0);
     expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
     await page.keyboard.press('Escape');
-    await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-    await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeVisible();
+    await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
     await checkOverflow(page);
   });
 }
@@ -45,11 +45,11 @@ test('inventory filters show the right projects and announce the count', async (
   await page.getByRole('button', { name: 'Web apps', exact: true }).click();
   await expect(visibleCards).toHaveCount(2);
   await expect(page.locator('#project-count')).toHaveText('2 items');
-  await expect(visibleCards.getByRole('heading', { level: 3 })).toHaveText(['Fieldnotes', 'Orbit']);
+  await expect(visibleCards.getByRole('heading', { level: 3 })).toHaveText(['Astana Explorer', 'Job Tracker']);
   await expect(page.getByRole('button', { name: 'Web apps', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'Creative tools', exact: true }).click();
   await expect(visibleCards).toHaveCount(1);
-  await expect(visibleCards.getByRole('heading', { level: 3 })).toHaveText(['Pixel Forge']);
+  await expect(visibleCards.getByRole('heading', { level: 3 })).toHaveText(['Pixel Portfolio']);
   await expect(page.locator('#project-count')).toHaveText('1 item');
   await page.getByRole('button', { name: 'All items', exact: true }).click();
   await expect(visibleCards).toHaveCount(3);
@@ -75,8 +75,8 @@ test('night preference survives reloads and client router navigation', async ({ 
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
   await page.reload();
   await expect(page.getByRole('button', { name: 'Switch to day' })).toHaveAttribute('aria-pressed', 'true');
-  await page.getByRole('link', { name: 'Explore Orbit', exact: true }).click();
-  await expect(page).toHaveURL(/\/projects\/orbit\/$/);
+  await page.getByRole('link', { name: 'Explore Job Tracker', exact: true }).click();
+  await expect(page).toHaveURL(/\/projects\/job-tracker\/$/);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
   await page.getByRole('link', { name: 'Back to inventory' }).click();
   await expect(page).toHaveURL(/\/#projects$/);
@@ -92,11 +92,11 @@ test('NPC dialog traps focus, changes dialogue, and returns focus on Escape', as
   const dialog = page.getByRole('dialog', { name: 'Pixel the Wanderer' });
   await expect(dialog).toBeVisible();
   await page.getByRole('button', { name: 'What does Akzhol build?' }).click();
-  await expect(page.locator('#npc-message')).toContainText('Orbit, Fieldnotes, and Pixel Forge');
+  await expect(page.locator('#npc-message')).toContainText('Astana Explorer, Job Tracker, and Pixel Portfolio');
   await page.getByRole('button', { name: 'Tell me about Akzhol' }).click();
-  await expect(page.locator('#npc-message')).toContainText('Akzhol’s portfolio includes illustrative content');
+  await expect(page.locator('#npc-message')).toContainText('Akzhol’s portfolio documents real repositories');
   await page.getByRole('button', { name: 'Let’s work together' }).click();
-  await expect(page.locator('#npc-message')).toContainText('no personal contact address');
+  await expect(page.locator('#npc-message')).toContainText('No personal contact address');
   await page.keyboard.press('Tab');
   // Native dialogs permit a stop in browser chrome before wrapping into the page.
   if (await page.evaluate(() => document.activeElement === document.body)) await page.keyboard.press('Tab');
@@ -141,8 +141,8 @@ test('router round trips keep interactions active without duplicate handlers', a
   page.on('pageerror', error => errors.push(error.message));
   await page.evaluate(() => { (window as Window & { portfolioTestMarker?: string }).portfolioTestMarker = 'same-document'; });
   for (let trip = 0; trip < 2; trip += 1) {
-    await page.getByRole('link', { name: 'Explore Pixel Forge', exact: true }).click();
-    await expect(page.getByRole('heading', { name: 'Pixel Forge', exact: true })).toBeVisible();
+    await page.getByRole('link', { name: 'Explore Pixel Portfolio', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Pixel Portfolio', exact: true })).toBeVisible();
     await page.getByRole('link', { name: 'Back to inventory' }).click();
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Crafting code.');
     await page.getByRole('button', { name: 'Switch to night' }).click();
@@ -225,8 +225,8 @@ test('fonts, images, navigation, and interactions make only local requests', asy
     }
   });
   await openHome(page);
-  await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Concept', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Implemented features', exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Back to inventory' }).click();
   await page.getByRole('button', { name: 'Say hello', exact: true }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -247,8 +247,8 @@ test('homepage, NPC dialog, and case study pass axe WCAG A and AA checks', async
   await page.getByRole('button', { name: 'Say hello', exact: true }).click();
   await scan();
   await page.keyboard.press('Escape');
-  await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Concept', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Implemented features', exact: true })).toBeVisible();
   await scan();
 });
 
@@ -259,9 +259,9 @@ test('static content and case study links remain usable without JavaScript', asy
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Crafting code.');
   await expect(page.locator('[data-project]:visible')).toHaveCount(3);
   await expect(page.getByRole('heading', { name: 'A builder at heart.', exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Design decisions', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Implemented features', exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Back to inventory' }).click();
   await expect(page).toHaveURL(/\/#projects$/);
   await context.close();
@@ -281,13 +281,13 @@ test('capture desktop, mobile, night, project, and dialog review screenshots', a
   await page.screenshot({ path: 'artifacts/screenshots/npc-dialog.png' });
   await page.keyboard.press('Escape');
   // Direct loading avoids capturing a View Transition snapshot during full-page resizing.
-  await page.goto('/projects/fieldnotes/');
-  await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeVisible();
+  await page.goto('/projects/astana-explorer/');
+  await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
   await page.evaluate(async () => {
     await document.fonts.ready;
     await Promise.all([...document.images].map(image => image.decode()));
   });
-  await page.screenshot({ path: 'artifacts/screenshots/fieldnotes-case-study.png', fullPage: true });
+  await page.screenshot({ path: 'artifacts/screenshots/astana-explorer-case-study.png', fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.evaluate(async () => { await document.fonts.ready; });

@@ -1,7 +1,7 @@
 {
   "name": "React",
   "category": "Frontend",
-  "description": "Reusable components and carefully scoped state for interfaces with more moving pieces.",
+  "description": "Used in: Job Tracker. Lazy routes, React Hook Form validation and Zustand state for the career workspace.",
   "icon": "gem",
   "rarity": "Rare",
   "order": 3

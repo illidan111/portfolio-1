@@ -38,9 +38,9 @@ test('fresh Classic navigation requests no game, engine, voxel, or three chunks;
   await expect(page.locator('[data-world]')).not.toHaveAttribute('data-engine-running');
   await expect(page.locator('[data-effects]')).toBeHidden();
   await expect(page.locator('.world-tools')).toBeHidden();
-  await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-  await expect(page).toHaveURL(/\/projects\/fieldnotes\/$/);
-  await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await expect(page).toHaveURL(/\/projects\/astana-explorer\/$/);
+  await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
   await expectView(page, 'classic');
   await page.reload();
   await expectView(page, 'classic');
@@ -123,9 +123,9 @@ test('the first-visit suggestion appears only once across client navigation and 
   await page.goto('/?mode=classic');
   await expectView(page, 'classic');
   await expect(page.locator('[data-view-notice]')).toBeVisible();
-  await page.getByRole('link', { name: 'Explore Orbit', exact: true }).click();
-  await expect(page).toHaveURL(/\/projects\/orbit\/$/);
-  await expect(page.getByRole('heading', { name: 'Orbit', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Explore Job Tracker', exact: true }).click();
+  await expect(page).toHaveURL(/\/projects\/job-tracker\/$/);
+  await expect(page.getByRole('heading', { name: 'Job Tracker', exact: true })).toBeVisible();
   await expect(page.locator('[data-view-notice]')).toBeHidden();
   await page.reload();
   await expectView(page, 'classic');
@@ -141,8 +141,8 @@ test('blocked storage keeps explicit Classic, the theme button, and project navi
   await expectView(page, 'classic');
   await page.getByRole('button', { name: 'Switch to night' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
-  await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
   await expectView(page, 'classic');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
   expect(requests).toEqual([]);
@@ -168,10 +168,10 @@ test('Classic retains the same projects, skills, experience, filters, and case-s
   const cards = page.locator('[data-project]:visible');
   await expect(cards).toHaveCount(3);
   await page.getByRole('button', { name: 'Web apps', exact: true }).click();
-  await expect(cards.getByRole('heading', { level: 3 })).toHaveText(['Fieldnotes', 'Orbit']);
+  await expect(cards.getByRole('heading', { level: 3 })).toHaveText(['Astana Explorer', 'Job Tracker']);
   await expect(page.locator('#project-count')).toHaveText('2 items');
   await page.getByRole('button', { name: 'Creative tools', exact: true }).click();
-  await expect(cards.getByRole('heading', { level: 3 })).toHaveText(['Pixel Forge']);
+  await expect(cards.getByRole('heading', { level: 3 })).toHaveText(['Pixel Portfolio']);
   await page.getByRole('button', { name: 'All items', exact: true }).click();
   await page.getByRole('button', { name: 'Inspect Accessibility', exact: true }).click();
   await expect(page.locator('#skill-name')).toHaveText('Accessibility');
@@ -180,7 +180,7 @@ test('Classic retains the same projects, skills, experience, filters, and case-s
   await page.keyboard.press('Enter');
   await expect(page.locator('#skill-name')).toHaveText('CSS');
   await expect(page.locator('[data-skill][aria-pressed="true"]')).toHaveCount(1);
-  for (const title of ['Fieldnotes', 'Orbit', 'Pixel Forge']) {
+  for (const title of ['Astana Explorer', 'Job Tracker', 'Pixel Portfolio']) {
     await page.getByRole('link', { name: `Explore ${title}`, exact: true }).click();
     await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible();
     await expect(page.locator('main h1')).toBeFocused();

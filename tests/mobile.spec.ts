@@ -175,8 +175,8 @@ test.describe('small-phone touch interactions', () => {
     await page.locator('#skill-name').tap();
     await tooltipVisible(skill.locator('[role="tooltip"]'), false);
 
-    const info = page.locator('[data-recipe-result="fieldnotes"] [data-recipe-info]');
-    const tip = page.locator('#recipe-tooltip-fieldnotes');
+    const info = page.locator('[data-recipe-result="astana-explorer"] [data-recipe-info]');
+    const tip = page.locator('#recipe-tooltip-astana-explorer');
     await info.tap();
     await expect(info).toHaveAttribute('aria-expanded', 'true');
     await tooltipVisible(tip, true);
@@ -188,9 +188,9 @@ test.describe('small-phone touch interactions', () => {
     await page.keyboard.press('Escape');
     await tooltipVisible(tip, false);
     await expect(info).toBeFocused();
-    await page.getByRole('link', { name: 'Open Fieldnotes recipe result', exact: true }).tap();
-    await expect(page).toHaveURL(/\/projects\/fieldnotes\/$/);
-    await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeVisible();
+    await page.getByRole('link', { name: 'Open Astana Explorer recipe result', exact: true }).tap();
+    await expect(page).toHaveURL(/\/projects\/astana-explorer\/$/);
+    await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
   });
 
   test('page swipes scroll normally, settings fit, and expanded map targets remain inside the map', async ({ page }) => {
@@ -249,8 +249,8 @@ test('all coarse pointers start Auto on Low, retain static project art, and allo
   expect(density).toBeLessThanOrEqual(1);
   await page.locator('#contact').scrollIntoViewIfNeeded();
   await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-running', 'false');
-  await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).tap();
-  await expect(page).toHaveURL(/\/projects\/fieldnotes\/$/);
+  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).tap();
+  await expect(page).toHaveURL(/\/projects\/astana-explorer\/$/);
   await ready(page, 'game');
   await expect(page.locator('[data-voxel-state]')).toHaveAttribute('data-voxel-state', 'static');
   await expect(page.locator('[data-voxel-fallback]')).toBeVisible();

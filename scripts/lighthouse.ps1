@@ -29,7 +29,7 @@ if (-not (Test-Path -LiteralPath $env:CHROME_PATH)) {
 }
 $routes = @(
   @{ Name = 'home-game'; Route = '/?mode=game' },
-  @{ Name = 'project-game'; Route = '/projects/fieldnotes/?mode=game' },
+  @{ Name = 'project-game'; Route = '/projects/astana-explorer/?mode=game' },
   @{ Name = 'skills-game'; Route = '/?mode=game#skills' },
   @{ Name = 'home-classic'; Route = '/?mode=classic' }
 )

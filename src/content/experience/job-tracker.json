@@ -1,0 +1,11 @@
+{
+  "title": "First recorded Job Tracker commit",
+  "period": "26 September 2026",
+  "description": "The repository history begins with a full-stack Waypoint workspace. Later commits add persistence, workflow changes and documentation.",
+  "tags": [
+    "React",
+    "TypeScript",
+    "SQLite"
+  ],
+  "order": 1
+}

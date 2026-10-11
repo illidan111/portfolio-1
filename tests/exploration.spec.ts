@@ -47,8 +47,8 @@ test.describe('block discoveries', () => {
     await expect(page.locator('[data-loot-flight]')).toHaveCount(0);
     await page.reload();
     await expect(count).toHaveText('1');
-    await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-    await expect(page.getByRole('heading', { name: 'Fieldnotes', exact: true })).toBeVisible();
+    await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
     await expect(page.locator('[data-loot-count]').first()).toHaveText('1');
     await page.getByRole('link', { name: 'Back to inventory' }).click();
     await expect(page).toHaveURL(/#projects$/);
@@ -115,7 +115,7 @@ test.describe('block discoveries', () => {
     await page.goto('/');
     await page.getByText('Field notes · little things to discover', { exact: true }).click();
     const guide = page.locator('.field-guide');
-    await expect(guide.getByRole('link', { name: 'Download the illustrative profile / CV' })).toBeVisible();
+    await expect(guide.getByRole('link', { name: 'Download the placeholder profile / CV' })).toBeVisible();
     await expect(guide.getByRole('link', { name: /Visit the developer’s GitHub/ })).toBeVisible();
     await expect(guide).toContainText('Every tree, tile, and creature');
     await context.close();
@@ -210,7 +210,7 @@ test.describe('weather and seasons', () => {
     test.setTimeout(90_000);
     await page.goto('/');
     await setWeather(page, 'rain');
-    for (const route of ['/', '/projects/fieldnotes/', '/projects/orbit/', '/projects/pixel-forge/']) {
+    for (const route of ['/', '/projects/astana-explorer/', '/projects/job-tracker/', '/projects/pixel-portfolio/']) {
       await page.goto(route);
       await page.evaluate(async () => { await document.fonts.ready; });
       for (const theme of ['day', 'night']) {

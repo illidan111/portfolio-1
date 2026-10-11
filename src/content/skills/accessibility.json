@@ -1,7 +1,7 @@
 {
   "name": "Accessibility",
   "category": "Design",
-  "description": "Keyboard-friendly controls, readable contrast, useful labels, and respect for reduced motion.",
+  "description": "Used in: Astana Explorer, Job Tracker, Pixel Portfolio. Keyboard-friendly controls, focus restoration and reduced motion checked with Playwright and axe.",
   "icon": "heart",
   "rarity": "Epic",
   "order": 5

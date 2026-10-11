@@ -119,8 +119,8 @@ test('audio manager and native context survive Astro page changes without duplic
   await page.locator('[data-sound-toggle]').click();
   await expect(page.locator('html')).toHaveAttribute('data-audio-state', 'running');
   await page.keyboard.press('Escape');
-  await page.getByRole('link', { name: 'Explore Fieldnotes', exact: true }).click();
-  await expect(page).toHaveURL(/\/projects\/fieldnotes\/$/);
+  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await expect(page).toHaveURL(/\/projects\/astana-explorer\/$/);
   await expect(page.locator('html')).toHaveAttribute('data-audio-state', 'running');
   expect((await audioSnapshot(page)).count).toBe(1);
   await openSettings(page);

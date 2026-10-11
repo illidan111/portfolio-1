@@ -44,8 +44,8 @@ try {
   await page.goto(home.href);
   await expect(page.locator('h1')).toContainText('Crafting code.');
   for (const selector of ['[data-world]','[data-digging]','[data-boss]','[data-minimap]','[data-crafting-table]','[data-sound-toggle]']) await expect(page.locator(selector)).toHaveCount(0);
-  await page.getByRole('link',{ name:'Explore Fieldnotes',exact:true }).click();
-  await expect(page).toHaveURL(/\/projects\/fieldnotes\/$/);
+  await page.getByRole('link',{ name:'Explore Astana Explorer',exact:true }).click();
+  await expect(page).toHaveURL(/\/projects\/astana-explorer\/$/);
   await expect(page.locator('[data-voxel]')).toHaveCount(0);
   await expect(page.locator('[data-voxel-fallback]')).toBeVisible();
   await page.keyboard.press('6');

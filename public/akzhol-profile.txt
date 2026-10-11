@@ -1,18 +1,18 @@
-AKZHOL — FRONTEND EXPLORER
-Illustrative portfolio profile, not a personal employment record.
+AKZHOL - PROJECT PROFILE / PLACEHOLDER CV
 
-FOCUS
-Thoughtful web interfaces, accessible interactions, and original pixel-art experiments.
+2 years total experience. Individual skill durations are unassigned.
+Role: Frontend engineer (placeholder)
+Availability: add status
+Email: you@example.com (placeholder)
+GitHub: https://github.com/illidan111
+Core stack: TypeScript / React / Astro
 
-TOOLKIT
-TypeScript, Astro, React, CSS, accessibility, design systems, Git, and web performance.
+PUBLIC REPOSITORIES
+Astana Explorer - JavaScript city catalogue and Leaflet map.
+Source: https://github.com/illidan111/astana-explorer
+Job Tracker (Waypoint) - React/TypeScript career workspace with Express and SQLite.
+Source: https://github.com/illidan111/job-tracker
+Pixel Portfolio - Astro pixel world with a canvas engine and Classic mode.
+Source: https://github.com/illidan111/portfolio-1
 
-CONCEPT STUDIES
-Fieldnotes — a mindful garden journal.
-Orbit — a calm dashboard for developers.
-Pixel Forge — a small browser-based pixel editor.
-
-ABOUT THIS DOWNLOAD
-The portfolio owner has not supplied a personal CV. This downloadable overview describes
-the illustrative portfolio honestly and contains no invented employment or contact details.
-The repository owner's GitHub profile is linked separately on the site.
+Confirm employment history, education, contact details and availability before using as a CV.
