@@ -70,7 +70,7 @@ The shared `profile` object in `src/site.config.ts` drives the header, hero's fa
 | --- | --- | --- |
 | `name` | `Akzhol` | Supplied public name. |
 | `role` | `Frontend engineer (placeholder)` | Your actual role. |
-| `experience` | `Experience: add years` | A truthful experience summary; no years have been assumed. |
+| `experience` | `2 years` | Supplied experience summary. |
 | `coreStack` | `TypeScript`, `Astro` | Your actual core technologies; this is an illustrative selection. |
 | `availability` | `Availability: add status` | Your current availability. |
 | `email` | `you@example.com` | Your public contact address; the current value is deliberately non-personal. |

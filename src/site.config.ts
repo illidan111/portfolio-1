@@ -15,12 +15,12 @@ export const features: Record<'hero' | 'lighting' | 'voxels' | 'digging' | 'weat
 export const profile = {
   name: 'Akzhol',
   role: 'Frontend engineer (placeholder)',
-  experience: 'Experience: add years',
+  experience: '2 years',
   coreStack: ['TypeScript', 'Astro'],
   availability: 'Availability: add status',
   email: 'you@example.com',
   github: 'https://github.com/illidan111',
   cv: '/cv.pdf',
-  summary: 'Developer portfolio for Akzhol with original pixel art and concept projects. The role, experience, core stack, availability, and email are placeholders; no personal employment history has been supplied.',
+  summary: 'Developer portfolio for Akzhol with 2 years of experience, original pixel art and concept projects. The role, core stack, availability, and email are placeholders; no personal employment history has been supplied.',
   isPlaceholder: true,
 };

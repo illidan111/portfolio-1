@@ -21,10 +21,10 @@ for (const mode of ['classic', 'game'] as const) {
         const response = await page.goto(`${route}?mode=${mode}`);
         expect(response?.status()).toBe(200);
         await expect(page.locator('html')).toHaveAttribute('data-mode', mode);
-        await expect(page).toHaveTitle(/Akzhol/);
-        await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Akzhol/);
-        await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Akzhol/);
-        await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /Akzhol/);
+        await expect(page).toHaveTitle(/Akzhol.*2 years/);
+        await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Akzhol.*2 years/);
+        await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Akzhol.*2 years/);
+        await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /Akzhol.*2 years/);
 
         const header = page.getByRole('banner');
         const email = header.getByRole('link', { name: 'Email', exact: true });
