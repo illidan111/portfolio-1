@@ -188,7 +188,7 @@ test.describe('small-phone touch interactions', () => {
     await page.keyboard.press('Escape');
     await tooltipVisible(tip, false);
     await expect(info).toBeFocused();
-    await page.getByRole('link', { name: 'Open Astana Explorer recipe result', exact: true }).tap();
+    await page.getByRole('link', { name: /^Open Astana Explorer / }).tap();
     await expect(page).toHaveURL(/\/projects\/astana-explorer\/$/);
     await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
   });
@@ -249,7 +249,7 @@ test('all coarse pointers start Auto on Low, retain static project art, and allo
   expect(density).toBeLessThanOrEqual(1);
   await page.locator('#contact').scrollIntoViewIfNeeded();
   await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-running', 'false');
-  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).tap();
+  await page.getByRole('link', { name: 'Explore Astana Explorer' }).tap();
   await expect(page).toHaveURL(/\/projects\/astana-explorer\/$/);
   await ready(page, 'game');
   await expect(page.locator('[data-voxel-state]')).toHaveAttribute('data-voxel-state', 'static');

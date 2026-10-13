@@ -100,7 +100,7 @@ function initializeWorld(): void {
     writeStorage('pixel-theme', theme);
     const toggle = document.getElementById('day-toggle');
     toggle?.setAttribute('aria-pressed', String(theme === 'night'));
-    toggle?.setAttribute('aria-label', `Switch to ${theme === 'night' ? 'day' : 'night'}`);
+    toggle?.setAttribute('aria-label', `${theme === 'night' ? 'Nighttime' : 'Daytime'} — Switch to ${theme === 'night' ? 'day' : 'night'}`);
     document.querySelectorAll<HTMLElement>('[data-time-label]').forEach((label) => {
       label.textContent = theme === 'night' ? 'Nighttime' : 'Daytime';
     });

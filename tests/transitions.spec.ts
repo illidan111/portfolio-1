@@ -54,7 +54,7 @@ async function checkImmediateNavigation(page: Page): Promise<void> {
 test('native dig transition shows original curtain, lasts 520ms, and focuses without waiting', async ({ page }) => {
   await installProbe(page, false, true);
   await openHome(page);
-  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
   await page.waitForFunction(() => (window as Window & { transitionProbe?: TransitionProbe }).transitionProbe?.frozen);
   await checkImmediateNavigation(page);
   const probe = await readProbe(page);
@@ -75,7 +75,7 @@ test('fallback curtain works without native View Transitions and cleans up withi
   await installProbe(page, true, true);
   await openHome(page);
   await mkdir('artifacts/screenshots', { recursive: true });
-  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
   await page.waitForFunction(() => (window as Window & { transitionProbe?: TransitionProbe }).transitionProbe?.frozen);
   await checkImmediateNavigation(page);
   const probe = await readProbe(page);
@@ -95,7 +95,7 @@ for (const preference of ['device', 'manual'] as const) {
     else await page.addInitScript(() => { localStorage.setItem('pixel-settings', JSON.stringify({ motion: 'reduced' })); });
     await installProbe(page);
     await openHome(page);
-    await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+    await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
     await checkImmediateNavigation(page);
     await expect(page.locator('html')).toHaveAttribute('data-motion', 'reduced');
     await expect(page.locator('html')).not.toHaveAttribute('data-dig-native', 'true');

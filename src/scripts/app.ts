@@ -41,7 +41,7 @@ function mount(): void {
     const paintTheme = () => {
       const night = document.documentElement.dataset.theme === 'night';
       toggle?.setAttribute('aria-pressed', String(night));
-      toggle?.setAttribute('aria-label', `Switch to ${night ? 'day' : 'night'}`);
+      toggle?.setAttribute('aria-label', `${night ? 'Nighttime' : 'Daytime'} — Switch to ${night ? 'day' : 'night'}`);
       document.querySelectorAll('[data-time-label]').forEach(label => { label.textContent = night ? 'Nighttime' : 'Daytime'; });
     };
     paintTheme();

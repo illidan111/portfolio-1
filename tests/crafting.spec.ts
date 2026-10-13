@@ -41,7 +41,7 @@ test('keyboard recipes use AND matching, preserve skill inspection, and announce
   await expect(page.locator('[data-project-id="pixel-portfolio"]')).toHaveAttribute('data-recipe-match', 'true');
   await expect(page.locator('[data-skill][aria-pressed="true"]')).toHaveCount(1);
   await expect(page.locator('#skill-name')).toHaveText('Astro');
-  const result = page.getByRole('link', { name: 'Open Pixel Portfolio recipe result', exact: true });
+  const result = page.getByRole('link', { name: /^Open Pixel Portfolio / });
   const tooltip = page.locator('#recipe-tooltip-pixel-portfolio');
   const reset = page.getByRole('button', { name:'Reset recipe', exact:true });
   await reset.focus();
@@ -135,8 +135,8 @@ test('crafting table fits desktop and mobile, with useful project links without 
   await page.goto('/#skills');
   await expect(page.locator('[data-add-ingredient]')).toBeDisabled();
   await expect(page.locator('[data-crafting-table]')).not.toHaveAttribute('data-ready');
-  await expect(page.getByRole('link', { name: 'Open Astana Explorer recipe result', exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Open Astana Explorer recipe result', exact: true }).click();
+  await expect(page.getByRole('link', { name: /^Open Astana Explorer / })).toBeVisible();
+  await page.getByRole('link', { name: /^Open Astana Explorer / }).click();
   await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
   await context.close();
 });

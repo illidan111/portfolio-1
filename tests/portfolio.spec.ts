@@ -32,7 +32,7 @@ for (const width of [360, 390, 768, 1440]) {
     expect(bounds!.x).toBeGreaterThanOrEqual(0);
     expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
     await page.keyboard.press('Escape');
-    await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+    await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
     await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
     await checkOverflow(page);
   });
@@ -75,7 +75,7 @@ test('night preference survives reloads and client router navigation', async ({ 
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
   await page.reload();
   await expect(page.getByRole('button', { name: 'Switch to day' })).toHaveAttribute('aria-pressed', 'true');
-  await page.getByRole('link', { name: 'Explore Job Tracker', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore Job Tracker' }).click();
   await expect(page).toHaveURL(/\/projects\/job-tracker\/$/);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'night');
   await page.getByRole('link', { name: 'Back to inventory' }).click();
@@ -141,7 +141,7 @@ test('router round trips keep interactions active without duplicate handlers', a
   page.on('pageerror', error => errors.push(error.message));
   await page.evaluate(() => { (window as Window & { portfolioTestMarker?: string }).portfolioTestMarker = 'same-document'; });
   for (let trip = 0; trip < 2; trip += 1) {
-    await page.getByRole('link', { name: 'Explore Pixel Portfolio', exact: true }).click();
+    await page.getByRole('link', { name: 'Explore Pixel Portfolio' }).click();
     await expect(page.getByRole('heading', { name: 'Pixel Portfolio', exact: true })).toBeVisible();
     await page.getByRole('link', { name: 'Back to inventory' }).click();
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Crafting code.');
@@ -225,7 +225,7 @@ test('fonts, images, navigation, and interactions make only local requests', asy
     }
   });
   await openHome(page);
-  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
   await expect(page.getByRole('heading', { name: 'Implemented features', exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Back to inventory' }).click();
   await page.getByRole('button', { name: 'Say hello', exact: true }).click();
@@ -247,7 +247,7 @@ test('homepage, NPC dialog, and case study pass axe WCAG A and AA checks', async
   await page.getByRole('button', { name: 'Say hello', exact: true }).click();
   await scan();
   await page.keyboard.press('Escape');
-  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
   await expect(page.getByRole('heading', { name: 'Implemented features', exact: true })).toBeVisible();
   await scan();
 });
@@ -259,7 +259,7 @@ test('static content and case study links remain usable without JavaScript', asy
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Crafting code.');
   await expect(page.locator('[data-project]:visible')).toHaveCount(3);
   await expect(page.getByRole('heading', { name: 'A builder at heart.', exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
   await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Implemented features', exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Back to inventory' }).click();

@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 for (const width of [320, 360, 390]) {
   for (const mode of ['game', 'classic']) {
@@ -44,4 +45,21 @@ for (const width of [320, 360, 390]) {
       expect(skillLabelsFit).toBe(true);
     });
   }
+}
+
+for (const mode of ['game', 'classic']) {
+  test(`accessible names match visible labels in ${mode}`, async ({ page }) => {
+    await page.goto(`/?mode=${mode}`);
+    await expect(page.locator('[data-view-link="toggle"]')).toHaveText(mode === 'game' ? 'Classic view' : 'Game view');
+    const toggle = page.locator('#day-toggle');
+    await expect(toggle).toHaveAccessibleName('Daytime — Switch to night');
+    await toggle.click();
+    await expect(toggle).toHaveAccessibleName('Nighttime — Switch to day');
+    await toggle.click();
+    await expect(toggle).toHaveAccessibleName('Daytime — Switch to night');
+    await page.mouse.move(0, 0);
+    await page.locator('.brand').focus();
+    const audit = await new AxeBuilder({ page }).withRules(['label-content-name-mismatch']).analyze();
+    expect(audit.violations).toEqual([]);
+  });
 }

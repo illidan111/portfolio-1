@@ -187,7 +187,7 @@ for (const mode of ['classic', 'game'] as const) {
     await expect(page.locator('#skill-name')).toHaveText('CSS');
     await page.evaluate(() => { (window as unknown as AuditWindow).deploymentMarker = 'same-document'; });
     for (let trip = 0; trip < 2; trip++) {
-      await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+      await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
       await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeFocused();
       await expect(page.locator('html')).toHaveAttribute('data-mode', mode);
       await page.getByRole('link', { name: '← Back to inventory', exact: true }).click();

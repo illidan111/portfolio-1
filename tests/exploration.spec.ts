@@ -47,7 +47,7 @@ test.describe('block discoveries', () => {
     await expect(page.locator('[data-loot-flight]')).toHaveCount(0);
     await page.reload();
     await expect(count).toHaveText('1');
-    await page.getByRole('link', { name: 'Explore Astana Explorer', exact: true }).click();
+    await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
     await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
     await expect(page.locator('[data-loot-count]').first()).toHaveText('1');
     await page.getByRole('link', { name: 'Back to inventory' }).click();
