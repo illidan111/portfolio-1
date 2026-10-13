@@ -28,7 +28,7 @@ The header's **Classic view / Game view** link switches presentation on every pa
 
 An explicit valid URL parameter wins and is saved as `pixel-view` in localStorage. Without a mode parameter, a short coarse-pointer landscape viewport (500 CSS pixels high or less) uses Classic and explains the fallback. Otherwise the saved choice wins; a first visit with Reduced Motion or browser-reported Save-Data defaults to Classic, and other first visits default to Game. An explicit `?mode=game` remains available even in a short landscape viewport. In short landscape viewports the header flows with the document instead of remaining sticky, preserving room to read and scroll. Storage reads and writes are guarded; blocked storage preserves the current explicit URL's behavior but cannot remember a future visit.
 
-The small **“Prefer a classic view?”** notice appears once per browser and can be dismissed. Reduced Motion does not suppress it. The short-landscape explanation can appear when that fallback is needed. The notice and collapsed World map share a toolbar in normal document flow, above the world and clear of its controls.
+The small **“Prefer a classic view?”** notice appears once per browser in Game and can be dismissed. Visiting Classic does not consume that suggestion or offer a switch to the current view. An explicit Game choice can still show the suggestion under Reduced Motion. The short-landscape Classic fallback displays its explanation without a redundant Classic link. The notice and collapsed World map share a toolbar in normal document flow, above the world and clear of its controls.
 
 Classic keeps the palette, pixel headings, and restrained borders, with system sans-serif body text and ordinary document flow. Project filters, skill inspection, navigation, and contact links remain available. It does not import the Game entry, shared engine, audio manager, or Three.js; there is no animated world, lighting, weather, digging, boss, movement, or 3D. Its page transition is at most a simple fade. Switching modes performs a full document navigation so running Game resources are torn down; navigation within a mode uses Astro's client router.
 
@@ -56,7 +56,7 @@ On the home page, enter **↑ ↑ ↓ ↓ ← → ← → B A** outside a text f
 - The supplied developer name is **Akzhol**, with **2 years** total experience. The three project descriptions are backed by public repository code and Git history. Employment history and contact details remain unconfirmed. `you@example.com` is a visible placeholder, not a working owner contact. The site has no message form or sending service.
 - `src/content/projects/*.md` contains the project case studies. `src/content/skills/*.json` and `src/content/experience/*.json` contain equipment and practice areas. Zod schemas and glob loaders are in `src/content.config.ts`.
 - `src/styles/tokens.css` is the single global token layer. Spacing and sizes derive from `--px: 4px`, with fractional pixel units for thin borders and smaller type. Component styles are scoped in Astro files.
-- **Pixelify Sans** is the only downloaded font. Game uses it throughout; Classic uses it for headings and navigation with Arial/Helvetica/system sans-serif body text. Astro's stable Fonts API uses the local provider against the installed Fontsource files and copies WOFF2 assets into the build. There are no runtime font-provider requests.
+- **Pixelify Sans** is the only downloaded font. Game keeps pixel headings and interface text, with Arial/Helvetica navigation captions at widths up to 760px so all six full labels remain readable. Classic uses pixel headings with system sans-serif body text. Captions use the shared 14px `--font-caption` token instead of shrinking to 8–12px. Astro's stable Fonts API uses the local provider against the installed Fontsource files and copies WOFF2 assets into the build. There are no runtime font-provider requests.
 - Vanilla TypeScript handles the small interactive layer. No client framework or hydrated UI island is needed. Astro’s ClientRouter provides transitions between the inventory and case studies, with `fallback="swap"`. Regular links and all content remain available without JavaScript.
 - Browser interaction state is reinitialized after client navigation and listeners, observers, and timers are disposed before swaps.
 - The build stays in this repository and tool caches are project-local. The deployment target is Vercel static hosting. The site has no backend, authentication, analytics, trackers, third-party scripts, or external data APIs. The deployment status and required checks are documented below.
@@ -330,3 +330,57 @@ Actual shared-engine averages were **59.3fps on High** in day and night, with ma
 The historical machine-readable baseline, P2 gate, and final results are in `artifacts/performance/baseline/summary.json`, `artifacts/performance/p2-final/summary.json`, and `artifacts/performance/final/summary.json`. The historical final report includes its measured build's SHA-256. Full audit output and local browser evidence remain in `artifacts/`; artifact availability in a fresh checkout depends on which evidence files were committed.
 
 Before presenting this as a personal portfolio, confirm the remaining role, availability, contact and CV placeholders. The project content now comes from the repositories listed above. The current local gate passed; Vercel sign-in/linking, live deployment verification, and physical phone/browser validation remain to be completed.
+
+## Audit corrections — 13 October 2026
+
+Each correction was checked before its own commit. The existing woodland/pixel style is the reference; this is a small UI repair, so no new Image Gen concept was needed.
+
+| Commit | Correction |
+| --- | --- |
+| `b94ead1` | Reserve space for mobile hearts and loot beside the full name. |
+| `2ff70d1` | Reduce mobile header height while retaining 44px touch targets. |
+| `3261164` | Use readable 14px captions, fit skill names, and remove closed tooltip overflow. |
+| `5bb985d` | Match accessible names to visible labels, including theme state and project text. |
+| `e48a119` | Advertise game shortcuts only in Game, including after client navigation. |
+| `69f2aa6` | Suppress the redundant Classic suggestion; keep the landscape explanation without its switch link. |
+| `d0a6270` | Separate enlarged navigation labels and keep the tablet Classic header clear of the name. |
+| `3c52dcd` | Position enlarged mobile game hints below Mote and above the touch controls. |
+| `faf09fd` | Fit the hint between Mote and the player, retain a 44px close target, and check all three together. |
+
+The extra visual repairs were found by the desktop screenshot comparison and the full browser suite. The first full run passed 142 of 143 tests and found the hint/Mote overlap. The next run passed 152 of 154 but found that moving the hint down covered the player. The final repair fits the readable hint between Mote and the player; all seven related tests passed, including geometry at 320/360/390px and touch movement/jumping.
+
+### Verification and visual fidelity
+
+- `npm run check`: 0 errors, 0 warnings, 0 hints. `npm run build`: successful static output, 5 pages.
+- Final production-build regression: `npm run test:e2e -- --workers=2` — **154/154 passed in 4.4 minutes**. The latest report is `artifacts/playwright-report/index.html`.
+- The final mobile matrix covers 320, 360 and 390 CSS pixels in both modes and both themes, plus a 1440px desktop control. No horizontal overflow, name/heart overlap, JavaScript errors, undersized header targets, captions below 14px, axe WCAG A/AA violations or label/content/name mismatches were found in these 16 states.
+- Mobile header height is **188px in Game** and **154.39px in Classic**, compared with 200px and 170.39px before this audit repair. Header targets remain at least 44 × 44px. The additional header regression matrix covers 640, 768, 1024 and 1440px too.
+- Browser/IAB was tried first: IAB was unavailable and the enabled-browser inventory was empty. Screenshots and interaction checks therefore use Playwright with the installed Microsoft Edge Chromium browser. Checks ran locally with Node 24.14.0; they do not establish Node 22 production compatibility or physical-phone behavior.
+- References are `artifacts/audit-fixes/reference-{game,classic}-{320,360,390,1440}.png`. Final screenshots are `artifacts/audit-fixes/final-{game,classic}-{width}-{day,night}.png`, with full-page 320px captures and playable night/hint states at 320/360/390px. The reference and final first-viewport images share the same native 1440 × 900 and mobile width × 900 dimensions. Both reference and final images were opened with `view_image` for direct comparison. The machine-readable matrix is `artifacts/audit-fixes/results.json`.
+- Verified interaction paths include mode switching, ordinary Classic keyboard navigation, Game shortcuts 2 and 6, day/night, filters, skill inspection, project round trips, the once-per-browser suggestion, landscape fallback, and playable mobile hint/Mote separation. Temporary QA scripts and intermediate captures are removed; final comparison evidence remains local in `artifacts/audit-fixes/` and is ignored by Git.
+
+| Comparison point | Reference / mismatch | Final result |
+| --- | --- | --- |
+| Copy and navigation | Existing headings, full nav/CTA names, profile line and section order. | Above-the-fold copy is unchanged except the requested removal of the redundant Classic suggestion. No new personal claims or CTA labels. Decorative slot numbers still render; their accessible meaning comes from working Game shortcut names. |
+| Palette | Header `#121d3a`, page `#101932`, original day/night sky and green accents. | Palette and gradients retained; computed header/page colors match. |
+| Typography | Pixelify headings; tiny 8–12px utility labels. | Pixelify headings retained, captions enlarged to 14px. Full nav labels use system sans at ≤760px; Classic small skill labels fit their cells. This is an intentional readability adjustment. |
+| Icon and image treatment | Original SVG forest, character, item art, filled pixel icons and rectangular frames. | Same assets, metaphors, pixel rendering and framing. Mobile hearts are 12px and occupy their own reserved area. |
+| Layout and spacing | Mobile name overlapped hearts; tall header; desktop labels touched after enlargement. | Name stays clear, header is shorter, labels are separated. Existing section/container model and desktop first-viewport structure remain. |
+| Responsive interaction states | Enlarged hint collided with Mote; the first positioning repair then covered the player. | Hint fits between Mote and the player and clears actions and touch controls at 320/360/390px. Classic exposes no inert Game keyboard promises. |
+
+The implementation was faithfully verified against the existing design with these intentional readability and audit corrections. No unresolved material mismatch was found in the requested surfaces. Profile/CV/SEO placeholders remain explicit and require owner-supplied data.
+
+### Changed source and test files
+
+- Components: `src/components/Boss.astro`, `Crafting.astro`, `Digging.astro`, `Header.astro`, `Minimap.astro`, `Settings.astro`, `ViewNotice.astro`, `WorldGame.astro`.
+- Layout/pages: `src/layouts/Layout.astro`, `src/pages/index.astro`, `src/pages/projects/[id].astro`.
+- Scripts/styles: `src/scripts/app.ts`, `src/scripts/world.ts`, `src/styles/classic.css`, `src/styles/tokens.css`.
+- Tests: `tests/audit-fixes.spec.ts`, `audio.spec.ts`, `classic.spec.ts`, `crafting.spec.ts`, `deployment.spec.ts`, `exploration.spec.ts`, `mobile.spec.ts`, `portfolio.spec.ts`, `transitions.spec.ts`.
+- Documentation: `README.md`. Existing generated screenshot changes are excluded from these commits.
+
+### Owner data needed
+
+- **Profile:** confirmed professional title, short bio, public email, availability/work format, and any public social links to include.
+- **CV:** actual roles/employers and dates, responsibilities, education, languages, and an approved CV or confirmed content for generating it. Do not infer skill durations from repository dates.
+- **Cases:** your role/contribution, team/context, development dates, approved screenshots and live URLs, and actual outcomes with evidence; omit metrics that are not available.
+- **SEO:** verified production domain, preferred title/description and audience/language, plus an approved social-preview image and any public profile links for structured data.
