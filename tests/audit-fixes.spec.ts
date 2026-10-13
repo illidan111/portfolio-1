@@ -131,13 +131,19 @@ for (const width of [320, 360, 390]) {
     });
     await page.goto('/?mode=game');
     await expect(page.locator('[data-boss]')).toBeVisible({ timeout: 12_000 });
-    const rects = await page.locator('[data-boss], [data-game-controls], .touch-controls, .hero-actions a, .hero-actions button:not(.classic-only)').evaluateAll(elements => elements.map(e => ({ selector: e.className, rect: e.getBoundingClientRect().toJSON() })));
+    const rects = await page.locator('[data-boss], [data-game-controls], .touch-controls, [data-player], .hero-actions a, .hero-actions button:not(.classic-only)').evaluateAll(elements => elements.map(e => ({ selector: e.className, rect: e.getBoundingClientRect().toJSON() })));
     for (let i = 0; i < 3; i++) {
       for (let j = i + 1; j < rects.length; j++) {
         const a = rects[i].rect, b = rects[j].rect;
         expect(a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top, `${rects[i].selector} overlaps ${rects[j].selector}`).toBe(false);
       }
     }
+    const hint = page.locator('[data-game-controls]');
+    const hero = page.locator('[data-player]');
+    expect((await hint.boundingBox())!.y + (await hint.boundingBox())!.height).toBeLessThanOrEqual((await hero.boundingBox())!.y);
+    const close = (await hint.getByRole('button').boundingBox())!;
+    expect(close.width).toBeGreaterThanOrEqual(44);
+    expect(close.height).toBeGreaterThanOrEqual(44);
     await context.close();
   });
 }

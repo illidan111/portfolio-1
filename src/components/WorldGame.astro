@@ -36,6 +36,6 @@ const enabled = features.hero || features.lighting || features.weather || featur
   .touch-controls button:last-child { margin-left:0; }
   [data-reduced='true'] .touch-controls { display:none; }
   @media(pointer:coarse) { .touch-controls { display:flex; } .game-controls { bottom:calc(25 * var(--px)); font-size:var(--font-caption); max-width:calc(100% - 8 * var(--px)); } .game-controls > span { display:none; } }
-  @media(max-width:700px) { .game-controls { bottom:calc(29 * var(--px)); max-width:calc(100% - 8 * var(--px)); font-size:var(--font-caption); } }
+  @media(max-width:700px) { .game-controls { bottom:calc(42 * var(--px)); max-width:calc(100% - 8 * var(--px)); padding:var(--px) calc(12 * var(--px)) var(--px) calc(3 * var(--px)); font-size:var(--font-caption); line-height:1.2; } }
   @media(prefers-reduced-motion:reduce) { .game-input, .game-controls, .touch-controls { display:none; } }
 </style>
