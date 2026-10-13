@@ -23,6 +23,25 @@ for (const width of [320, 360, 390]) {
         return rect.width > 0 && (rect.width < 44 || rect.height < 44);
       }).map(element => element.textContent));
       expect(smallTargets).toEqual([]);
+      const captions = await page.locator('.slot-label, .skill-name, .stack > span, .eyebrow, .contact-footnote, .settings-footnote').evaluateAll(elements => elements.map(element => Number.parseFloat(getComputedStyle(element).fontSize)));
+      expect(captions.every(size => size >= 14)).toBe(true);
+      const overlaps = await page.locator('.hotbar .slot-label:visible').evaluateAll(elements => elements.some((element, index) => {
+        const rect = element.getBoundingClientRect();
+        const next = elements[index + 1]?.getBoundingClientRect();
+        return next && rect.right > next.left;
+      }));
+      expect(overlaps, 'Navigation captions stay separate').toBe(false);
+      const navFits = await page.locator('.hotbar-item:visible').evaluateAll(elements => elements.every(element => {
+        const rect = element.getBoundingClientRect();
+        return rect.left >= 0 && rect.right <= innerWidth;
+      }));
+      expect(navFits).toBe(true);
+      const skillLabelsFit = await page.locator('.skill-name').evaluateAll(elements => elements.every(element => {
+        const label = element.getBoundingClientRect();
+        const slot = element.closest('.skill-slot')!.getBoundingClientRect();
+        return label.left >= slot.left && label.right <= slot.right;
+      }));
+      expect(skillLabelsFit).toBe(true);
     });
   }
 }

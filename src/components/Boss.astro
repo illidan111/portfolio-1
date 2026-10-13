@@ -31,17 +31,17 @@ const { variant = 'sky' } = Astro.props;
   .visitor-caption strong { display:block; font-size:calc(3.5 * var(--px)); font-weight:400; }
   .visitor-hp { height:var(--px); margin-top:var(--px); background:#3d4a63; }
   .visitor-hp span { display:block; height:100%; width:100%; background:#b7dca7; }
-  .visitor-caption button { min-height:calc(8 * var(--px)); width:100%; background:transparent; font-size:calc(3 * var(--px)); color:#bfcde0; }
+  .visitor-caption button { min-height:calc(8 * var(--px)); width:100%; background:transparent; font-size:var(--font-caption); color:#bfcde0; }
   .sky-message { position:absolute; top:calc(19 * var(--px)); right:calc(5 * var(--px)); width:calc(64 * var(--px)); max-width:calc(100% - 8 * var(--px)); padding:calc(3 * var(--px)) calc(10 * var(--px)) calc(3 * var(--px)) calc(3 * var(--px)); background:#172746; border:calc(.5 * var(--px)) solid #bcae88; color:#eee5bf; pointer-events:auto; font-size:calc(3.5 * var(--px)); }
   .sky-message button { position:absolute; right:0; top:0; width:calc(9 * var(--px)); height:calc(9 * var(--px)); background:transparent; font-size:calc(5 * var(--px)); }
   .trophy-shelf { display:flex; align-items:center; gap:calc(4 * var(--px)); margin-top:calc(6 * var(--px)); padding:calc(4 * var(--px)); background:#15223e; border:calc(.5 * var(--px)) solid #53617d; min-height:calc(26 * var(--px)); }
   .trophy-item { display:grid; place-items:center; min-width:calc(13 * var(--px)); height:calc(13 * var(--px)); color:#98a5bd; background:#26324a; border:calc(.5 * var(--px)) solid #62718a; }
   .trophy-shelf h3 { font-size:calc(4 * var(--px)); font-weight:400; margin-block:var(--px); }
-  .trophy-shelf p, [data-trophy-state] { color:#b6c2da; font-size:calc(3 * var(--px)); }
-  .trophy-shelf .eyebrow { font-size:calc(2.5 * var(--px)); }
+  .trophy-shelf p, [data-trophy-state] { color:#b6c2da; font-size:var(--font-caption); }
+  .trophy-shelf .eyebrow { font-size:var(--font-caption); }
   [data-trophy-state] { margin-left:auto; }
   [data-earned='true'] .trophy-item { color:#f2d486; background:#3f4035; border-color:#b5ad79; }
   [data-earned='true'] [data-trophy-state] { color:#c9dfa4; }
   @media(max-width:1000px) { .sky-visitor { right:calc(4 * var(--px)); top:calc(29 * var(--px)); width:calc(40 * var(--px)); } .sky-message { top:calc(4 * var(--px)); } }
-  @media(max-width:700px) { .sky-visitor { display:flex; align-items:center; width:calc(48 * var(--px)); top:calc(97 * var(--px)); right:calc(4 * var(--px)); } .mote { width:calc(18 * var(--px)); height:calc(18 * var(--px)); flex-shrink:0; } .mote svg { width:calc(16 * var(--px)); height:calc(16 * var(--px)); } .visitor-caption { flex:1; padding-inline:var(--px); } .visitor-caption strong { font-size:calc(3 * var(--px)); line-height:1; } .visitor-caption button { font-size:calc(2.5 * var(--px)); } .sky-message { top:calc(98 * var(--px)); right:calc(4 * var(--px)); width:calc(82 * var(--px)); font-size:calc(3 * var(--px)); } .trophy-shelf { flex-wrap:wrap; } [data-trophy-state] { margin-left:calc(17 * var(--px)); } .trophy-shelf > div { flex:1; } }
+  @media(max-width:700px) { .sky-visitor { display:flex; align-items:center; width:calc(48 * var(--px)); top:calc(97 * var(--px)); right:calc(4 * var(--px)); } .mote { width:calc(18 * var(--px)); height:calc(18 * var(--px)); flex-shrink:0; } .mote svg { width:calc(16 * var(--px)); height:calc(16 * var(--px)); } .visitor-caption { flex:1; padding-inline:var(--px); } .visitor-caption strong { font-size:var(--font-caption); line-height:1; } .visitor-caption button { font-size:var(--font-caption); } .sky-message { top:calc(98 * var(--px)); right:calc(4 * var(--px)); width:calc(82 * var(--px)); font-size:var(--font-caption); } .trophy-shelf { flex-wrap:wrap; } [data-trophy-state] { margin-left:calc(17 * var(--px)); } .trophy-shelf > div { flex:1; } }
 </style>

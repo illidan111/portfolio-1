@@ -25,17 +25,17 @@ const enabled = features.hero || features.lighting || features.weather || featur
   .player[data-x] { visibility:visible; }
   .player :global(svg) { display:block; width:100%; height:100%; transform:scaleX(var(--facing,1)); filter:drop-shadow(2px 0 0 #fff0b4) drop-shadow(-2px 0 0 #fff0b4) drop-shadow(0 2px 0 #fff0b4) drop-shadow(0 -2px 0 #fff0b4); }
   .house-door { position:absolute; pointer-events:auto; display:grid; justify-items:center; min-width:calc(12 * var(--px)); min-height:calc(12 * var(--px)); transform:translate(-50%,-50%); color:#f1e6b8; }
-  .house-door > span:first-child { position:absolute; bottom:calc(100% + 2 * var(--px)); left:50%; transform:translateX(-50%); background:#132939; border:calc(.5 * var(--px)) solid #adba83; padding:var(--px) calc(2 * var(--px)); font-size:calc(3 * var(--px)); white-space:nowrap; }
+  .house-door > span:first-child { position:absolute; bottom:calc(100% + 2 * var(--px)); left:50%; transform:translateX(-50%); background:#132939; border:calc(.5 * var(--px)) solid #adba83; padding:var(--px) calc(2 * var(--px)); font-size:var(--font-caption); white-space:nowrap; }
   .house-door[data-near='true'] > span:first-child { background:#385534; border-color:#f4e4a0; }
   .door-glyph { background:#40352c; border:var(--px) solid #b3915b; font-size:calc(6 * var(--px)); line-height:1; }
-  .game-controls { pointer-events:auto; position:absolute; left:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(18 * var(--px)); min-height:calc(11 * var(--px)); padding:calc(2 * var(--px)) calc(12 * var(--px)) calc(2 * var(--px)) calc(3 * var(--px)); background:#132840ee; border:calc(.5 * var(--px)) solid #9cb1ba; color:#e4ebce; font-size:calc(3 * var(--px)); }
-  .game-controls > span { display:block; color:#b8c8db; font-size:calc(2.5 * var(--px)); }
+  .game-controls { pointer-events:auto; position:absolute; left:max(calc(4 * var(--px)),calc((100% - 1136px) / 2)); bottom:calc(18 * var(--px)); min-height:calc(11 * var(--px)); padding:calc(2 * var(--px)) calc(12 * var(--px)) calc(2 * var(--px)) calc(3 * var(--px)); background:#132840ee; border:calc(.5 * var(--px)) solid #9cb1ba; color:#e4ebce; font-size:var(--font-caption); }
+  .game-controls > span { display:block; color:#b8c8db; font-size:var(--font-caption); }
   .game-controls button { position:absolute; top:0; right:0; width:calc(10 * var(--px)); height:100%; background:transparent; font-size:calc(5 * var(--px)); }
   .touch-controls { display:none; position:absolute; bottom:calc(11 * var(--px)); left:max(calc(4 * var(--px)),env(safe-area-inset-left)); right:max(calc(4 * var(--px)),env(safe-area-inset-right)); pointer-events:none; gap:calc(2 * var(--px)); }
   .touch-controls button { pointer-events:auto; touch-action:none; width:calc(12 * var(--px)); height:calc(12 * var(--px)); border:calc(.5 * var(--px)) solid #b2c1a5; background:#1a2a4ef0; box-shadow:var(--bevel); font-size:calc(6 * var(--px)); }
   .touch-controls button:last-child { margin-left:0; }
   [data-reduced='true'] .touch-controls { display:none; }
-  @media(pointer:coarse) { .touch-controls { display:flex; } .game-controls { bottom:calc(25 * var(--px)); font-size:calc(2.5 * var(--px)); max-width:calc(100% - 8 * var(--px)); } .game-controls > span { display:none; } }
-  @media(max-width:700px) { .game-controls { bottom:calc(43 * var(--px)); max-width:calc(100% - 8 * var(--px)); font-size:calc(2.5 * var(--px)); } }
+  @media(pointer:coarse) { .touch-controls { display:flex; } .game-controls { bottom:calc(25 * var(--px)); font-size:var(--font-caption); max-width:calc(100% - 8 * var(--px)); } .game-controls > span { display:none; } }
+  @media(max-width:700px) { .game-controls { bottom:calc(43 * var(--px)); max-width:calc(100% - 8 * var(--px)); font-size:var(--font-caption); } }
   @media(prefers-reduced-motion:reduce) { .game-input, .game-controls, .touch-controls { display:none; } }
 </style>

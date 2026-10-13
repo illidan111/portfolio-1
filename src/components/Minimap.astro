@@ -28,7 +28,7 @@ const destination = (id: string) => Astro.url.pathname === '/' ? `#${id}` : `/#$
   .world-tools { padding-block:calc(2 * var(--px)); background:var(--color-panel-deep); border-bottom:var(--px) solid #080e23; }
   .world-tools-inner { display:flex; justify-content:flex-end; align-items:flex-start; }
   .minimap { position:relative; background:#172747; color:var(--color-text); max-width:100%; }
-  .minimap summary { display:flex; align-items:center; justify-content:center; gap:var(--px); min-width:calc(12 * var(--px)); min-height:calc(12 * var(--px)); height:calc(12 * var(--px)); padding:calc(2 * var(--px)); list-style:none; cursor:pointer; font-size:calc(3 * var(--px)); }
+  .minimap summary { display:flex; align-items:center; justify-content:center; gap:var(--px); min-width:calc(12 * var(--px)); min-height:calc(12 * var(--px)); height:calc(12 * var(--px)); padding:calc(2 * var(--px)); list-style:none; cursor:pointer; font-size:var(--font-caption); }
   .minimap summary::-webkit-details-marker { display:none; }
   .minimap summary > svg { color:var(--color-accent); }
   .map-title { display:none; }
@@ -41,7 +41,7 @@ const destination = (id: string) => Astro.url.pathname === '/' ? `#${id}` : `/#$
   .map-content { padding:0 calc(2 * var(--px)) calc(2 * var(--px)); }
   .map-landscape { position:relative; width:calc(56 * var(--px)); height:calc(42 * var(--px)); border:calc(.5 * var(--px)) solid #5d7391; overflow:hidden; }
   .map-art { position:absolute; inset:0; width:100%; height:100%; }
-  .map-landmark { position:absolute; display:grid; place-content:center; justify-items:center; gap:0; width:calc(16 * var(--px)); height:calc(10 * var(--px)); color:#eff8de; background:#172a40ed; border:calc(.5 * var(--px)) solid #a2b880; font-size:calc(2.5 * var(--px)); line-height:1.2; }
+  .map-landmark { position:absolute; display:grid; place-content:center; justify-items:center; gap:0; width:calc(16 * var(--px)); height:calc(10 * var(--px)); color:#eff8de; background:#172a40ed; border:calc(.5 * var(--px)) solid #a2b880; font-size:var(--font-caption); line-height:1.2; }
   .map-landmark:hover { background:#304b43; border-color:#e5d496; }
   .map-landmark:focus-visible { z-index:2; outline-offset:0; }
   [data-map-landmark='home'] { left:var(--px); top:calc(2 * var(--px)); }
@@ -53,10 +53,10 @@ const destination = (id: string) => Astro.url.pathname === '/' ? `#${id}` : `/#$
   .map-landmark[data-visited='false'] svg, .map-landmark[data-visited='false'] span { visibility:hidden; }
   .map-landmark[data-visited='false']::after { content:'?'; position:absolute; inset:0; display:grid; place-items:center; color:#c1c9d7; font-size:calc(4 * var(--px)); }
   .map-landmark[data-revealing='true']::before { content:''; position:absolute; inset:0; background:#3f495a; animation:map-fog-lift 180ms steps(3,end) both; }
-  .map-progress { font-size:calc(2.5 * var(--px)); color:var(--color-muted); margin-top:calc(2 * var(--px)); text-align:center; }
+  .map-progress { font-size:var(--font-caption); color:var(--color-muted); margin-top:calc(2 * var(--px)); text-align:center; }
   .map-equivalent:focus-within { position:static; width:auto; height:auto; margin:0; clip-path:none; white-space:normal; overflow:visible; }
   .map-equivalent ul { display:grid; gap:var(--px); margin:calc(2 * var(--px)) 0 0; padding:0; list-style:none; }
-  .map-equivalent a { display:block; padding:calc(2 * var(--px)); font-size:calc(3 * var(--px)); }
+  .map-equivalent a { display:block; padding:calc(2 * var(--px)); font-size:var(--font-caption); }
   :global([data-motion='reduced']) .map-landmark::before { animation:none !important; display:none; }
   @keyframes map-fog-lift { from { clip-path:inset(0); } to { clip-path:inset(0 0 100% 0); } }
   @media(min-width:701px) { .map-title { display:inline; } .minimap summary { gap:calc(2 * var(--px)); padding-inline:calc(3 * var(--px)); } }

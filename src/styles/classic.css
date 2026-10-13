@@ -35,7 +35,7 @@ html:root[data-mode='classic'][data-theme] .section-description { font-size:calc
 html:root[data-mode='classic'][data-theme] .project-content > p { font-size:calc(4 * var(--px)); min-height:calc(24 * var(--px)); }
 html:root[data-mode='classic'][data-theme] .project-title-row h3 { font-size:calc(7 * var(--px)); }
 html:root[data-mode='classic'][data-theme] .filters button { min-height:calc(11 * var(--px)); font-size:calc(3.5 * var(--px)); }
-html:root[data-mode='classic'][data-theme] .stack { font-size:calc(3 * var(--px)); }
+html:root[data-mode='classic'][data-theme] .stack { font-size:var(--font-caption); }
 html:root[data-mode='classic'][data-theme] .skills-section { grid-template-columns:1fr; gap:calc(5 * var(--px)); margin-top:calc(12 * var(--px)); padding-block:calc(12 * var(--px)); }
 html:root[data-mode='classic'][data-theme] .skills-intro { display:block; }
 html:root[data-mode='classic'][data-theme] .skills-intro br { display:none; }
@@ -73,4 +73,7 @@ html:root[data-mode='classic'][data-theme]::view-transition-old(root), html:root
 }
 @media(max-width:540px) {
   html:root[data-mode='classic'][data-theme] .header-inner { min-height:0; padding-block:var(--px); gap:var(--px); }
+  html:root[data-mode='classic'][data-theme] .skill-slot { padding:var(--px); gap:var(--px); }
+  html:root[data-mode='classic'][data-theme] .skill-slot > svg { width:calc(4 * var(--px)); height:calc(4 * var(--px)); }
+  html:root[data-mode='classic'][data-theme] .skill-name { font-size:var(--font-caption); }
 }
