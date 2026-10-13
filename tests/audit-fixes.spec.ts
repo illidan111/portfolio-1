@@ -16,6 +16,13 @@ for (const width of [320, 360, 390]) {
       });
       expect(bounds).toEqual({ fits: true, overlap: false });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+      const headerHeight = await page.locator('header').evaluate(element => element.getBoundingClientRect().height);
+      expect(headerHeight).toBeLessThanOrEqual(mode === 'game' ? 192 : 156);
+      const smallTargets = await page.locator('header a, header button').evaluateAll(elements => elements.filter(element => {
+        const rect = element.getBoundingClientRect();
+        return rect.width > 0 && (rect.width < 44 || rect.height < 44);
+      }).map(element => element.textContent));
+      expect(smallTargets).toEqual([]);
     });
   }
 }

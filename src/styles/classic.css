@@ -71,3 +71,6 @@ html:root[data-mode='classic'][data-theme]::view-transition-old(root), html:root
   html:root[data-mode='classic'][data-theme] .hotbar-item { flex:1; padding-inline:var(--px); }
   html:root[data-mode='classic'][data-theme] .slot-label { font-size:calc(3.5 * var(--px)); }
 }
+@media(max-width:540px) {
+  html:root[data-mode='classic'][data-theme] .header-inner { min-height:0; padding-block:var(--px); gap:var(--px); }
+}

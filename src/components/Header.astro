@@ -47,5 +47,13 @@ const displayName = profile.name.replace(/\s*\(demo\)$/, '');
   @media (max-width: 540px) { .header-inner { min-height: calc(36 * var(--px)); flex-wrap: wrap; padding-block: calc(3 * var(--px)); gap: calc(2 * var(--px)); } .brand { flex: 0 0 auto; white-space:nowrap; letter-spacing: calc(-.25 * var(--px)); } .brand img { width: calc(7 * var(--px)); height: calc(7 * var(--px)); } .hotbar { order: 3; width: 100%; justify-content: center; } .hotbar-item { width: calc(12 * var(--px)); min-width:calc(12 * var(--px)); height: calc(12 * var(--px)); } .world-controls { display: grid; align-items: center; grid-template-columns:auto auto; gap:var(--px); margin-left:auto; } .life { grid-column:1; grid-row:1; } .day-toggle { grid-column:1 / -1; } .loot-count { grid-column:2; grid-row:1; } .life :global(svg) { width: calc(3 * var(--px)); height: calc(3 * var(--px)); } .loot-label { display:none; } }
 </style>
 <style>
-  @media(max-width:540px) { .loot-count { font-size:calc(2.5 * var(--px)); } }
+  @media(max-width:540px) {
+    .header-inner { min-height:0; padding-block:var(--px); gap:var(--px); }
+    .header-actions { padding-bottom:var(--px); }
+    .hotbar { gap:var(--px); padding-bottom:calc(5 * var(--px)); }
+    .hotbar-item { flex:1; width:auto; min-width:0; height:calc(11 * var(--px)); }
+    .slot-label { top:calc(11 * var(--px)); }
+    .world-controls { gap:0 var(--px); }
+    .loot-count { font-size:calc(2.5 * var(--px)); }
+  }
 </style>
