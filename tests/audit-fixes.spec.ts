@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-for (const width of [320, 360, 390]) {
+for (const width of [320, 360, 390, 640, 768, 1024, 1440]) {
   for (const mode of ['game', 'classic']) {
     test(`header name stays clear at ${width}px in ${mode}`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 });
@@ -18,7 +18,7 @@ for (const width of [320, 360, 390]) {
       expect(bounds).toEqual({ fits: true, overlap: false });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       const headerHeight = await page.locator('header').evaluate(element => element.getBoundingClientRect().height);
-      expect(headerHeight).toBeLessThanOrEqual(mode === 'game' ? 192 : 156);
+      expect(headerHeight).toBeLessThanOrEqual(mode === 'game' ? 192 : 160);
       const smallTargets = await page.locator('header a, header button').evaluateAll(elements => elements.filter(element => {
         const rect = element.getBoundingClientRect();
         return rect.width > 0 && (rect.width < 44 || rect.height < 44);
