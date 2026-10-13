@@ -87,16 +87,13 @@ test('the header switch reloads the document, preserves URL context, and persist
   await expectView(page, 'game');
 });
 
-test('Reduced Motion defaults to Classic, keeps its first notice visible, and respects explicit Game', async ({ page }) => {
+test('Reduced Motion defaults to Classic without a redundant suggestion and respects explicit Game', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const requests = trackGameRequests(page);
   await page.goto('/');
   await expectView(page, 'classic');
   await page.evaluate(async () => { await document.fonts.ready; });
   const notice = page.locator('[data-view-notice]');
-  await expect(notice).toBeVisible();
-  await expect(notice).toHaveAttribute('data-shown', 'true');
-  await page.getByRole('button', { name: 'Dismiss view suggestion' }).click();
   await expect(notice).toBeHidden();
   await page.reload();
   await expectView(page, 'classic');
@@ -104,6 +101,7 @@ test('Reduced Motion defaults to Classic, keeps its first notice visible, and re
   expect(requests).toEqual([]);
   await page.goto('/?mode=game');
   await expectView(page, 'game');
+  await expect(notice).toBeVisible();
   await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-reduced', 'true');
   await expect(page.locator('[data-world]')).toHaveAttribute('data-engine-running', 'false');
 });
@@ -120,15 +118,15 @@ test('Save-Data defaults to Classic and an explicit Game query overrides it', as
 });
 
 test('the first-visit suggestion appears only once across client navigation and reload', async ({ page }) => {
-  await page.goto('/?mode=classic');
-  await expectView(page, 'classic');
+  await page.goto('/?mode=game');
+  await expectView(page, 'game');
   await expect(page.locator('[data-view-notice]')).toBeVisible();
   await page.getByRole('link', { name: 'Explore Job Tracker' }).click();
   await expect(page).toHaveURL(/\/projects\/job-tracker\/$/);
   await expect(page.getByRole('heading', { name: 'Job Tracker', exact: true })).toBeVisible();
   await expect(page.locator('[data-view-notice]')).toBeHidden();
   await page.reload();
-  await expectView(page, 'classic');
+  await expectView(page, 'game');
   await expect(page.locator('[data-view-notice]')).toBeHidden();
 });
 

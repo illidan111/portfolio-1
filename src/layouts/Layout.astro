@@ -48,7 +48,7 @@ const person = { '@context': 'https://schema.org', '@type': 'Person', name: prof
         root.dataset.mode = window.__pixelView || (valid(query) ? query : landscape ? 'classic' : valid(saved) ? saved : preferred ? 'classic' : 'game');
         window.__pixelView = root.dataset.mode;
         if (valid(query)) { try { localStorage.setItem('pixel-view', query); } catch {} }
-        root.dataset.noticeState = read('pixel-view-notice') !== 'seen' || (landscape && !valid(query)) ? 'show' : 'hide';
+        root.dataset.noticeState = (root.dataset.mode === 'game' && read('pixel-view-notice') !== 'seen') || (landscape && !valid(query)) ? 'show' : 'hide';
         root.dataset.landscape = String(landscape && !valid(query));
       })();
     </script>

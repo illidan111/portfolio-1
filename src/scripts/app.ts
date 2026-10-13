@@ -37,7 +37,8 @@ function mount(): void {
   });
   const notice = document.querySelector<HTMLElement>('[data-view-notice]');
   if (notice) {
-    notice.hidden = notice.dataset.shown !== 'true' && (noticeShown || document.documentElement.dataset.noticeState !== 'show');
+    const classicLandscape = mode === 'classic' && document.documentElement.dataset.landscape === 'true';
+    notice.hidden = (mode === 'classic' && !classicLandscape) || (notice.dataset.shown !== 'true' && (noticeShown || document.documentElement.dataset.noticeState !== 'show'));
     if (!notice.hidden) { notice.dataset.shown = 'true'; noticeShown = true; save('pixel-view-notice', 'seen'); }
     notice.querySelector('button')?.addEventListener('click', () => { notice.hidden = true; }, { signal });
   }

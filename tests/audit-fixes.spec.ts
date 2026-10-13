@@ -96,3 +96,26 @@ test('Game still advertises and handles section and settings shortcuts', async (
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog', { name: 'World settings' })).toBeHidden();
 });
+
+test('Classic never suggests switching to itself and does not consume the Game suggestion', async ({ page }) => {
+  await page.addInitScript(() => localStorage.removeItem('pixel-view-notice'));
+  await page.goto('/?mode=classic');
+  await expect(page.locator('[data-view-notice]')).toBeHidden();
+  expect(await page.evaluate(() => localStorage.getItem('pixel-view-notice'))).toBeNull();
+  await page.getByRole('link', { name: 'Game view', exact: true }).click();
+  await expect(page.locator('[data-view-notice]')).toBeVisible();
+  await page.getByRole('button', { name: 'Dismiss view suggestion' }).click();
+  await expect(page.locator('[data-view-notice]')).toBeHidden();
+});
+
+test('short landscape Classic explains the fallback without a redundant Classic link', async ({ browser }, testInfo) => {
+  const context = await browser.newContext({ baseURL: testInfo.project.use.baseURL, viewport: { width: 640, height: 360 }, isMobile: true, hasTouch: true, reducedMotion: 'no-preference', storageState: { cookies: [], origins: [] } });
+  const page = await context.newPage();
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('data-mode', 'classic');
+  const notice = page.locator('[data-view-notice]');
+  await expect(notice).toBeVisible();
+  await expect(notice).toContainText('Classic fits this landscape screen.');
+  await expect(notice.getByRole('link', { name: 'Classic view' })).toHaveCount(0);
+  await context.close();
+});
