@@ -119,3 +119,25 @@ test('short landscape Classic explains the fallback without a redundant Classic 
   await expect(notice.getByRole('link', { name: 'Classic view' })).toHaveCount(0);
   await context.close();
 });
+
+for (const width of [320, 360, 390]) {
+  test(`readable game hints clear the sky visitor and touch controls at ${width}px`, async ({ browser }, testInfo) => {
+    const context = await browser.newContext({ baseURL: testInfo.project.use.baseURL, viewport: { width, height: 900 }, isMobile: true, hasTouch: true, reducedMotion: 'no-preference' });
+    const page = await context.newPage();
+    await page.addInitScript(() => {
+      localStorage.setItem('pixel-theme', 'night');
+      localStorage.setItem('pixel-view-notice', 'seen');
+      localStorage.setItem('pixel-settings', JSON.stringify({ quality: 'low', weather: 'off' }));
+    });
+    await page.goto('/?mode=game');
+    await expect(page.locator('[data-boss]')).toBeVisible({ timeout: 12_000 });
+    const rects = await page.locator('[data-boss], [data-game-controls], .touch-controls, .hero-actions a, .hero-actions button:not(.classic-only)').evaluateAll(elements => elements.map(e => ({ selector: e.className, rect: e.getBoundingClientRect().toJSON() })));
+    for (let i = 0; i < 3; i++) {
+      for (let j = i + 1; j < rects.length; j++) {
+        const a = rects[i].rect, b = rects[j].rect;
+        expect(a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top, `${rects[i].selector} overlaps ${rects[j].selector}`).toBe(false);
+      }
+    }
+    await context.close();
+  });
+}
