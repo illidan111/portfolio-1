@@ -13,6 +13,12 @@ function mount(): void {
   const controller = new AbortController();
   const { signal } = controller;
   const mode = view();
+  document.querySelectorAll<HTMLElement>('[data-shortcut]').forEach(link => {
+    const label = link.querySelector('.slot-label')?.textContent?.trim() ?? '';
+    link.setAttribute('aria-label', mode === 'game' ? `${label} — shortcut ${link.dataset.shortcut}` : label);
+    if (mode === 'game') link.setAttribute('aria-keyshortcuts', link.dataset.shortcut!);
+    else link.removeAttribute('aria-keyshortcuts');
+  });
   const header = document.querySelector('header');
   const measureHeader = () => {
     document.documentElement.style.setProperty('--header-height', `${Math.ceil(header?.getBoundingClientRect().height ?? 0)}px`);

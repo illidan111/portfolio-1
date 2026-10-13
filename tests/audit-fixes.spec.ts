@@ -63,3 +63,36 @@ for (const mode of ['game', 'classic']) {
     expect(audit.violations).toEqual([]);
   });
 }
+
+test('Classic advertises working navigation and no game keyboard shortcuts', async ({ page }) => {
+  await page.goto('/?mode=classic');
+  await expect(page.locator('[data-view-link="toggle"]')).toHaveText('Game view');
+  const nav = page.getByRole('navigation', { name: 'Main navigation' });
+  await expect(nav.getByRole('link')).toHaveCount(5);
+  for (const label of ['Spawn', 'Projects', 'Skills', 'Journey', 'Contact']) {
+    const link = nav.getByRole('link', { name: label, exact: true });
+    await expect(link).toBeVisible();
+    await expect(link).not.toHaveAttribute('aria-keyshortcuts');
+  }
+  for (const key of ['1', '2', '3', '4', '5', '6']) await page.keyboard.press(key);
+  expect(new URL(page.url()).hash).toBe('');
+  await expect(page.locator('#settings-dialog')).not.toBeVisible();
+  await nav.getByRole('link', { name: 'Projects', exact: true }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#projects$/);
+  await page.getByRole('link', { name: 'Explore Astana Explorer' }).click();
+  await expect(page.getByRole('heading', { name: 'Astana Explorer', exact: true })).toBeVisible();
+  await expect(nav.getByRole('link', { name: 'Projects', exact: true })).toBeVisible();
+  await expect(nav.locator('[aria-label*="shortcut"]')).toHaveCount(0);
+});
+
+test('Game still advertises and handles section and settings shortcuts', async ({ page }) => {
+  await page.goto('/?mode=game');
+  await expect(page.locator('[data-nav="projects"]')).toHaveAttribute('aria-keyshortcuts', '2');
+  await page.keyboard.press('2');
+  await expect(page).toHaveURL(/#projects$/);
+  await page.keyboard.press('6');
+  await expect(page.getByRole('dialog', { name: 'World settings' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'World settings' })).toBeHidden();
+});
